@@ -9,9 +9,9 @@ public enum DataSource {
 	
 	INSTANCE;
 	
-	private static final String url = "jdbc:mysql://www.andreitulai.com/andreit1_ygo";
-	private static final String user = "andreit1_ygo";
-	private static final String pwd = "ygoADMIN";
+	private static final String url = "jdbc:mysql://www.andreitulai.com/andreit1_preetzhealth";
+	private static final String user = "andreit1_preetz";
+	private static final String pwd = "y+P!dumCVU=+";
 
 	private Connection conn = null;
 
