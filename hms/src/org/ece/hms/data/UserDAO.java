@@ -27,6 +27,10 @@ public class UserDAO extends DAO implements iDAO<User> {
 				user.setId(rs.getInt(1));
 				user.setUsername(rs.getString(2));
 				user.setPassword(rs.getString(3));
+				user.setRole(rs.getString(4));
+				user.setFirstName(rs.getString(5));
+				user.setLastName(rs.getString(6));
+				user.setActive(rs.getInt(7));
 				allUserLogins.add(user);
 			}
 		} catch (SQLException e) {
@@ -52,6 +56,10 @@ public class UserDAO extends DAO implements iDAO<User> {
 				result.setId(rs.getInt(1));
 				result.setUsername(rs.getString(2));
 				result.setPassword(rs.getString(3));
+				result.setRole(rs.getString(4));
+				result.setFirstName(rs.getString(5));
+				result.setLastName(rs.getString(6));
+				result.setActive(rs.getInt(7));
 			}
 			
 			return result;
@@ -70,15 +78,18 @@ public class UserDAO extends DAO implements iDAO<User> {
 
 	@Override
 	public Boolean insert(User entity) {
-		return execute("INSERT INTO User(id,username,password) " +
+		return execute("INSERT INTO User(id,username,password,role,first_name,last_name,active) " +
                 "VALUES (" + entity.getId() + ",'" + entity.getUsername() +
-                "','" + entity.getPassword() + "')");
+                "','" + entity.getPassword() + entity.getRole() + entity.getFirstName() + 
+                entity.getLastName() + entity.getActive() + "')");
 	}
 
 	@Override
 	public boolean update(User entity) {
 		return execute("UPDATE User SET username = '" + entity.getUsername() + 
-                "', password = '" + entity.getPassword() + "' where id = " + entity.getId());
+                "', password = '" + entity.getPassword() + "', role = '" + entity.getRole() +
+                "', first_name = '" + entity.getFirstName() + "', last_name = '" + entity.getLastName() +
+                "', active = '" + entity.getActive() + "' where id = " + entity.getId());
 	}
 
 }
