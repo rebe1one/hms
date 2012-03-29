@@ -1,2 +1,4 @@
 hms/build/**/*
 .metadata/
+Servers/
+ZKs/
