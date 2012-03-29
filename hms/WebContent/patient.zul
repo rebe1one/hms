@@ -10,22 +10,63 @@
 				<tabpanel>
 					<grid>
 						<columns>
-							<column label="Column1" sort="auto" />
-							<column label="Column2" sort="auto" />
+							<column label="Date" sort="auto" />
+							<column label="Length" sort="auto" />
+							<column label="Diagnosis" sort="auto" />
+							<column label="Prescription" sort="auto" />
+							<column label="Scheduling" sort="auto" />
 						</columns>
 						<rows>
 							<row>
-								<label>lol1</label>
-								<label>lol2</label>
+								<label>2012-01-12</label>
+								<label>45</label>
+								<label>Dying</label>
+								<label>Nothing</label>
+								<label>Get a haircut</label>
 							</row>
 							<row>
-								<label>lol3</label>
-								<label>lol4</label>
+								<label>2012-01-19</label>
+								<label>15</label>
+								<label>Still dying</label>
+								<label>Nothing</label>
+								<label>Xray might be a good idea!</label>
 							</row>
 						</rows>
 					</grid>
 				</tabpanel>
-				<tabpanel></tabpanel>
+				<tabpanel>
+					<grid>
+						<rows>
+							<row>
+								First Name:
+								<textbox id="firstNameTxb" />
+							</row>
+							<row>
+								Last Name:
+								<textbox id="lastNameTxb" />
+							</row>
+							<row>
+								Address:
+								<textbox id="addressTxb" />
+							</row>
+							<row>
+								Province:
+								<textbox id="provinceTxb" />
+							</row>
+							<row>
+								SIN:
+								<textbox id="sinTxb" />
+							</row>
+							<row>
+								Health Card #:
+								<textbox id="healthCardNumberTxb" />
+							</row>
+						</rows>
+					</grid>
+					<button id="submitBtn" label="Submit" />
+					<label id="mesgLbl" />
+
+				</tabpanel>
 			</tabpanels>
 		</tabbox>
 	</window>
