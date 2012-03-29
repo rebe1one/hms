@@ -1,0 +1,24 @@
+<?page title="Appointment"?>
+<window id="appointmentWin" border="normal" width="500px"
+    title="Schedule an Appointment"
+    apply="com.rms.collector.control.RegisterViewController" mode="overlapped"
+    position="center,center">
+    <grid>
+        <rows>
+            <row>
+                Patient Name:
+                <textbox id="patientId" />
+            </row>
+            <row>
+       			Doctor Name:
+	            <textbox id="doctorId" />
+	        </row>
+	        <row>
+       			Date:
+	            <textbox id="date" />
+	        </row>
+        </rows>
+    </grid>
+    <button id="confirmBtn" label="confirm" />
+    <label id="mesgLbl" />
+</window>
