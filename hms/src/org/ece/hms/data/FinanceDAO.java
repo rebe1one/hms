@@ -43,7 +43,7 @@ public class FinanceDAO extends DAO implements iDAO<Finance> {
 
 	@Override
 	public Boolean insert(Finance entity) {
-		return execute("INSERT INTO Finance(user_id) " + "VALUES (" + entity.getUserId() + "')");
+		return execute("INSERT INTO Finance(user_id) " + "VALUES ('" + entity.getUserId() + "')");
 	}
 	
 	@Override

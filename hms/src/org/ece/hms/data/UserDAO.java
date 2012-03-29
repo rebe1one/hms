@@ -80,8 +80,8 @@ public class UserDAO extends DAO implements iDAO<User> {
 	public Boolean insert(User entity) {
 		return execute("INSERT INTO User(id,username,password,role,first_name,last_name,active) " +
                 "VALUES (" + entity.getId() + ",'" + entity.getUsername() +
-                "','" + entity.getPassword() + entity.getRole() + entity.getFirstName() + 
-                entity.getLastName() + entity.getActive() + "')");
+                "','" + entity.getPassword() + "','" + entity.getRole() + "','" + entity.getFirstName() + 
+                "','" + entity.getLastName() + "','" + entity.getActive() + "')");
 	}
 
 	@Override
