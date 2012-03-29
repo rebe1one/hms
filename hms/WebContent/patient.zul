@@ -11,7 +11,7 @@
 			</tabs>
 			<tabpanels>
 				<tabpanel>
-					<grid>
+					<grid sizedByContent="true" emptyMessage="No items match your search">
 						<columns>
 							<column label="Date" sort="auto" />
 							<column label="Length" sort="auto" />
@@ -32,13 +32,15 @@
 								<label>15</label>
 								<label>Still dying</label>
 								<label>Nothing</label>
-								<label>Xray might be a good idea!</label>
+								<label>
+									Xray might be a good idea!
+								</label>
 							</row>
 						</rows>
 					</grid>
 				</tabpanel>
 				<tabpanel>
-					<grid>
+					<grid sizedByContent="true" emptyMessage="No items match your search">
 						<rows>
 							<row>
 								First Name:

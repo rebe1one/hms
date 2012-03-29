@@ -17,7 +17,7 @@ public class UserDAO extends DAO implements iDAO<User> {
 		try {
 			// get connection
 		    Statement stmt = ds.getStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM User");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM users");
 
 			// fetch all events from database
 			User user;
@@ -46,7 +46,7 @@ public class UserDAO extends DAO implements iDAO<User> {
 		try {
 			// get connection
 		    Statement stmt = ds.getStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM User WHERE username = '" 
+			ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE username = '" 
 					+ user.getUsername() + "'");
 
 			// fetch all events from database
@@ -73,20 +73,20 @@ public class UserDAO extends DAO implements iDAO<User> {
 
 	@Override
 	public boolean delete(User entity) {
-		return execute("DELETE FROM User WHERE id = '" + entity.getId() + "'");
+		return execute("DELETE FROM users WHERE id = '" + entity.getId() + "'");
 	}
 
 	@Override
 	public Boolean insert(User entity) {
-		return execute("INSERT INTO User(id,username,password,role,first_name,last_name,active) " +
-                "VALUES (" + entity.getId() + ",'" + entity.getUsername() +
+		return execute("INSERT INTO users(username,password,role,first_name,last_name,active) " +
+                "VALUES ('" + entity.getUsername() +
                 "','" + entity.getPassword() + "','" + entity.getRole() + "','" + entity.getFirstName() + 
                 "','" + entity.getLastName() + "','" + entity.getActive() + "')");
 	}
 
 	@Override
 	public boolean update(User entity) {
-		return execute("UPDATE User SET username = '" + entity.getUsername() + 
+		return execute("UPDATE users SET username = '" + entity.getUsername() + 
                 "', password = '" + entity.getPassword() + "', role = '" + entity.getRole() +
                 "', first_name = '" + entity.getFirstName() + "', last_name = '" + entity.getLastName() +
                 "', active = '" + entity.getActive() + "' where id = " + entity.getId());

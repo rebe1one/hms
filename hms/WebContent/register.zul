@@ -14,18 +14,18 @@
 	            <textbox id="lastNameTxb" />
 	        </row>
             <row>
-       			Email:
-	            <listbox id="roleTxb" rows="1">
+       			Role:
+	            <listbox id="roleList" rows="1" mold="select">
 	            	<listitem label="Patient" value="PATIENT"/>
 	            	<listitem label="Doctor" value="DOCTOR"/>
-	            	<listitem label="Administrator" value="ADMINISTRATOR"/>
+	            	<listitem label="Administrator" value="ADMIN"/>
 	            	<listitem label="Finance" value="FINANCE"/>
 	            	<listitem label="Staff" value="STAFF"/>
 	            </listbox>
 	        </row>
 	        <row>
-       			User login:
-	            <textbox id="userLoginTxb" />
+       			Username:
+	            <textbox id="usernameTxb" />
 	        </row>
             <row>
                 Password:

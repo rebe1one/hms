@@ -1,0 +1,110 @@
+<?page title="Doctor" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Doctor" border="normal">
+		<tabbox>
+			<tabs>
+				<tab label="Patients" />
+				<tab label="Visits" />
+				<tab label="Appointments" />
+			</tabs>
+			<tabpanels>
+				<tabpanel>
+					<borderlayout height="450px">
+						<north>
+							<grid sizedByContent="true" height="245px"
+								emptyMessage="No items match your search">
+								<columns>
+									<column label="ID" />
+									<column label="Name" />
+									<column label="Last Visit" />
+								</columns>
+								<rows>
+									<row>
+										<label>1</label>
+										<label>Craig</label>
+										<label>2012-03-12</label>
+									</row>
+									<row>
+										<label>2</label>
+										<label>Andrei</label>
+										<label>2011-02-11</label>
+									</row>
+									<row>
+										<label>3</label>
+										<label>Preeti</label>
+										<label>2011-06-27</label>
+									</row>
+									<row>
+										<label>4</label>
+										<label>Kanishka</label>
+										<label>2012-03-20</label>
+									</row>
+								</rows>
+							</grid>
+						</north>
+						<center></center>
+						<south size="200px">
+							Show visits for patient here
+						</south>
+					</borderlayout>
+
+				</tabpanel>
+				<tabpanel>
+					<grid sizedByContent="true"
+						emptyMessage="No items match your search">
+						<columns>
+							<column label="Date" sort="auto" />
+							<column label="Patient Name" sort="auto" />
+							<column label="Diagnosis" sort="auto" />
+							<column label="Prescription" sort="auto" />
+							<column label="Comments" sort="auto" />
+						</columns>
+						<rows>
+							<row>
+								<label>2012-01-12</label>
+								<label>Craig</label>
+								<label>Dying</label>
+								<label>Water</label>
+								<label>Doesn't understand Java</label>
+							</row>
+							<row>
+								<label>2012-01-19</label>
+								<label>Kanish</label>
+								<label>Ripped</label>
+								<label>Steroids</label>
+								<label>
+									I am concerned with his PB intake,
+									needs to lay off.
+								</label>
+							</row>
+						</rows>
+					</grid>
+				</tabpanel>
+				<tabpanel>
+					<grid sizedByContent="true"
+						emptyMessage="No items match your search">
+						<columns>
+							<column label="Patient" sort="auto" />
+							<column label="Date" sort="auto" />
+							<column label="Length" sort="auto" />
+						</columns>
+						<rows>
+							<row>
+								<label>Mr. Sicksingh</label>
+								<label>2012-01-27</label>
+								<label>45</label>
+							</row>
+							<row>
+								<label>Mrs. Speedysingh</label>
+								<label>2012-03-20</label>
+								<label>5</label>
+
+							</row>
+						</rows>
+					</grid>
+				</tabpanel>
+				<tabpanel></tabpanel>
+			</tabpanels>
+		</tabbox>
+	</window>
+</zk>

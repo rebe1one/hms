@@ -8,7 +8,7 @@ public class DAO {
 	protected final DataSource ds = DataSource.INSTANCE;
 	
 	protected boolean execute(String sql) {
-
+		System.out.println(sql);
 		try {
             Statement stmt = ds.getStatement();
             stmt.execute(sql);

@@ -1,7 +1,7 @@
 <?page title="Collector - Login"?>
 <window id="loginWin" border="normal" width="300px"
     title="Log in to Collector"
-    apply="com.rms.collector.control.LoginViewController" mode="overlapped"
+    apply="org.ece.hms.control.LoginViewController" mode="overlapped"
     position="center,center">
     <grid>
         <rows>
