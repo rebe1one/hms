@@ -1,6 +1,9 @@
 <?page title="Patient" contentType="text/html;charset=UTF-8"?>
 <zk>
 	<window title="Patient" border="normal">
+	<![CDATA[
+	List<Appointment> appointments = AppointmentDAO.findByPatient(Sessions.getInstance().getUser().getId());
+	]]>
 		<tabbox>
 			<tabs>
 				<tab label="View Records" />
@@ -17,9 +20,9 @@
 							<column label="Scheduling" sort="auto" />
 						</columns>
 						<rows>
-							<row>
-								<label>2012-01-12</label>
-								<label>45</label>
+							<row forEach="${appointments}">
+								<label value="${each.getDate()}"/>
+								<label value="${each.getLength()}"/>
 								<label>Dying</label>
 								<label>Nothing</label>
 								<label>Get a haircut</label>
@@ -60,6 +63,10 @@
 							<row>
 								Health Card #:
 								<textbox id="healthCardNumberTxb" />
+							</row>
+							<row>
+								Phone #:
+								<textbox id="phoneNumberTxb" />
 							</row>
 						</rows>
 					</grid>
