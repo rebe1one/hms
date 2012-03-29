@@ -4,15 +4,14 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.ece.hms.data.UserDAO;
+import org.ece.hms.model.User;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
-
-import com.rms.collector.data.UserLoginDAO;
-import com.rms.collector.model.UserLogin;
 
 public class LoginViewController extends SelectorComposer<Window> {
 	@Wire
@@ -34,14 +33,18 @@ public class LoginViewController extends SelectorComposer<Window> {
     		BigInteger hash = new BigInteger(1, md.digest());
             String hashStr = hash.toString(16);
     		
-    		UserLogin userLogin = new UserLogin();
-    		userLogin.setUserLogin(nameTxb.getValue());
-    		UserLoginDAO userLoginDAO = new UserLoginDAO();
-    		userLogin = userLoginDAO.findByLogin(userLogin);
+    		User user = new User();
+    		user.setUsername(nameTxb.getValue());
+    		UserDAO userDAO = new UserDAO();
+    		user = userDAO.findByLogin(user);
     		
-    		if (userLogin.getPassword().equals(hashStr)) {
+    		if (user.getPassword().equals(hashStr)) {
+    			UserCredentialManager.getIntance().authenticate(user);
+    			if (UserCredentialManager.getIntance().isAuthenticated())
+    				mesgLbl.setValue("Login Successful!");
     			return true;
     		}
+    		mesgLbl.setValue("Login Failed!");
     		return false;
     	} catch (NoSuchAlgorithmException e) {
     		e.printStackTrace();
