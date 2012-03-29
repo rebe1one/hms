@@ -43,7 +43,7 @@ public class DoctorDAO extends DAO implements iDAO<Doctor> {
 
 	@Override
 	public Boolean insert(Doctor entity) {
-		return execute("INSERT INTO Doctor(user_id) " + "VALUES (" + entity.getUserId() + "')");
+		return execute("INSERT INTO Doctor(user_id) " + "VALUES ('" + entity.getUserId() + "')");
 	}
 	
 	@Override

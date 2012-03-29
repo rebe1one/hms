@@ -52,9 +52,10 @@ public class VisitDAO extends DAO implements iDAO<Visit> {
 	@Override
 	public Boolean insert(Visit entity) {
 		return execute("INSERT INTO Visit(id,appointment_id,length,diagnosis,prescription,scheduling,comments,timestamp,created_by) " +
-                "VALUES (" + entity.getId() + ",'" + entity.getAppointmentId() +
-                "','" + entity.getLength() + entity.getDiagnosis() + entity.getPrescription() + 
-                entity.getScheduling() + entity.getComments() + entity.getTimestamp() + 
+                "VALUES (" + entity.getId() + ",'" + entity.getAppointmentId() + 
+                "','" + entity.getLength() + "','" + entity.getDiagnosis() + "','" +
+                entity.getPrescription() + "','" + entity.getScheduling() + "','" +
+                entity.getComments() + "','" + entity.getTimestamp() + "','" +
                 entity.getCreatedBy() + "')");
 	}
 

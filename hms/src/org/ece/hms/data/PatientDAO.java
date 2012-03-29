@@ -51,8 +51,8 @@ public class PatientDAO extends DAO implements iDAO<Patient> {
 	public Boolean insert(Patient entity) {
 		return execute("INSERT INTO Patient(user_id,address,province,SIN,health_card_number,phone_number,current_health) " +
                 "VALUES (" + entity.getUserId() + ",'" + entity.getAddress() +
-                "','" + entity.getProvince() + entity.getSIN() + entity.getHealthCardNumber() + 
-                entity.getPhoneNumber() + entity.getCurrentHealth() + "')");
+                "','" + entity.getProvince() + "','" + entity.getSIN() + "','" + entity.getHealthCardNumber() + 
+                "','" + entity.getPhoneNumber() + "','" + entity.getCurrentHealth() + "')");
 	}
 
 	@Override

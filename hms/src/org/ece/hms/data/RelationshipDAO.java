@@ -46,7 +46,8 @@ public class RelationshipDAO extends DAO implements iDAO<Relationship> {
 	@Override
 	public Boolean insert(Relationship entity) {
 		return execute("INSERT INTO Relationship(from_id,to_id,relationship_type) " +
-                "VALUES (" + entity.getFromId() + entity.getToId() + entity.getRelationshipType() + "')");
+                "VALUES ('" + entity.getFromId() + "','" + entity.getToId() + "','" +
+				entity.getRelationshipType() + "')");
 	}
 
 	@Override
