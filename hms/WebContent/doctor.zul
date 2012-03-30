@@ -11,12 +11,30 @@
 				<tabpanel>
 					<borderlayout height="450px">
 						<north>
-							<grid sizedByContent="true" height="245px"
+							<grid height="245px"
 								emptyMessage="No items match your search">
+								<auxhead>
+									<auxheader>
+										<image src="images/funnel.png" />
+										<textbox id="filter1"
+											width="100px" />
+									</auxheader>
+									<auxheader>
+										<image src="images/funnel.png" />
+										<textbox id="filter2"
+											width="100px" />
+									</auxheader>
+									<auxheader>
+										<image src="images/funnel.png" />
+										<textbox id="filter3"
+											width="100px" />
+									</auxheader>
+								</auxhead>
 								<columns>
-									<column label="ID" />
-									<column label="Name" />
-									<column label="Last Visit" />
+									<column label="ID" sort="auto" />
+									<column label="Name" sort="auto" />
+									<column label="Last Visit"
+										sort="auto" />
 								</columns>
 								<rows>
 									<row>
@@ -50,8 +68,34 @@
 
 				</tabpanel>
 				<tabpanel>
-					<grid sizedByContent="true"
-						emptyMessage="No items match your search">
+					<grid emptyMessage="No items match your search">
+						<auxhead>
+							<auxheader>
+								<image src="images/funnel.png" />
+								<textbox id="filterVisitsDate"
+									width="100px" />
+							</auxheader>
+							<auxheader>
+								<image src="images/funnel.png" />
+								<textbox id="filterVisitsPatientName"
+									width="100px" />
+							</auxheader>
+							<auxheader>
+								<image src="images/funnel.png" />
+								<textbox id="filterVisitsDiagnosis"
+									width="100px" />
+							</auxheader>
+							<auxheader>
+								<image src="images/funnel.png" />
+								<textbox id="filterVisitsPrescription"
+									width="100px" />
+							</auxheader>
+							<auxheader>
+								<image src="images/funnel.png" />
+								<textbox id="filterVisitsComments"
+									width="100px" />
+							</auxheader>
+						</auxhead>
 						<columns>
 							<column label="Date" sort="auto" />
 							<column label="Patient Name" sort="auto" />
@@ -81,6 +125,11 @@
 					</grid>
 				</tabpanel>
 				<tabpanel>
+					<hlayout id="ctlhlayout">
+						<button id="revertBtn" width="160px"
+							label="Create Visitation Record" />
+					</hlayout>
+					<separator />
 					<grid sizedByContent="true"
 						emptyMessage="No items match your search">
 						<columns>
@@ -98,12 +147,10 @@
 								<label>Mrs. Speedysingh</label>
 								<label>2012-03-20</label>
 								<label>5</label>
-
 							</row>
 						</rows>
 					</grid>
 				</tabpanel>
-				<tabpanel></tabpanel>
 			</tabpanels>
 		</tabbox>
 	</window>
