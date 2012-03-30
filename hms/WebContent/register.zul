@@ -1,38 +1,41 @@
 <?page title="Collector - Login"?>
-<window id="registerWin" border="normal" width="500px"
-    title="Register for an account"
-    apply="org.ece.hms.control.RegisterViewController" mode="overlapped"
-    position="center,center">
-    <grid>
-        <rows>
-            <row>
-                First Name:
-                <textbox id="firstNameTxb" />
-            </row>
-            <row>
-       			Last Name:
-	            <textbox id="lastNameTxb" />
-	        </row>
-            <row>
-       			Role:
-	            <listbox id="roleList" rows="1" mold="select">
-	            	<listitem label="Patient" value="PATIENT"/>
-	            	<listitem label="Doctor" value="DOCTOR"/>
-	            	<listitem label="Administrator" value="ADMIN"/>
-	            	<listitem label="Finance" value="FINANCE"/>
-	            	<listitem label="Staff" value="STAFF"/>
-	            </listbox>
-	        </row>
-	        <row>
-       			Username:
-	            <textbox id="usernameTxb" />
-	        </row>
-            <row>
-                Password:
-                <textbox id="passwordTxb" type="password" />
-            </row>
-        </rows>
-    </grid>
-    <button id="confirmBtn" label="confirm" />
-    <label id="mesgLbl" />
-</window>
+<?init class="org.ece.hms.control.CheckForLogin" arg0="/register.zul"?>
+<zk>
+	<window id="registerWin" border="normal" width="500px"
+		title="Register for an account"
+		apply="org.ece.hms.control.RegisterViewController" mode="overlapped"
+		position="center,center">
+		<grid>
+			<rows>
+				<row>
+					First Name:
+					<textbox id="firstNameTxb" />
+				</row>
+				<row>
+					Last Name:
+					<textbox id="lastNameTxb" />
+				</row>
+				<row>
+					Role:
+					<listbox id="roleList" rows="1" mold="select">
+						<listitem label="Patient" value="PATIENT" />
+						<listitem label="Doctor" value="DOCTOR" />
+						<listitem label="Administrator" value="ADMIN" />
+						<listitem label="Finance" value="FINANCE" />
+						<listitem label="Staff" value="STAFF" />
+					</listbox>
+				</row>
+				<row>
+					Username:
+					<textbox id="usernameTxb" />
+				</row>
+				<row>
+					Password:
+					<textbox id="passwordTxb" type="password" />
+				</row>
+			</rows>
+		</grid>
+		<button id="confirmBtn" label="confirm" />
+		<label id="mesgLbl" />
+	</window>
+</zk>
