@@ -1,36 +1,12 @@
 <?page title="Patient" contentType="text/html;charset=UTF-8"?>
 <?init class="org.ece.hms.control.CheckForLogin" arg0="/patient.zul"?>
 <zk>
-<style>   
-    .breeze .complex-layout,
-    .breeze .complex-layout .z-south,
-    .breeze .complex-layout .z-west {
-        background: #F7F7F7; 
-    } 
+	<style>
     .z-borderlayout { 
         background: #FFFFFF 
     } 
     img.complex-layout-header-img {
         padding: 0 10px; 
-    } 
-    .complex-layout-header-label { 
-        position: relative; 
-        top: -30px; 
-        padding-left: 40px; 
-        font-size: 24px; 
-        color: White; 
-        font-weight: bold; 
-    } 
-    .inner-border, 
-    .inner-border .z-north, 
-    .inner-border .z-west,
-    .inner-border .z-south, 
-    .inner-border .z-east { 
-        background: #FFFFFF; 
-    }
-    .dl-link {
-        text-decoration: none;
-        cursor: pointer;
     }
     </style>
 	<zscript>
@@ -71,7 +47,8 @@
 			</tabs>
 			<tabpanels>
 				<tabpanel>
-					<grid sizedByContent="true" emptyMessage="No items match your search">
+					<grid sizedByContent="true"
+						emptyMessage="No items match your search">
 						<columns>
 							<column label="Date" sort="auto" />
 							<column label="Length" sort="auto" />
@@ -81,45 +58,54 @@
 						</columns>
 						<rows>
 							<row forEach="${appointments}">
-								<label value="${each.getDate()}"/>
-								<label value="${each.getVisitLength()}"/>
-								<label value="${each.getDiagnosis()}"/>
-								<label value="${each.getPrescription()}"/>
-								<label value="${each.getScheduling()}"/>
+								<label value="${each.getDate()}" />
+								<label value="${each.getVisitLength()}" />
+								<label value="${each.getDiagnosis()}" />
+								<label
+									value="${each.getPrescription()}" />
+								<label value="${each.getScheduling()}" />
 							</row>
 						</rows>
 					</grid>
 				</tabpanel>
 				<tabpanel>
-					<grid sizedByContent="true" emptyMessage="No items match your search">
+					<grid sizedByContent="true"
+						emptyMessage="No items match your search">
 						<rows>
 							<row>
 								First Name:
-								<textbox id="firstNameTxb" value="${user.getFirstName()}"/>
+								<textbox id="firstNameTxb"
+									value="${user.getFirstName()}" />
 							</row>
 							<row>
 								Last Name:
-								<textbox id="lastNameTxb" value="${user.getLastName()}"/>
+								<textbox id="lastNameTxb"
+									value="${user.getLastName()}" />
 							</row>
 							<row>
 								Address:
-								<textbox id="addressTxb" value="${patient.getAddress()}"/>
+								<textbox id="addressTxb"
+									value="${patient.getAddress()}" />
 							</row>
 							<row>
 								Province:
-								<textbox id="provinceTxb" value="${patient.getProvince()}"/>
+								<textbox id="provinceTxb"
+									value="${patient.getProvince()}" />
 							</row>
 							<row>
 								SIN:
-								<textbox id="sinTxb" value="${patient.getSIN()}"/>
+								<textbox id="sinTxb"
+									value="${patient.getSIN()}" />
 							</row>
 							<row>
 								Health Card #:
-								<textbox id="healthCardNumberTxb" value="${patient.getHealthCardNumber()}"/>
+								<textbox id="healthCardNumberTxb"
+									value="${patient.getHealthCardNumber()}" />
 							</row>
 							<row>
 								Phone #:
-								<textbox id="phoneNumberTxb" value="${patient.getPhoneNumber()}"/>
+								<textbox id="phoneNumberTxb"
+									value="${patient.getPhoneNumber()}" />
 							</row>
 						</rows>
 					</grid>
