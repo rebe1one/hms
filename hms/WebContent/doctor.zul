@@ -33,7 +33,8 @@
 								<columns>
 									<column label="ID" sort="auto" />
 									<column label="Name" sort="auto" />
-									<column label="Last Visit" sort="auto" />
+									<column label="Last Visit"
+										sort="auto" />
 								</columns>
 								<rows>
 									<row>
@@ -67,8 +68,34 @@
 
 				</tabpanel>
 				<tabpanel>
-					<grid sizedByContent="true"
-						emptyMessage="No items match your search">
+					<grid emptyMessage="No items match your search">
+						<auxhead>
+							<auxheader>
+								<image src="images/funnel.png" />
+								<textbox id="filterVisitsDate"
+									width="100px" />
+							</auxheader>
+							<auxheader>
+								<image src="images/funnel.png" />
+								<textbox id="filterVisitsPatientName"
+									width="100px" />
+							</auxheader>
+							<auxheader>
+								<image src="images/funnel.png" />
+								<textbox id="filterVisitsDiagnosis"
+									width="100px" />
+							</auxheader>
+							<auxheader>
+								<image src="images/funnel.png" />
+								<textbox id="filterVisitsPrescription"
+									width="100px" />
+							</auxheader>
+							<auxheader>
+								<image src="images/funnel.png" />
+								<textbox id="filterVisitsComments"
+									width="100px" />
+							</auxheader>
+						</auxhead>
 						<columns>
 							<column label="Date" sort="auto" />
 							<column label="Patient Name" sort="auto" />

@@ -1,0 +1,128 @@
+<?page title="Staff" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Staff" border="normal">
+		<tabbox>
+			<tabs>
+				<tab label="Patients" />
+				<tab label="Unassigned Patients" />
+				<tab label="Appointments" />
+			</tabs>
+			<tabpanels>
+				<tabpanel>
+					<borderlayout height="450px">
+						<north>
+							<hlayout>
+								<button id="newPatientBtn" width="160px"
+									label="New Patient" />
+								<button id="updatePatientBtn"
+									width="160px" label="Update Patient" />
+							</hlayout>
+						</north>
+						<center>
+							<grid height="245px"
+								emptyMessage="No items match your search">
+								<columns>
+									<column label="ID" sort="auto" />
+									<column label="Name" sort="auto" />
+									<column label="Last Visit"
+										sort="auto" />
+								</columns>
+								<rows>
+									<row>
+										<label>1</label>
+										<label>Craig</label>
+										<label>2012-03-12</label>
+									</row>
+									<row>
+										<label>2</label>
+										<label>Andrei</label>
+										<label>2011-02-11</label>
+									</row>
+									<row>
+										<label>3</label>
+										<label>Preeti</label>
+										<label>2011-06-27</label>
+									</row>
+									<row>
+										<label>4</label>
+										<label>Kanishka</label>
+										<label>2012-03-20</label>
+									</row>
+								</rows>
+							</grid>
+						</center>
+						<south size="200px">
+							Show visits for patient here
+						</south>
+					</borderlayout>
+				</tabpanel>
+				<tabpanel>
+					<hlayout>
+						<button id="assignPatientBtn" width="160px"
+							label="Assign Doctor" />
+					</hlayout>
+					<separator />
+					<grid height="245px"
+						emptyMessage="No items match your search">
+						<columns>
+							<column label="ID" sort="auto" />
+							<column label="Name" sort="auto" />
+							<column label="Last Visit" sort="auto" />
+						</columns>
+						<rows>
+							<row>
+								<label>1</label>
+								<label>Craig</label>
+								<label>2012-03-12</label>
+							</row>
+							<row>
+								<label>2</label>
+								<label>Andrei</label>
+								<label>2011-02-11</label>
+							</row>
+							<row>
+								<label>3</label>
+								<label>Preeti</label>
+								<label>2011-06-27</label>
+							</row>
+							<row>
+								<label>4</label>
+								<label>Kanishka</label>
+								<label>2012-03-20</label>
+							</row>
+						</rows>
+					</grid>
+				</tabpanel>
+				<tabpanel>
+					<hlayout id="ctlhlayout">
+						<button id="newAppointmentBtn" width="160px"
+							label="New Appointment" />
+						<button id="editAppointmentBtn" width="160px"
+							label="Edit Appointment" />
+					</hlayout>
+					<separator />
+					<grid sizedByContent="true"
+						emptyMessage="No items match your search">
+						<columns>
+							<column label="Patient" sort="auto" />
+							<column label="Date" sort="auto" />
+							<column label="Length" sort="auto" />
+						</columns>
+						<rows>
+							<row>
+								<label>Mr. Sicksingh</label>
+								<label>2012-01-27</label>
+								<label>45</label>
+							</row>
+							<row>
+								<label>Mrs. Speedysingh</label>
+								<label>2012-03-20</label>
+								<label>5</label>
+							</row>
+						</rows>
+					</grid>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+	</window>
+</zk>
