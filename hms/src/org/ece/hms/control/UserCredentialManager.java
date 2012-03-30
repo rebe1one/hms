@@ -2,6 +2,7 @@ package org.ece.hms.control;
 
 import org.ece.hms.data.UserDAO;
 import org.ece.hms.model.User;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;
 
@@ -41,6 +42,11 @@ public class UserCredentialManager {
     		return true;
     	}
     	return false;
+    }
+    
+    public void logout() {
+    	user = null;
+    	Executions.sendRedirect("/index.zul");
     }
     
     public User getUser() {
