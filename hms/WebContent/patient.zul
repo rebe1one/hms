@@ -8,7 +8,7 @@
 	import org.ece.hms.control.UserCredentialManager;
 	import java.util.List;
 	AppointmentVisitViewDAO avv = new AppointmentVisitViewDAO();
-	List appointments = avv.findByPatientId(3);//UserCredentialManager.getInstance().getUser().getId());
+	List appointments = avv.findByPatientId(UserCredentialManager.getInstance().getUser().getId());
 	]]>
 	</zscript>
 		<tabbox>
