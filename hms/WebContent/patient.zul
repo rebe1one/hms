@@ -4,11 +4,17 @@
 	<zscript>
 	<![CDATA[
 	import org.ece.hms.model.AppointmentVisitView;
+	import org.ece.hms.model.Patient;
+	import org.ece.hms.model.User;
 	import org.ece.hms.data.AppointmentVisitViewDAO;
+	import org.ece.hms.data.PatientDAO;
 	import org.ece.hms.control.UserCredentialManager;
 	import java.util.List;
+	User user = UserCredentialManager.getInstance().getUser();
 	AppointmentVisitViewDAO avv = new AppointmentVisitViewDAO();
-	List appointments = avv.findByPatientId(UserCredentialManager.getInstance().getUser().getId());
+	List appointments = avv.findByPatientId(user.getId());
+	PatientDAO patientDAO = new PatientDAO();
+	Patient patient = patientDAO.findById(user.getId());
 	]]>
 	</zscript>
 		<tabbox>
@@ -42,31 +48,31 @@
 						<rows>
 							<row>
 								First Name:
-								<textbox id="firstNameTxb" />
+								<textbox id="firstNameTxb" value="${user.getFirstName()}"/>
 							</row>
 							<row>
 								Last Name:
-								<textbox id="lastNameTxb" />
+								<textbox id="lastNameTxb" value="${user.getLastName()}"/>
 							</row>
 							<row>
 								Address:
-								<textbox id="addressTxb" />
+								<textbox id="addressTxb" value="${patient.getAddress()}"/>
 							</row>
 							<row>
 								Province:
-								<textbox id="provinceTxb" />
+								<textbox id="provinceTxb" value="${patient.getProvince()}"/>
 							</row>
 							<row>
 								SIN:
-								<textbox id="sinTxb" />
+								<textbox id="sinTxb" value="${patient.getSIN()}"/>
 							</row>
 							<row>
 								Health Card #:
-								<textbox id="healthCardNumberTxb" />
+								<textbox id="healthCardNumberTxb" value="${patient.getHealthCardNumber()}"/>
 							</row>
 							<row>
 								Phone #:
-								<textbox id="phoneNumberTxb" />
+								<textbox id="phoneNumberTxb" value="${patient.getPhoneNumber()}"/>
 							</row>
 						</rows>
 					</grid>

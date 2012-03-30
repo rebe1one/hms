@@ -10,6 +10,34 @@ import org.ece.hms.model.Patient;
 
 public class PatientDAO extends DAO implements iDAO<Patient> {
 	protected final DataSource ds = DataSource.INSTANCE;
+	
+	public Patient findById(int id) {
+		try {
+			// get connection
+		    Statement stmt = ds.getStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM patients WHERE user_id = " + id);
+
+			// fetch all events from database
+			Patient patient;
+			
+			if (rs.next()) {
+				patient = new Patient();
+				patient.setUserId(rs.getInt(1));
+				patient.setAddress(rs.getString(2));
+				patient.setProvince(rs.getString(3));
+				patient.setSIN(rs.getInt(4));
+				patient.setHealthCardNumber(rs.getInt(5));
+				patient.setPhoneNumber(rs.getInt(6));
+				patient.setCurrentHealth(rs.getString(7));
+				return patient;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+		    ds.close();
+		}
+		return null;
+	}
 
 	@Override
 	public List<Patient> findAll() {
