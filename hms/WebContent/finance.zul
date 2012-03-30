@@ -1,0 +1,6 @@
+<?page title="Finance" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Finance" border="normal">
+New Content Here!
+</window>
+</zk>

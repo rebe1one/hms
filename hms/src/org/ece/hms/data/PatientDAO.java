@@ -70,6 +70,36 @@ public class PatientDAO extends DAO implements iDAO<Patient> {
 		return allPatients;
 	}
 	
+	public List<Patient> findUnassigned() {
+		List<Patient> allPatients = new ArrayList<Patient>();
+		try {
+			// get connection
+		    Statement stmt = ds.getStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM patients");
+
+			// fetch all events from database
+			Patient patient;
+			
+			while (rs.next()) {
+				patient = new Patient();
+				patient.setUserId(rs.getInt(1));
+				patient.setAddress(rs.getString(2));
+				patient.setProvince(rs.getString(3));
+				patient.setSIN(rs.getInt(4));
+				patient.setHealthCardNumber(rs.getInt(5));
+				patient.setPhoneNumber(rs.getInt(6));
+				patient.setCurrentHealth(rs.getString(7));
+				allPatients.add(patient);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+		    ds.close();
+		}
+		
+		return allPatients;
+	}
+	
 	@Override
 	public boolean delete(Patient entity) {
 		return execute("DELETE FROM patients WHERE user_id = '" + entity.getUserId() + "'");

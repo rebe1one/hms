@@ -1,7 +1,8 @@
 <?page title="Patient" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="Patient" border="normal" apply="org.ece.hms.control.PatientViewController">
-	<zscript>
+	<window title="Patient" border="normal"
+		apply="org.ece.hms.control.PatientViewController">
+		<zscript>
 	<![CDATA[
 	import org.ece.hms.model.AppointmentVisitView;
 	import org.ece.hms.model.Patient;
@@ -15,7 +16,7 @@
 	List appointments = avv.findByPatientId(user.getId());
 	PatientDAO patientDAO = new PatientDAO();
 	Patient patient = patientDAO.findById(user.getId());
-	]]>
+]]>
 	</zscript>
 		<tabbox>
 			<tabs>
@@ -24,7 +25,8 @@
 			</tabs>
 			<tabpanels>
 				<tabpanel>
-					<grid sizedByContent="true" emptyMessage="No items match your search">
+					<grid sizedByContent="true"
+						emptyMessage="No items match your search">
 						<columns>
 							<column label="Date" sort="auto" />
 							<column label="Length" sort="auto" />
@@ -34,45 +36,54 @@
 						</columns>
 						<rows>
 							<row forEach="${appointments}">
-								<label value="${each.getDate()}"/>
-								<label value="${each.getVisitLength()}"/>
-								<label value="${each.getDiagnosis()}"/>
-								<label value="${each.getPrescription()}"/>
-								<label value="${each.getScheduling()}"/>
+								<label value="${each.getDate()}" />
+								<label value="${each.getVisitLength()}" />
+								<label value="${each.getDiagnosis()}" />
+								<label
+									value="${each.getPrescription()}" />
+								<label value="${each.getScheduling()}" />
 							</row>
 						</rows>
 					</grid>
 				</tabpanel>
 				<tabpanel>
-					<grid sizedByContent="true" emptyMessage="No items match your search">
+					<grid sizedByContent="true"
+						emptyMessage="No items match your search">
 						<rows>
 							<row>
 								First Name:
-								<textbox id="firstNameTxb" value="${user.getFirstName()}"/>
+								<textbox id="firstNameTxb"
+									value="${user.getFirstName()}" />
 							</row>
 							<row>
 								Last Name:
-								<textbox id="lastNameTxb" value="${user.getLastName()}"/>
+								<textbox id="lastNameTxb"
+									value="${user.getLastName()}" />
 							</row>
 							<row>
 								Address:
-								<textbox id="addressTxb" value="${patient.getAddress()}"/>
+								<textbox id="addressTxb"
+									value="${patient.getAddress()}" />
 							</row>
 							<row>
 								Province:
-								<textbox id="provinceTxb" value="${patient.getProvince()}"/>
+								<textbox id="provinceTxb"
+									value="${patient.getProvince()}" />
 							</row>
 							<row>
 								SIN:
-								<textbox id="sinTxb" value="${patient.getSIN()}"/>
+								<textbox id="sinTxb"
+									value="${patient.getSIN()}" />
 							</row>
 							<row>
 								Health Card #:
-								<textbox id="healthCardNumberTxb" value="${patient.getHealthCardNumber()}"/>
+								<textbox id="healthCardNumberTxb"
+									value="${patient.getHealthCardNumber()}" />
 							</row>
 							<row>
 								Phone #:
-								<textbox id="phoneNumberTxb" value="${patient.getPhoneNumber()}"/>
+								<textbox id="phoneNumberTxb"
+									value="${patient.getPhoneNumber()}" />
 							</row>
 						</rows>
 					</grid>
