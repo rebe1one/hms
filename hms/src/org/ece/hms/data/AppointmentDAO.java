@@ -17,7 +17,7 @@ public class AppointmentDAO extends DAO implements iDAO<Appointment> {
 		try {
 			// get connection
 		    Statement stmt = ds.getStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Appointment");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM appointments");
 
 			// fetch all events from database
 			Appointment appointment;
@@ -41,19 +41,19 @@ public class AppointmentDAO extends DAO implements iDAO<Appointment> {
 
 	@Override
 	public boolean delete(Appointment entity) {
-		return execute("DELETE FROM Appointment WHERE id = '" + entity.getId() + "'");
+		return execute("DELETE FROM appointments WHERE id = '" + entity.getId() + "'");
 	}
 
 	@Override
 	public Boolean insert(Appointment entity) {
-		return execute("INSERT INTO Appointment(id,doctor_id,patient_id,date) " +
+		return execute("INSERT INTO appointments(id,doctor_id,patient_id,date) " +
                 "VALUES (" + entity.getId() + ",'" + entity.getDoctorId() +
-                "','" + entity.getPatientId() + "','" + entity.getDate() + "')");
+                "','" + entity.getPatientId() + "','" + new java.sql.Date(entity.getDate().getTime()) + "')");
 	}
 
 	@Override
 	public boolean update(Appointment entity) {
-		return execute("UPDATE Appointment SET doctor_id = '" + entity.getDoctorId() + 
+		return execute("UPDATE appointments SET doctor_id = '" + entity.getDoctorId() + 
                 "', patient_id = '" + entity.getPatientId() + "', date = '" + entity.getDate() +
                 "' where id = " + entity.getId());
 	}

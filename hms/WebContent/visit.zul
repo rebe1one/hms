@@ -1,6 +1,38 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="new page title" border="normal">
-New Content Here!
+<window id="visitWin" border="normal" width="500px"
+    title="Schedule an Visit"
+    apply="org.ece.hms.control.VisitViewController" mode="overlapped"
+    position="center,center">
+    <grid>
+        <rows>
+            <row>
+                Appointment:
+                <textbox id="appointmentId" />
+            </row>
+            <row>
+       			Length:
+	            <textbox id="length" />
+	        </row>
+	        <row>
+       			Diagnosis:
+	            <textbox id="diagnosis" />
+	        </row>
+	        <row>
+       			Prescription:
+	            <textbox id="prescription" />
+	        </row>
+	        <row>
+       			Scheduling:
+	            <textbox id="scheduling" />
+	        </row>
+	        <row>
+       			Comments:
+	            <textbox id="comments" />
+	        </row>
+        </rows>
+    </grid>
+    <button id="confirmBtn" label="confirm" />
+    <label id="mesgLbl" />
 </window>
 </zk>
