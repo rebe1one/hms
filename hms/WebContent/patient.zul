@@ -1,9 +1,16 @@
 <?page title="Patient" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="Patient" border="normal">
+	<window title="Patient" border="normal" apply="org.ece.hms.control.PatientViewController">
+	<zscript>
 	<![CDATA[
-	List<Appointment> appointments = AppointmentDAO.findByPatient(Sessions.getInstance().getUser().getId());
+	import org.ece.hms.model.AppointmentVisitView;
+	import org.ece.hms.data.AppointmentVisitViewDAO;
+	import org.ece.hms.control.UserCredentialManager;
+	import java.util.List;
+	AppointmentVisitViewDAO avv = new AppointmentVisitViewDAO();
+	List<AppointmentVisitView> appointments = avv.findByPatientId(UserCredentialManager.getInstance().getUser().getId());
 	]]>
+	</zscript>
 		<tabbox>
 			<tabs>
 				<tab label="View Records" />
