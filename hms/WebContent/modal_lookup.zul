@@ -1,22 +1,26 @@
 <?page title="Lookup" contentType="text/html;charset=UTF-8"?>
+<?init class="org.ece.hms.control.CheckForLogin" arg0="/modal_lookup.zul"?>
 <zk>
-<window id="lookupWin" border="normal" width="400px"
-    title="Search" apply="org.ece.hms.control.ModalLookupController" mode="overlapped"
-    position="center,center" closable="true">
-Name: <textbox id="nameTxb" /> <button id="confirmBtn" label="Search"/>
-<grid id="results" sizedByContent="true" emptyMessage="No items match your search">
-	<columns>
-		<column label="Id" sort="auto" />
-		<column label="Name" sort="auto" />
-		<column label="Role" sort="auto" />
-	</columns>
-	<template name="model">
-		<row>
-			<label value="${each.getId()}"/>
-			<label value="${each.getName()}"/>
-			<label value="${each.getRole()}"/>
-		</row>
-	</template>
-</grid>
-</window>
+	<window id="lookupWin" border="normal" width="400px" title="Search"
+		apply="org.ece.hms.control.ModalLookupController" mode="overlapped"
+		position="center,center" closable="true">
+		Name:
+		<textbox id="nameTxb" />
+		<button id="confirmBtn" label="Search" />
+		<grid id="results" sizedByContent="true"
+			emptyMessage="No items match your search">
+			<columns>
+				<column label="Id" sort="auto" />
+				<column label="Name" sort="auto" />
+				<column label="Role" sort="auto" />
+			</columns>
+			<template name="model">
+				<row>
+					<label value="${each.getId()}" />
+					<label value="${each.getName()}" />
+					<label value="${each.getRole()}" />
+				</row>
+			</template>
+		</grid>
+	</window>
 </zk>

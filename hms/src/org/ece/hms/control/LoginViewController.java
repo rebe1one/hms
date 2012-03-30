@@ -7,27 +7,32 @@ import java.security.NoSuchAlgorithmException;
 import org.ece.hms.data.UserDAO;
 import org.ece.hms.model.RoleType;
 import org.ece.hms.model.User;
+import org.ece.hms.util.Util;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
-public class LoginViewController extends SelectorComposer<Window> {
-	@Wire
+public class LoginViewController extends GenericForwardComposer<Window> {
     private Textbox nameTxb, passwordTxb;
-    
-    @Wire
     private Label mesgLbl;
+    private String redirectUrl;
     
-    @Listen("onClick=#confirmBtn")
-    public void confirm() {
-        doLogin();
+    @Override
+    public org.zkoss.zk.ui.metainfo.ComponentInfo doBeforeCompose(org.zkoss.zk.ui.Page page, org.zkoss.zk.ui.Component parent, org.zkoss.zk.ui.metainfo.ComponentInfo compInfo) {
+    	redirectUrl = Executions.getCurrent().getParameter("redirectUrl");
+    	return super.doBeforeCompose(page, parent, compInfo);
+    };
+    
+    public void onOK$loginWin() {
+    	onClick$confirmBtn();
     }
     
-    private boolean doLogin() {
+    public void onClick$confirmBtn() {
     	try {
     		MessageDigest md = MessageDigest.getInstance("SHA1");
     		String passwordString = new String(passwordTxb.getValue());
@@ -44,19 +49,19 @@ public class LoginViewController extends SelectorComposer<Window> {
     			UserCredentialManager.getInstance().authenticate(user);
     			if (UserCredentialManager.getInstance().isAuthenticated()) {
     				mesgLbl.setValue("Login Successful!");
-    				if (user.getRole().equals(RoleType.DOCTOR)) {
+    				if (!Util.isEmpty(redirectUrl)) {
+    					Executions.sendRedirect(redirectUrl);
+    				} else if (user.getRole().equals(RoleType.DOCTOR)) {
     					Executions.sendRedirect("/doctor.zul");
     				} else if (user.getRole().equals(RoleType.PATIENT)) {
     					Executions.sendRedirect("/patient.zul");
     				}
-    				return true;
     			}
+    		} else {
+    			mesgLbl.setValue("Login Failed!");
     		}
-    		mesgLbl.setValue("Login Failed!");
-    		return false;
     	} catch (NoSuchAlgorithmException e) {
     		e.printStackTrace();
-    		return false;
     	}
     }
     

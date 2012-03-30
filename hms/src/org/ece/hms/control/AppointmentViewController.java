@@ -37,10 +37,18 @@ public class AppointmentViewController extends SelectorComposer<Window> {
     }
     
     @Listen("onClick=#lookupPatientButton")
-    public void modalLookup() {
+    public void modalPatientLookup() {
     	HashMap<String, Object> map = new HashMap<String, Object>();
     	map.put("type", "PATIENT");
     	map.put("textbox", patientId);
+    	Executions.createComponents("modal_lookup.zul", null, map);
+    }
+    
+    @Listen("onClick=#lookupDoctorButton")
+    public void modalDoctorLookup() {
+    	HashMap<String, Object> map = new HashMap<String, Object>();
+    	map.put("type", "DOCTOR");
+    	map.put("textbox", doctorId);
     	Executions.createComponents("modal_lookup.zul", null, map);
     }
     

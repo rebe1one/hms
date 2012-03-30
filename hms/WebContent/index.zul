@@ -1,20 +1,24 @@
 <?page title="Collector - Login"?>
-<window id="loginWin" border="normal" width="300px"
-    title="Log in to Collector"
-    apply="org.ece.hms.control.LoginViewController" mode="overlapped"
-    position="center,center">
-    <grid>
-        <rows>
-            <row>
-                Name:
-                <textbox id="nameTxb" />
-            </row>
-            <row>
-                Password:
-                <textbox id="passwordTxb" type="password" />
-            </row>
-        </rows>
-    </grid>
-    <button id="confirmBtn" label="confirm" />
-    <label id="mesgLbl" />
-</window>
+<zk>
+	<window id="loginWin" border="normal" width="300px"
+		title="Log in to Collector"
+		apply="org.ece.hms.control.LoginViewController" mode="overlapped"
+		position="center,center">
+		<grid>
+			<rows>
+				<row>
+					Name:
+					<textbox id="nameTxb" />
+				</row>
+				<row>
+					Password:
+					<textbox id="passwordTxb" type="password" />
+				</row>
+			</rows>
+		</grid>
+		<div style="float:right;">
+			<button id="confirmBtn" label="Login" />
+		</div>
+		<label id="mesgLbl" />
+	</window>
+</zk>

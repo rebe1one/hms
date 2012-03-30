@@ -1,4 +1,5 @@
 <?page title="Doctor" contentType="text/html;charset=UTF-8"?>
+<?init class="org.ece.hms.control.CheckForLogin" arg0="/doctor.zul"?>
 <zk>
 	<window title="Doctor" border="normal">
 		<tabbox>
