@@ -26,6 +26,9 @@ public class User {
 		this.active = active;
 	}
 	
+	public String getName() {
+		return firstName + " " + lastName;
+	}
 	public int getId() {
 		return id;
 	}

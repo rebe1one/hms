@@ -1,21 +1,18 @@
 package org.ece.hms.control;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.HashMap;
 
 import org.ece.hms.data.AppointmentDAO;
-import org.ece.hms.data.UserDAO;
 import org.ece.hms.model.Appointment;
-import org.ece.hms.model.User;
 import org.ece.hms.util.Util;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Label;
-import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Timebox;
 import org.zkoss.zul.Window;
@@ -23,7 +20,7 @@ import org.zkoss.zul.Window;
 
 public class AppointmentViewController extends SelectorComposer<Window> {
 	@Wire
-    private Textbox patientId, doctorId;
+    private Textbox doctorId, patientId;
 	
 	@Wire
 	private Datebox date;
@@ -33,6 +30,19 @@ public class AppointmentViewController extends SelectorComposer<Window> {
 	
     @Wire
     private Label mesgLbl;
+    
+    @Override
+	public void doAfterCompose(Window window) throws Exception {
+		super.doAfterCompose(window);
+    }
+    
+    @Listen("onClick=#lookupPatientButton")
+    public void modalLookup() {
+    	HashMap<String, Object> map = new HashMap<String, Object>();
+    	map.put("type", "PATIENT");
+    	map.put("textbox", patientId);
+    	Executions.createComponents("modal_lookup.zul", null, map);
+    }
     
     @Listen("onClick=#confirmBtn")
     public void createAppointment() {

@@ -8,10 +8,12 @@
             <row>
                 Patient Name:
                 <textbox id="patientId" />
+                <button id="lookupPatientButton" label="Lookup"/>
             </row>
             <row>
        			Doctor Name:
 	            <textbox id="doctorId" />
+	            <button id="lookupDoctorButton" label="Lookup"/>
 	        </row>
 	        <row>
        			Date:
