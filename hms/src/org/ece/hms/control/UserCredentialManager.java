@@ -15,14 +15,14 @@ public class UserCredentialManager {
         userDAO = new UserDAO();
     }
      
-    public static UserCredentialManager getIntance() {
-        return getIntance(Sessions.getCurrent());
+    public static UserCredentialManager getInstance() {
+        return getInstance(Sessions.getCurrent());
     }
     /**
      * 
      * @return
      */
-    public static UserCredentialManager getIntance(Session zkSession){
+    public static UserCredentialManager getInstance(Session zkSession){
         synchronized(zkSession){
             UserCredentialManager userModel = (UserCredentialManager) zkSession.getAttribute(KEY_USER_MODEL);
             if(userModel==null){

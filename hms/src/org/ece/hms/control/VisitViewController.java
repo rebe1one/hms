@@ -57,7 +57,7 @@ public class VisitViewController extends SelectorComposer<Window> {
         	visit.setScheduling(scheduling.getValue());
         	visit.setComments(comments.getValue());
         	visit.setTimestamp(new Timestamp(new Date().getTime()));
-        	visit.setCreatedBy(UserCredentialManager.getIntance().getUser().getId());
+        	visit.setCreatedBy(UserCredentialManager.getInstance().getUser().getId());
         	VisitDAO visitDAO = new VisitDAO();
         	visitDAO.insert(visit);
         	mesgLbl.setValue("Success!");

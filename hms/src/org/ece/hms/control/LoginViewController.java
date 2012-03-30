@@ -39,8 +39,8 @@ public class LoginViewController extends SelectorComposer<Window> {
     		user = userDAO.findByLogin(user);
     		
     		if (user.getPassword().equals(hashStr)) {
-    			UserCredentialManager.getIntance().authenticate(user);
-    			if (UserCredentialManager.getIntance().isAuthenticated())
+    			UserCredentialManager.getInstance().authenticate(user);
+    			if (UserCredentialManager.getInstance().isAuthenticated())
     				mesgLbl.setValue("Login Successful!");
     			return true;
     		}
