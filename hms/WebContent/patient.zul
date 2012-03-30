@@ -1,9 +1,16 @@
 <?page title="Patient" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window title="Patient" border="normal">
+	<window title="Patient" border="normal" apply="org.ece.hms.control.PatientViewController">
+	<zscript>
 	<![CDATA[
-	List<Appointment> appointments = AppointmentDAO.findByPatient(Sessions.getInstance().getUser().getId());
+	import org.ece.hms.model.AppointmentVisitView;
+	import org.ece.hms.data.AppointmentVisitViewDAO;
+	import org.ece.hms.control.UserCredentialManager;
+	import java.util.List;
+	AppointmentVisitViewDAO avv = new AppointmentVisitViewDAO();
+	List appointments = avv.findByPatientId(UserCredentialManager.getInstance().getUser().getId());
 	]]>
+	</zscript>
 		<tabbox>
 			<tabs>
 				<tab label="View Records" />
@@ -22,19 +29,10 @@
 						<rows>
 							<row forEach="${appointments}">
 								<label value="${each.getDate()}"/>
-								<label value="${each.getLength()}"/>
-								<label>Dying</label>
-								<label>Nothing</label>
-								<label>Get a haircut</label>
-							</row>
-							<row>
-								<label>2012-01-19</label>
-								<label>15</label>
-								<label>Still dying</label>
-								<label>Nothing</label>
-								<label>
-									Xray might be a good idea!
-								</label>
+								<label value="${each.getVisitLength()}"/>
+								<label value="${each.getDiagnosis()}"/>
+								<label value="${each.getPrescription()}"/>
+								<label value="${each.getScheduling()}"/>
 							</row>
 						</rows>
 					</grid>

@@ -5,7 +5,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import org.ece.hms.data.UserDAO;
+import org.ece.hms.model.RoleType;
 import org.ece.hms.model.User;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -39,10 +41,16 @@ public class LoginViewController extends SelectorComposer<Window> {
     		user = userDAO.findByLogin(user);
     		
     		if (user.getPassword().equals(hashStr)) {
-    			UserCredentialManager.getIntance().authenticate(user);
-    			if (UserCredentialManager.getIntance().isAuthenticated())
+    			UserCredentialManager.getInstance().authenticate(user);
+    			if (UserCredentialManager.getInstance().isAuthenticated()) {
     				mesgLbl.setValue("Login Successful!");
-    			return true;
+    				if (user.getRole().equals(RoleType.DOCTOR)) {
+    					Executions.sendRedirect("/doctor.zul");
+    				} else if (user.getRole().equals(RoleType.PATIENT)) {
+    					Executions.sendRedirect("/patient.zul");
+    				}
+    				return true;
+    			}
     		}
     		mesgLbl.setValue("Login Failed!");
     		return false;

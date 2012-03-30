@@ -17,7 +17,7 @@ public class PatientDAO extends DAO implements iDAO<Patient> {
 		try {
 			// get connection
 		    Statement stmt = ds.getStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Patient");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM patients");
 
 			// fetch all events from database
 			Patient patient;
@@ -44,12 +44,12 @@ public class PatientDAO extends DAO implements iDAO<Patient> {
 	
 	@Override
 	public boolean delete(Patient entity) {
-		return execute("DELETE FROM Patient WHERE user_id = '" + entity.getUserId() + "'");
+		return execute("DELETE FROM patients WHERE user_id = '" + entity.getUserId() + "'");
 	}
 
 	@Override
 	public Boolean insert(Patient entity) {
-		return execute("INSERT INTO Patient(user_id,address,province,SIN,health_card_number,phone_number,current_health) " +
+		return execute("INSERT INTO patients(user_id,address,province,SIN,health_card_number,phone_number,current_health) " +
                 "VALUES (" + entity.getUserId() + ",'" + entity.getAddress() +
                 "','" + entity.getProvince() + "','" + entity.getSIN() + "','" + entity.getHealthCardNumber() + 
                 "','" + entity.getPhoneNumber() + "','" + entity.getCurrentHealth() + "')");
@@ -57,7 +57,7 @@ public class PatientDAO extends DAO implements iDAO<Patient> {
 
 	@Override
 	public boolean update(Patient entity) {
-		return execute("UPDATE Patient SET address = '" + entity.getAddress() + 
+		return execute("UPDATE patients SET address = '" + entity.getAddress() + 
                 "', province = '" + entity.getProvince() + "', SIN = '" + entity.getSIN() +
                 "', health_card_number = '" + entity.getHealthCardNumber() + 
                 "', phone_number = '" + entity.getPhoneNumber() +
