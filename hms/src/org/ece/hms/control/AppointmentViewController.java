@@ -9,6 +9,7 @@ import org.ece.hms.data.AppointmentDAO;
 import org.ece.hms.data.UserDAO;
 import org.ece.hms.model.Appointment;
 import org.ece.hms.model.User;
+import org.ece.hms.util.Util;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -19,7 +20,6 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Timebox;
 import org.zkoss.zul.Window;
 
-import com.rms.collector.util.Util;
 
 public class AppointmentViewController extends SelectorComposer<Window> {
 	@Wire

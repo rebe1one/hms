@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.ece.hms.data.VisitDAO;
 import org.ece.hms.model.Visit;
+import org.ece.hms.util.Util;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -12,7 +13,6 @@ import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
-import com.rms.collector.util.Util;
 
 public class VisitViewController extends SelectorComposer<Window> {
 	@Wire

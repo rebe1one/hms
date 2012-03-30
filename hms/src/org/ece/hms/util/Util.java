@@ -1,4 +1,4 @@
-package com.rms.collector.util;
+package org.ece.hms.util;
 
 public class Util {
 	public static boolean isEmpty(String s) {
