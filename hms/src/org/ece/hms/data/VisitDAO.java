@@ -17,7 +17,7 @@ public class VisitDAO extends DAO implements iDAO<Visit> {
 		try {
 			// get connection
 		    Statement stmt = ds.getStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Visit");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM visits");
 
 			// fetch all events from database
 			Visit visit;
@@ -46,12 +46,12 @@ public class VisitDAO extends DAO implements iDAO<Visit> {
 	
 	@Override
 	public boolean delete(Visit entity) {
-		return execute("DELETE FROM Visit WHERE id = '" + entity.getId() + "'");
+		return execute("DELETE FROM visits WHERE id = '" + entity.getId() + "'");
 	}
 
 	@Override
 	public Boolean insert(Visit entity) {
-		return execute("INSERT INTO Visit(id,appointment_id,length,diagnosis,prescription,scheduling,comments,timestamp,created_by) " +
+		return execute("INSERT INTO visits(id,appointment_id,length,diagnosis,prescription,scheduling,comments,timestamp,created_by) " +
                 "VALUES (" + entity.getId() + ",'" + entity.getAppointmentId() + 
                 "','" + entity.getLength() + "','" + entity.getDiagnosis() + "','" +
                 entity.getPrescription() + "','" + entity.getScheduling() + "','" +
@@ -61,7 +61,7 @@ public class VisitDAO extends DAO implements iDAO<Visit> {
 
 	@Override
 	public boolean update(Visit entity) {
-		return execute("UPDATE Visit SET appointment_id = '" + entity.getAppointmentId() + 
+		return execute("UPDATE visits SET appointment_id = '" + entity.getAppointmentId() + 
                 "', length = '" + entity.getLength() + "', diagnosis = '" + entity.getDiagnosis() +
                 "', prescription = '" + entity.getPrescription() + 
                 "', scheduling = '" + entity.getScheduling() +

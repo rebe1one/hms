@@ -7,4 +7,7 @@ public class Util {
 		}
 		return false;
 	}
+	public static boolean isEmpty(Object o) {
+		return o == null ? true : false;
+	}
 }

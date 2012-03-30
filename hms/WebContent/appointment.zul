@@ -1,7 +1,7 @@
 <?page title="Appointment"?>
 <window id="appointmentWin" border="normal" width="500px"
     title="Schedule an Appointment"
-    apply="com.rms.collector.control.RegisterViewController" mode="overlapped"
+    apply="org.ece.hms.control.AppointmentViewController" mode="overlapped"
     position="center,center">
     <grid>
         <rows>
@@ -15,7 +15,11 @@
 	        </row>
 	        <row>
        			Date:
-	            <textbox id="date" />
+	            <datebox id="date" cols="12" format="short " mold="rounded" />
+	        </row>
+	        <row>
+       			Time:
+            	<timebox id="time" cols="12" format="short" mold="rounded" />
 	        </row>
         </rows>
     </grid>
