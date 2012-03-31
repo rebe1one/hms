@@ -7,7 +7,13 @@ public class Util {
 		}
 		return false;
 	}
+	public static boolean isNotEmpty(String s) {
+		return !isEmpty(s);
+	}
 	public static boolean isEmpty(Object o) {
 		return o == null ? true : false;
+	}
+	public static boolean isNotEmpty(Object o) {
+		return !isEmpty(o);
 	}
 }

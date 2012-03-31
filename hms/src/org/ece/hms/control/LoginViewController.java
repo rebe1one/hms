@@ -9,16 +9,17 @@ import org.ece.hms.model.RoleType;
 import org.ece.hms.model.User;
 import org.ece.hms.util.Util;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.select.SelectorComposer;
-import org.zkoss.zk.ui.select.annotation.Listen;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 public class LoginViewController extends GenericForwardComposer<Window> {
-    private Textbox nameTxb, passwordTxb;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Textbox nameTxb, passwordTxb;
     private Label mesgLbl;
     private String redirectUrl;
     
@@ -45,10 +46,9 @@ public class LoginViewController extends GenericForwardComposer<Window> {
     		UserDAO userDAO = new UserDAO();
     		user = userDAO.findByLogin(user);
     		
-    		if (user.getPassword().equals(hashStr)) {
+    		if (Util.isNotEmpty(user) && user.getPassword().equals(hashStr)) {
     			UserCredentialManager.getInstance().authenticate(user);
     			if (UserCredentialManager.getInstance().isAuthenticated()) {
-    				mesgLbl.setValue("Login Successful!");
     				if (!Util.isEmpty(redirectUrl)) {
     					Executions.sendRedirect(redirectUrl);
     				} else if (user.getRole().equals(RoleType.DOCTOR)) {
@@ -59,15 +59,10 @@ public class LoginViewController extends GenericForwardComposer<Window> {
     			}
     		} else {
     			mesgLbl.setValue("Login Failed!");
+    			passwordTxb.setValue("");
     		}
     	} catch (NoSuchAlgorithmException e) {
     		e.printStackTrace();
     	}
-    }
-    
-    public void doAfterCompose(Window window) throws Exception {
-        super.doAfterCompose(window);
-     
-        //to be implemented, let’s check for a login
     }
 }

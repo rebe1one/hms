@@ -51,8 +51,9 @@ public class UserDAO extends DAO implements iDAO<User> {
 
 			// fetch all events from database
 			User result = new User();
-			
+			boolean found = false;
 			while (rs.next()) {
+				found = true;
 				result.setId(rs.getInt(1));
 				result.setUsername(rs.getString(2));
 				result.setPassword(rs.getString(3));
@@ -61,11 +62,11 @@ public class UserDAO extends DAO implements iDAO<User> {
 				result.setLastName(rs.getString(6));
 				result.setActive(rs.getInt(7));
 			}
-			
+			if (!found) return null;
 			return result;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return new User();
+			return null;
 		} finally {
 		    ds.close();
 		}

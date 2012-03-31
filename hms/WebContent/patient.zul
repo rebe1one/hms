@@ -1,9 +1,15 @@
 <?page title="Patient" contentType="text/html;charset=UTF-8"?>
 <?init class="org.ece.hms.control.CheckForLogin" arg0="/patient.zul"?>
 <zk>
-	<window title="Patient" border="normal"
-		apply="org.ece.hms.control.PatientViewController">
-		<zscript>
+	<style>
+    .z-borderlayout { 
+        background: #FFFFFF 
+    } 
+    img.complex-layout-header-img {
+        padding: 0 10px; 
+    }
+    </style>
+	<zscript>
 	<![CDATA[
 	import org.ece.hms.model.AppointmentVisitView;
 	import org.ece.hms.model.Patient;
@@ -17,8 +23,23 @@
 	List appointments = avv.findByPatientId(user.getId());
 	PatientDAO patientDAO = new PatientDAO();
 	Patient patient = patientDAO.findById(user.getId());
-]]>
+	]]>
 	</zscript>
+	<borderlayout sclass="complex-layout" height="810px" apply="org.ece.hms.control.PatientViewController">
+        <north size="100px" border="0">
+            <div>
+                <div style="float:right">
+                	<label value="Welcome ${user.getName()}!"/>
+                    <button label="Logout">
+                        <attribute name="onClick"><![CDATA[
+							UserCredentialManager.getInstance().logout();
+                        ]]></attribute>
+                    </button>
+                </div>
+                <image sclass="complex-layout-header-img" src="/images/logo.png" />
+            </div>
+        </north>
+        <center border="none">
 		<tabbox>
 			<tabs>
 				<tab label="View Records" />
@@ -94,6 +115,7 @@
 				</tabpanel>
 			</tabpanels>
 		</tabbox>
-	</window>
+		</center>
+		</borderlayout>
 </zk>
 

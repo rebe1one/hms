@@ -1,24 +1,34 @@
-<?page title="Collector - Login"?>
+<?page title="Preetz Health - Login"?>
 <zk>
-	<window id="loginWin" border="normal" width="300px"
-		title="Log in to Collector"
-		apply="org.ece.hms.control.LoginViewController" mode="overlapped"
-		position="center,center">
-		<grid>
-			<rows>
-				<row>
-					Name:
-					<textbox id="nameTxb" />
-				</row>
-				<row>
-					Password:
-					<textbox id="passwordTxb" type="password" />
-				</row>
-			</rows>
-		</grid>
-		<div style="float:right;">
-			<button id="confirmBtn" label="Login" />
+<borderlayout>
+	<north size="100px" border="0" >
+		<div align="center">
+			<image src="/images/logo.png" />
 		</div>
-		<label id="mesgLbl" />
-	</window>
+	</north>
+	<center border="none">
+		<div align="center">
+		<window id="loginWin" border="normal" width="300px"
+			title="Log in"
+			apply="org.ece.hms.control.LoginViewController" mode="embedded">
+			<grid>
+				<rows>
+					<row>
+						Name:
+						<textbox id="nameTxb" />
+					</row>
+					<row>
+						Password:
+						<textbox id="passwordTxb" type="password" />
+					</row>
+				</rows>
+			</grid>
+			<div style="float:right;">
+				<label id="mesgLbl" />
+				<button id="confirmBtn" label="Login" />
+			</div>
+		</window>
+		</div>
+	</center>
+	</borderlayout>
 </zk>
