@@ -27,7 +27,7 @@ public class AppointmentDAO extends DAO implements iDAO<Appointment> {
 				appointment.setId(rs.getInt(1));
 				appointment.setDoctorId(rs.getInt(2));
 				appointment.setPatientId(rs.getInt(3));
-				appointment.setDate(rs.getDate(4));
+				appointment.setDate(rs.getTimestamp(4));
 				allAppointments.add(appointment);
 			}
 		} catch (SQLException e) {

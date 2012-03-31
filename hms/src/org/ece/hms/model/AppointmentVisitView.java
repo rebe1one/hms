@@ -6,7 +6,7 @@ import java.util.Date;
 public class AppointmentVisitView {
 	private int doctorId;
 	private int patientId;
-	private Date date;
+	private Timestamp date;
 	private int appointmentLength;
 	private int appointmentId;
 	private int visitLength;
@@ -29,10 +29,10 @@ public class AppointmentVisitView {
 	public void setPatientId(int patientId) {
 		this.patientId = patientId;
 	}
-	public Date getDate() {
+	public Timestamp getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 	public int getAppointmentLength() {

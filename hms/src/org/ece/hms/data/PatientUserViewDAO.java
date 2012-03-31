@@ -29,8 +29,8 @@ public class PatientUserViewDAO extends DAO {
 				view.setAddress(rs.getString(2));
 				view.setProvince(rs.getString(3));
 				view.setSIN(rs.getInt(4));
-				view.setHealthCardNumber(rs.getInt(5));
-				view.setPhoneNumber(rs.getInt(6));
+				view.setHealthCardNumber(rs.getString(5));
+				view.setPhoneNumber(rs.getString(6));
 				view.setCurrentHealth(rs.getString(7));
 				view.setId(rs.getInt(8));
 				view.setUsername(rs.getString(9));
@@ -66,8 +66,8 @@ public class PatientUserViewDAO extends DAO {
 				view.setAddress(rs.getString(2));
 				view.setProvince(rs.getString(3));
 				view.setSIN(rs.getInt(4));
-				view.setHealthCardNumber(rs.getInt(5));
-				view.setPhoneNumber(rs.getInt(6));
+				view.setHealthCardNumber(rs.getString(5));
+				view.setPhoneNumber(rs.getString(6));
 				view.setCurrentHealth(rs.getString(7));
 				view.setId(rs.getInt(8));
 				view.setUsername(rs.getString(9));

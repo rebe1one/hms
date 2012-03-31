@@ -26,8 +26,8 @@ public class PatientDAO extends DAO implements iDAO<Patient> {
 				patient.setAddress(rs.getString(2));
 				patient.setProvince(rs.getString(3));
 				patient.setSIN(rs.getInt(4));
-				patient.setHealthCardNumber(rs.getInt(5));
-				patient.setPhoneNumber(rs.getInt(6));
+				patient.setHealthCardNumber(rs.getString(5));
+				patient.setPhoneNumber(rs.getString(6));
 				patient.setCurrentHealth(rs.getString(7));
 				return patient;
 			}
@@ -56,8 +56,8 @@ public class PatientDAO extends DAO implements iDAO<Patient> {
 				patient.setAddress(rs.getString(2));
 				patient.setProvince(rs.getString(3));
 				patient.setSIN(rs.getInt(4));
-				patient.setHealthCardNumber(rs.getInt(5));
-				patient.setPhoneNumber(rs.getInt(6));
+				patient.setHealthCardNumber(rs.getString(5));
+				patient.setPhoneNumber(rs.getString(6));
 				patient.setCurrentHealth(rs.getString(7));
 				allPatients.add(patient);
 			}
@@ -86,8 +86,8 @@ public class PatientDAO extends DAO implements iDAO<Patient> {
 				patient.setAddress(rs.getString(2));
 				patient.setProvince(rs.getString(3));
 				patient.setSIN(rs.getInt(4));
-				patient.setHealthCardNumber(rs.getInt(5));
-				patient.setPhoneNumber(rs.getInt(6));
+				patient.setHealthCardNumber(rs.getString(5));
+				patient.setPhoneNumber(rs.getString(6));
 				patient.setCurrentHealth(rs.getString(7));
 				allPatients.add(patient);
 			}

@@ -1,12 +1,12 @@
 package org.ece.hms.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Appointment {
 	private int id;
 	private int doctorId;
 	private int patientId;
-	private Date date;
+	private Timestamp date;
 	public int getId() {
 		return id;
 	}
@@ -25,10 +25,10 @@ public class Appointment {
 	public void setPatientId(int patientId) {
 		this.patientId = patientId;
 	}
-	public Date getDate() {
+	public Timestamp getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 	public int getLength() {

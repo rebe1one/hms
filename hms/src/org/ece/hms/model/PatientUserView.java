@@ -5,8 +5,8 @@ public class PatientUserView {
 	private String address;
 	private String province;
 	private int SIN;
-	private int healthCardNumber;
-	private int phoneNumber;
+	private String healthCardNumber;
+	private String phoneNumber;
 	private String currentHealth;
 	private int id;
 	private String username;
@@ -40,16 +40,16 @@ public class PatientUserView {
 	public void setSIN(int sIN) {
 		SIN = sIN;
 	}
-	public int getHealthCardNumber() {
+	public String getHealthCardNumber() {
 		return healthCardNumber;
 	}
-	public void setHealthCardNumber(int healthCardNumber) {
+	public void setHealthCardNumber(String healthCardNumber) {
 		this.healthCardNumber = healthCardNumber;
 	}
-	public int getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-	public void setPhoneNumber(int phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 	public String getCurrentHealth() {

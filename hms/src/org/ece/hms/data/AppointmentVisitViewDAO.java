@@ -28,7 +28,7 @@ public class AppointmentVisitViewDAO extends DAO {
 				view = new AppointmentVisitView();
 				view.setDoctorId(rs.getInt(1));
 				view.setPatientId(rs.getInt(2));
-				view.setDate(rs.getDate(3));
+				view.setDate(rs.getTimestamp(3));
 				view.setAppointmentLength(rs.getInt(4));
 				view.setAppointmentId(rs.getInt(5));
 				view.setVisitLength(rs.getInt(6));
@@ -62,7 +62,7 @@ public class AppointmentVisitViewDAO extends DAO {
 				view = new AppointmentVisitView();
 				view.setDoctorId(rs.getInt(1));
 				view.setPatientId(rs.getInt(2));
-				view.setDate(rs.getDate(3));
+				view.setDate(rs.getTimestamp(3));
 				view.setAppointmentLength(rs.getInt(4));
 				view.setAppointmentId(rs.getInt(5));
 				view.setVisitLength(rs.getInt(6));

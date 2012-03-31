@@ -55,8 +55,8 @@ public class CreatePatientViewController extends GenericForwardComposer<Window> 
         		patient.setAddress(addressTxb.getValue());
         		patient.setProvince(provinceTxb.getValue());
         		patient.setSIN(Integer.valueOf(sinTxb.getValue()));
-        		patient.setHealthCardNumber(Integer.valueOf(healthCardNumberTxb.getValue()));
-        		patient.setPhoneNumber(Integer.valueOf(phoneNumberTxb.getValue()));
+        		patient.setHealthCardNumber(healthCardNumberTxb.getValue());
+        		patient.setPhoneNumber(phoneNumberTxb.getValue());
         		PatientDAO patientDAO = new PatientDAO();
         		patientDAO.insert(patient);
         	}
