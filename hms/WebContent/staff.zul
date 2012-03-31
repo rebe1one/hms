@@ -9,7 +9,7 @@
 	List unassignedPatients = patientUserViewDAO.findUnassigned();
 ]]>
 	</zscript>
-	<window title="Staff" border="normal">
+	<window title="Staff" border="normal" apply="org.ece.hms.control.StaffController">
 		<tabbox>
 			<tabs>
 				<tab label="Patients" />
@@ -77,10 +77,11 @@
 							<column label="" />
 						</columns>
 						<rows>
-							<row forEach="${unassignedPatients}">
+							<row forEach="${unassignedPatients}" value="${each}">
 								<label value="${each.getUserId()}" />
 								<label value="${each.getFirstName()} ${each.getLastName()}" />
-								<button label="Assign (TODO)" />
+								<button class="assignUnassignedPatientBtn" forward="onClick=onAssignUnassignedPatient" label="Assign (TODO)">
+								</button>
 							</row>
 						</rows>
 					</grid>
