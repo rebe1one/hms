@@ -154,37 +154,36 @@
 				</tabpanel>
 				<tabpanel>
 					<hlayout id="ctlhlayout">
-
-					</hlayout>
-					<separator />
-					<grid sizedByContent="true"
-						emptyMessage="No items match your search">
-						<columns>
-							<column label="Patient" sort="auto" />
-							<column label="Date" sort="auto" />
-							<column label="Length" sort="auto" />
-							<column label="" />
-						</columns>
-						<rows>
-							<row>
-								<label>Mr. Sicksingh</label>
-								<label>2012-01-27</label>
-								<label>45</label>
-								<button width="160px"
-									label="Create Visitation Record" />
-							</row>
-							<row>
-								<label>Mrs. Speedysingh</label>
-								<label>2012-03-20</label>
-								<label>5</label>
-								<button width="160px"
-									label="Create Visitation Record" />
-							</row>
-						</rows>
-					</grid>
-				</tabpanel>
-			</tabpanels>
-		</tabbox>
-	</center>
+						</hlayout>
+						<separator />
+						<grid sizedByContent="true"
+							emptyMessage="No items match your search">
+							<columns>
+								<column label="Patient" sort="auto" />
+								<column label="Date" sort="auto" />
+								<column label="Length" sort="auto" />
+								<column label="" />
+							</columns>
+							<rows>
+								<row>
+									<label>Mr. Sicksingh</label>
+									<label>2012-01-27</label>
+									<label>45</label>
+									<button width="160px"
+										label="Create Visitation Record" />
+								</row>
+								<row>
+									<label>Mrs. Speedysingh</label>
+									<label>2012-03-20</label>
+									<label>5</label>
+									<button width="160px"
+										label="Create Visitation Record" />
+								</row>
+							</rows>
+						</grid>
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+		</center>
 	</borderlayout>
 </zk>
