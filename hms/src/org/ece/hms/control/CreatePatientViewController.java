@@ -9,6 +9,7 @@ import org.ece.hms.model.Patient;
 import org.ece.hms.model.RoleType;
 import org.ece.hms.model.User;
 import org.ece.hms.util.Util;
+import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Label;
@@ -23,7 +24,7 @@ public class CreatePatientViewController extends GenericForwardComposer<Window> 
 	private Window createPatientWindow;
 
 	private Label mesgLbl;
-	
+
 	private Grid unassignedPatientsGrid;
 
 	public void onClick$confirmBtn() {
@@ -87,6 +88,9 @@ public class CreatePatientViewController extends GenericForwardComposer<Window> 
 			}
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
+		} catch (WrongValueException e) {
+			mesgLbl.setValue("Please fix the errors listed above");
+			return;
 		}
 	}
 }
