@@ -5,6 +5,9 @@ public class Patient {
 	private String address;
 	private String province;
 	private int SIN;
+	private String healthCardNumber;
+	private String phoneNumber;
+	private String currentHealth;
 	public int getUserId() {
 		return userId;
 	}
@@ -29,16 +32,16 @@ public class Patient {
 	public void setSIN(int sIN) {
 		SIN = sIN;
 	}
-	public int getHealthCardNumber() {
+	public String getHealthCardNumber() {
 		return healthCardNumber;
 	}
-	public void setHealthCardNumber(int healthCardNumber) {
+	public void setHealthCardNumber(String healthCardNumber) {
 		this.healthCardNumber = healthCardNumber;
 	}
-	public int getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-	public void setPhoneNumber(int phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 	public String getCurrentHealth() {
@@ -47,7 +50,4 @@ public class Patient {
 	public void setCurrentHealth(String currentHealth) {
 		this.currentHealth = currentHealth;
 	}
-	private int healthCardNumber;
-	private int phoneNumber;
-	private String currentHealth;
 }

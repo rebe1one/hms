@@ -1,0 +1,53 @@
+<?page title="Collector - Login"?>
+<?init class="org.ece.hms.control.CheckForLogin" arg0="/staff.zul"?>
+<zk>
+	<window id="createPatientWindow" border="normal" width="500px"
+		title="Create a new patient"
+		apply="org.ece.hms.control.CreatePatientViewController" mode="overlapped"
+		position="center,center">
+		<grid>
+			<rows>
+				<row>
+					First Name:
+					<textbox id="firstNameTxb" />
+				</row>
+				<row>
+					Last Name:
+					<textbox id="lastNameTxb" />
+				</row>
+				<row>
+					Username:
+					<textbox id="usernameTxb" />
+				</row>
+				<row>
+					Password:
+					<textbox id="passwordTxb" type="password" />
+				</row>
+				<row>
+					Address:
+					<textbox id="addressTxb"/>
+				</row>
+				<row>
+					Province:
+					<textbox id="provinceTxb"/>
+				</row>
+				<row>
+					SIN:
+					<textbox id="sinTxb"/>
+				</row>
+				<row>
+					Health Card #:
+					<textbox id="healthCardNumberTxb"/>
+				</row>
+				<row>
+					Phone #:
+					<textbox id="phoneNumberTxb"/>
+				</row>
+			</rows>
+		</grid>
+		<div style="float: right;">
+			<label id="mesgLbl" />
+			<button id="confirmBtn" label="Create" />
+		</div>
+	</window>
+</zk>

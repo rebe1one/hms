@@ -12,11 +12,13 @@
 	import org.ece.hms.model.Patient;
 	import org.ece.hms.model.User;
 	import org.ece.hms.data.PatientUserViewDAO;
+	import org.ece.hms.data.StaffPatientViewDAO;
 	// DAO
 	PatientUserViewDAO patientUserViewDAO = new PatientUserViewDAO();
+	StaffPatientViewDAO staffPatientViewDAO = new StaffPatientViewDAO();
 	// Patients
 	User currentUser = UserCredentialManager.getInstance().getUser();
-	List patients = patientUserViewDAO.findByStaffMember(currentUser.getId());
+	List patients = staffPatientViewDAO.findByStaffId(currentUser.getId());
 	// Unassigned Patients
 	List unassignedPatients = patientUserViewDAO.findUnassigned();
 ]]>
@@ -27,7 +29,8 @@
 			<north size="100px" border="0">
 				<div>
 					<div style="float:right">
-						<label value="Welcome ${currentUser.getFirstName()}!" />
+						<label
+							value="Welcome ${currentUser.getFirstName()}!" />
 						<button label="Logout">
 							<attribute name="onClick"><![CDATA[
 	org.ece.hms.control.UserCredentialManager.getInstance().logout();
@@ -47,15 +50,12 @@
 					</tabs>
 					<tabpanels>
 						<tabpanel>
-							<borderlayout height="450px">
-								<north>
-									<hlayout>
-										<button id="newPatientBtn"
-											width="160px" label="New Patient" />
-									</hlayout>
-								</north>
-								<center>
-									<listbox>
+							<borderlayout height="500px">
+								<west size="50%" border="none"
+									title="My Patients">
+									<listbox id="patientBox"
+										height="245px" style="margin: 5px;"
+										emptyMessage="No items match your search">
 										<listhead>
 											<listheader label="ID"
 												sort="auto" />
@@ -64,18 +64,47 @@
 											<listheader
 												label="Last Visit" sort="auto" />
 										</listhead>
-										<listitem forEach="${patients}"
-											value="${each}">
-											<listcell label="${each.getUserId()}" />
-											<listcell label="${each.getFirstName()} ${each.getLastName()}" />
-											<listcell label="TODO" />
+										<listitem
+											forEach="${patients}">
+											<listcell
+												label="${each.getPatientId()}" />
+											<listcell
+												label="${each.getFirstName()} ${each.getLastName()}" />
+											<listcell
+												label="${each.getTimestamp()}" />
 										</listitem>
 									</listbox>
+								</west>
+								<center border="none" title="Visits">
+									<grid style="margin: 5px"
+										id="patientVisitsGrid"
+										emptyMessage="No items match your search">
+										<columns>
+											<column label="Date"
+												sort="auto" />
+											<column label="Diagnosis"
+												sort="auto" />
+											<column label="Prescription"
+												sort="auto" />
+											<column label="Comments"
+												sort="auto" />
+										</columns>
+										<template name="model">
+											<row>
+												<label
+													value="${each.getTimestamp()}" />
+												<label
+													value="${each.getDiagnosis()}" />
+												<label
+													value="${each.getPrescription()}" />
+												<label
+													value="${each.getComments()}" />
+											</row>
+										</template>
+									</grid>
 								</center>
-								<south size="200px">
-									Show visits for patient here
-								</south>
 							</borderlayout>
+
 						</tabpanel>
 						<tabpanel>
 							<grid height="245px" sizedByContent="true"

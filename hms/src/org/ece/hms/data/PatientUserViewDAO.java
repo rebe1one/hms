@@ -29,8 +29,8 @@ public class PatientUserViewDAO extends DAO {
 				view.setAddress(rs.getString(2));
 				view.setProvince(rs.getString(3));
 				view.setSIN(rs.getInt(4));
-				view.setHealthCardNumber(rs.getInt(5));
-				view.setPhoneNumber(rs.getInt(6));
+				view.setHealthCardNumber(rs.getString(5));
+				view.setPhoneNumber(rs.getString(6));
 				view.setCurrentHealth(rs.getString(7));
 				view.setId(rs.getInt(8));
 				view.setUsername(rs.getString(9));
@@ -56,7 +56,7 @@ public class PatientUserViewDAO extends DAO {
 			// get connection
 			Statement stmt = ds.getStatement();
 			ResultSet rs = stmt
-					.executeQuery("SELECT * FROM patients, users WHERE patients.user_id = users.id AND user_id NOT IN (SELECT to_id FROM `relationships` WHERE `rel_type` = 'DEFAULT_DOCTOR')");
+					.executeQuery("SELECT * FROM patients, users, latest_appt_visit_short WHERE patients.user_id = users.id AND users.id = latest_appt_visit_short.patient_id AND user_id NOT IN (SELECT to_id FROM `relationships` WHERE `rel_type` = 'DEFAULT_DOCTOR')");
 			// fetch all events from database
 			PatientUserView view;
 
@@ -66,66 +66,8 @@ public class PatientUserViewDAO extends DAO {
 				view.setAddress(rs.getString(2));
 				view.setProvince(rs.getString(3));
 				view.setSIN(rs.getInt(4));
-				view.setHealthCardNumber(rs.getInt(5));
-				view.setPhoneNumber(rs.getInt(6));
-				view.setCurrentHealth(rs.getString(7));
-				view.setId(rs.getInt(8));
-				view.setUsername(rs.getString(9));
-				view.setPassword(rs.getString(10));
-				view.setRole(rs.getString(11));
-				view.setFirstName(rs.getString(12));
-				view.setLastName(rs.getString(13));
-				view.setActive(rs.getInt(14));
-				allViews.add(view);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			ds.close();
-		}
-
-		return allViews;
-	}
-
-	public List<PatientUserView> findByStaffMember(int staffId) {
-		List<PatientUserView> allViews = new ArrayList<PatientUserView>();
-		int doctorId = 0;
-		try {
-			// get connection
-			Statement stmt = ds.getStatement();
-			ResultSet rs = stmt
-					.executeQuery("SELECT `from_id` FROM `relationships` WHERE `rel_type` = 'DOCTOR_TO_STAFF' AND `to_id` = '"
-							+ staffId + "'");
-			if (rs.first()) {
-				doctorId = rs.getInt(1);
-			}
-			else {
-				return null;
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			ds.close();
-		}
-
-		try {
-			// get connection
-			Statement stmt = ds.getStatement();
-			ResultSet rs = stmt
-					.executeQuery("SELECT * FROM patients, users WHERE patients.user_id = users.id AND user_id IN (SELECT to_id FROM `relationships` WHERE `rel_type` = 'DEFAULT_DOCTOR' AND `from_id` = '"
-							+ doctorId + "')");
-			// fetch all events from database
-			PatientUserView view;
-
-			while (rs.next()) {
-				view = new PatientUserView();
-				view.setUserId(rs.getInt(1));
-				view.setAddress(rs.getString(2));
-				view.setProvince(rs.getString(3));
-				view.setSIN(rs.getInt(4));
-				view.setHealthCardNumber(rs.getInt(5));
-				view.setPhoneNumber(rs.getInt(6));
+				view.setHealthCardNumber(rs.getString(5));
+				view.setPhoneNumber(rs.getString(6));
 				view.setCurrentHealth(rs.getString(7));
 				view.setId(rs.getInt(8));
 				view.setUsername(rs.getString(9));

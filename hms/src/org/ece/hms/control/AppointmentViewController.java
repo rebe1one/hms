@@ -1,5 +1,6 @@
 package org.ece.hms.control;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -78,7 +79,7 @@ public class AppointmentViewController extends SelectorComposer<Window> {
         	Date date = this.date.getValue();
         	date.setHours(time.getValue().getHours());
         	date.setMinutes(time.getValue().getMinutes());
-        	appt.setDate(date);
+        	appt.setDate(new Timestamp(date.getTime()));
         	AppointmentDAO apptDAO = new AppointmentDAO();
         	apptDAO.insert(appt);
         }

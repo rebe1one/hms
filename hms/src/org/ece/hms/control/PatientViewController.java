@@ -37,8 +37,8 @@ public class PatientViewController extends SelectorComposer<Window> {
     		patient.setAddress(addressTxb.getValue());
     		patient.setProvince(provinceTxb.getValue());
     		patient.setSIN(Integer.valueOf(sinTxb.getValue()));
-    		patient.setHealthCardNumber(Integer.valueOf(healthCardNumberTxb.getValue()));
-    		patient.setPhoneNumber(Integer.valueOf(phoneNumberTxb.getValue()));
+    		patient.setHealthCardNumber(healthCardNumberTxb.getValue());
+    		patient.setPhoneNumber(phoneNumberTxb.getValue());
     		patient.setUserId(UserCredentialManager.getInstance().getUser().getId());
     		PatientDAO patientDAO = new PatientDAO();
     		patientDAO.update(patient);
