@@ -19,7 +19,7 @@ public class AppointmentVisitViewDAO extends DAO {
 		try {
 			// get connection
 		    Statement stmt = ds.getStatement();
-			ResultSet rs = stmt.executeQuery(sql + " AND appointments.patient_id = " + patientId);
+			ResultSet rs = stmt.executeQuery(sql + " AND appointments.patient_id = " + patientId + " ORDER BY visits.timestamp DESC");
 
 			// fetch all events from database
 			AppointmentVisitView view;
@@ -45,7 +45,40 @@ public class AppointmentVisitViewDAO extends DAO {
 		} finally {
 		    ds.close();
 		}
-		
+		return allVisits;
+	}
+	
+	public List<AppointmentVisitView> findByDoctorId(int doctorId) {
+		List<AppointmentVisitView> allVisits = new ArrayList<AppointmentVisitView>();
+		try {
+			// get connection
+		    Statement stmt = ds.getStatement();
+			ResultSet rs = stmt.executeQuery(sql + " AND appointments.doctor_id = " + doctorId + " ORDER BY visits.timestamp DESC");
+
+			// fetch all events from database
+			AppointmentVisitView view;
+			
+			while (rs.next()) {
+				view = new AppointmentVisitView();
+				view.setDoctorId(rs.getInt(1));
+				view.setPatientId(rs.getInt(2));
+				view.setDate(rs.getDate(3));
+				view.setAppointmentLength(rs.getInt(4));
+				view.setAppointmentId(rs.getInt(5));
+				view.setVisitLength(rs.getInt(6));
+				view.setDiagnosis(rs.getString(7));
+				view.setPrescription(rs.getString(8));
+				view.setScheduling(rs.getString(9));
+				view.setComments(rs.getString(10));
+				view.setTimestamp(rs.getTimestamp(11));
+				view.setCreatedBy(rs.getInt(12));
+				allVisits.add(view);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+		    ds.close();
+		}
 		return allVisits;
 	}
 }

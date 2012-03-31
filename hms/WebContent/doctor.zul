@@ -8,15 +8,33 @@
     img.complex-layout-header-img {
         padding: 0 10px; 
     }
+	.z-tabpanel
+	{
+	padding:0px
+	}
     </style>
-	<borderlayout sclass="complex-layout" height="810px">
+    <zscript>
+	<![CDATA[
+	import org.ece.hms.model.User;
+	import org.ece.hms.control.UserCredentialManager;
+	import org.ece.hms.data.DoctorPatientViewDAO;
+	import org.ece.hms.data.AppointmentVisitViewDAO;
+	import java.util.List;
+	User user = UserCredentialManager.getInstance().getUser();
+	DoctorPatientViewDAO dao = new DoctorPatientViewDAO();
+	List patients = dao.findByDoctorId(user.getId());
+	AppointmentVisitViewDAO avvdao = new AppointmentVisitViewDAO();
+	List visits = avvdao.findByDoctorId(user.getId());
+	]]>
+	</zscript>
+	<borderlayout sclass="complex-layout" height="810px" apply="org.ece.hms.control.DoctorViewController">
         <north size="100px" border="0">
             <div>
                 <div style="float:right">
-                	<label value="Welcome ${user.getName()}!"/>
+                	<label value="Welcome Dr. ${user.getName()}!"/>
                     <button label="Logout">
                         <attribute name="onClick"><![CDATA[
-							org.ece.hms.control.UserCredentialManager.getInstance().logout();
+							UserCredentialManager.getInstance().logout();
                         ]]></attribute>
                     </button>
                 </div>
@@ -32,66 +50,63 @@
 			</tabs>
 			<tabpanels>
 				<tabpanel>
-					<borderlayout height="450px">
-						<north>
-							<grid height="245px"
+					<borderlayout height="500px">
+						<west size="50%" border="none" title="My Patients">
+							<listbox id="patientBox" height="245px" style="margin: 5px;"
 								emptyMessage="No items match your search">
 								<auxhead>
 									<auxheader>
 										<image src="images/funnel.png" />
-										<textbox id="filter1"
+										<textbox id="patientIdFilter"
 											width="100px" />
 									</auxheader>
 									<auxheader>
 										<image src="images/funnel.png" />
-										<textbox id="filter2"
+										<textbox id="patientNameFilter"
 											width="100px" />
 									</auxheader>
 									<auxheader>
 										<image src="images/funnel.png" />
-										<textbox id="filter3"
+										<textbox id="patientDateFilter"
 											width="100px" />
 									</auxheader>
 								</auxhead>
-								<columns>
-									<column label="ID" sort="auto" />
-									<column label="Name" sort="auto" />
-									<column label="Last Visit"
+								<listhead>
+									<listheader label="ID" sort="auto" />
+									<listheader label="Name" sort="auto" />
+									<listheader label="Last Visit"
 										sort="auto" />
+								</listhead>
+								<listitem forEach="${patients}">
+									<listcell label="${each.getPatientId()}" />
+									<listcell label="${each.getFirstName()} ${each.getLastName()}" />
+									<listcell label="${each.getTimestamp()}" />
+								</listitem>
+							</listbox>
+						</west>
+						<center border="none" title="Visits">
+							<grid style="margin: 5px" id="patientVisitsGrid" emptyMessage="No items match your search">
+								<columns>
+									<column label="Date" sort="auto" />
+									<column label="Diagnosis" sort="auto" />
+									<column label="Prescription" sort="auto" />
+									<column label="Comments" sort="auto" />
 								</columns>
-								<rows>
+								<template name="model">
 									<row>
-										<label>1</label>
-										<label>Craig</label>
-										<label>2012-03-12</label>
+										<label value="${each.getTimestamp()}" />
+										<label value="${each.getDiagnosis()}" />
+										<label value="${each.getPrescription()}" />
+										<label value="${each.getComments()}" />
 									</row>
-									<row>
-										<label>2</label>
-										<label>Andrei</label>
-										<label>2011-02-11</label>
-									</row>
-									<row>
-										<label>3</label>
-										<label>Preeti</label>
-										<label>2011-06-27</label>
-									</row>
-									<row>
-										<label>4</label>
-										<label>Kanishka</label>
-										<label>2012-03-20</label>
-									</row>
-								</rows>
+								</template>
 							</grid>
-						</north>
-						<center></center>
-						<south size="200px">
-							Show visits for patient here
-						</south>
+						</center>
 					</borderlayout>
 
 				</tabpanel>
 				<tabpanel>
-					<grid emptyMessage="No items match your search">
+					<grid id="visitsGrid" emptyMessage="No items match your search">
 						<auxhead>
 							<auxheader>
 								<image src="images/funnel.png" />
@@ -127,22 +142,12 @@
 							<column label="Comments" sort="auto" />
 						</columns>
 						<rows>
-							<row>
-								<label>2012-01-12</label>
-								<label>Craig</label>
-								<label>Dying</label>
-								<label>Water</label>
-								<label>Doesn't understand Java</label>
-							</row>
-							<row>
-								<label>2012-01-19</label>
-								<label>Kanish</label>
-								<label>Ripped</label>
-								<label>Steroids</label>
-								<label>
-									I am concerned with his PB intake,
-									needs to lay off.
-								</label>
+							<row forEach="${visits}">
+								<label value="${each.getTimestamp()}"/>
+								<label value="${each.getPatientId()}"/>
+								<label value="${each.getDiagnosis()}"/>
+								<label value="${each.getPrescription()}"/>
+								<label value="${each.getComments()}"/>
 							</row>
 						</rows>
 					</grid>
