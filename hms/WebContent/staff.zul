@@ -1,13 +1,9 @@
 <?page title="Staff" contentType="text/html;charset=UTF-8"?>
 <zk>
 	<style>
-    .z-borderlayout { 
-        background: #FFFFFF 
-    } 
-    img.complex-layout-header-img {
-        padding: 0 10px; 
-    }
-    </style>
+		.z-borderlayout { background: #FFFFFF }
+		img.complex-layout-header-img { padding: 0 10px; }
+	</style>
 	<zscript>
 	<![CDATA[
 	import java.util.List;
@@ -17,133 +13,150 @@
 	List unassignedPatients = patientUserViewDAO.findUnassigned();
 ]]>
 	</zscript>
-<<<<<<< HEAD
-	<window title="Staff" border="normal" apply="org.ece.hms.control.StaffController">
-=======
-	<borderlayout sclass="complex-layout" height="810px">
-        <north size="100px" border="0">
-            <div>
-                <div style="float:right">
-                	<label value="Welcome ${user.getName()}!"/>
-                    <button label="Logout">
-                        <attribute name="onClick"><![CDATA[
-							org.ece.hms.control.UserCredentialManager.getInstance().logout();
-                        ]]></attribute>
-                    </button>
-                </div>
-                <image sclass="complex-layout-header-img" src="/images/logo.png" />
-            </div>
-        </north>
-        <center border="none">
->>>>>>> refs/remotes/origin/master
-		<tabbox>
-			<tabs>
-				<tab label="Patients" />
-				<tab label="Unassigned Patients" />
-				<tab label="Appointments" />
-			</tabs>
-			<tabpanels>
-				<tabpanel>
-					<borderlayout height="450px">
-						<north>
-							<hlayout>
-								<button id="newPatientBtn" width="160px"
-									label="New Patient" />
-							</hlayout>
-						</north>
-						<center>
+	<window title="Staff" border="normal"
+		apply="org.ece.hms.control.StaffController">
+		<borderlayout sclass="complex-layout" height="810px">
+			<north size="100px" border="0">
+				<div>
+					<div style="float:right">
+						<label value="Welcome ${user.getName()}!" />
+						<button label="Logout">
+							<attribute name="onClick"><![CDATA[
+	org.ece.hms.control.UserCredentialManager.getInstance().logout();
+]]></attribute>
+						</button>
+					</div>
+					<image sclass="complex-layout-header-img"
+						src="/images/logo.png" />
+				</div>
+			</north>
+			<center border="none">
+				<tabbox>
+					<tabs>
+						<tab label="Patients" />
+						<tab label="Unassigned Patients" />
+						<tab label="Appointments" />
+					</tabs>
+					<tabpanels>
+						<tabpanel>
+							<borderlayout height="450px">
+								<north>
+									<hlayout>
+										<button id="newPatientBtn"
+											width="160px" label="New Patient" />
+									</hlayout>
+								</north>
+								<center>
+									<grid height="245px"
+										sizedByContent="true"
+										emptyMessage="No items match your search">
+										<columns>
+											<column label="ID"
+												sort="auto" />
+											<column label="Name"
+												sort="auto" />
+											<column label="Last Visit"
+												sort="auto" />
+											<column label="" />
+										</columns>
+										<rows>
+											<row>
+												<label>1</label>
+												<label>Craig</label>
+												<label>
+													2012-03-12
+												</label>
+												<button label="Edit" />
+											</row>
+											<row>
+												<label>2</label>
+												<label>Andrei</label>
+												<label>
+													2011-02-11
+												</label>
+												<button label="Edit" />
+											</row>
+											<row>
+												<label>3</label>
+												<label>Preeti</label>
+												<label>
+													2011-06-27
+												</label>
+												<button label="Edit" />
+											</row>
+											<row>
+												<label>4</label>
+												<label>Kanishka</label>
+												<label>
+													2012-03-20
+												</label>
+												<button label="Edit" />
+											</row>
+										</rows>
+									</grid>
+								</center>
+								<south size="200px">
+									Show visits for patient here
+								</south>
+							</borderlayout>
+						</tabpanel>
+						<tabpanel>
 							<grid height="245px" sizedByContent="true"
 								emptyMessage="No items match your search">
 								<columns>
 									<column label="ID" sort="auto" />
 									<column label="Name" sort="auto" />
-									<column label="Last Visit"
-										sort="auto" />
+									<column label="" />
+								</columns>
+								<rows>
+									<row forEach="${unassignedPatients}"
+										value="${each}">
+										<label
+											value="${each.getUserId()}" />
+										<label
+											value="${each.getFirstName()} ${each.getLastName()}" />
+										<button
+											class="assignUnassignedPatientBtn"
+											forward="onClick=onAssignUnassignedPatient"
+											label="Assign (TODO)">
+										</button>
+									</row>
+								</rows>
+							</grid>
+						</tabpanel>
+						<tabpanel>
+							<hlayout id="ctlhlayout">
+								<button id="newAppointmentBtn"
+									width="160px" label="New Appointment" />
+							</hlayout>
+							<separator />
+							<grid sizedByContent="true"
+								emptyMessage="No items match your search">
+								<columns>
+									<column label="Patient" sort="auto" />
+									<column label="Date" sort="auto" />
+									<column label="Length" sort="auto" />
 									<column label="" />
 								</columns>
 								<rows>
 									<row>
-										<label>1</label>
-										<label>Craig</label>
-										<label>2012-03-12</label>
+										<label>Mr. Sicksingh</label>
+										<label>2012-01-27</label>
+										<label>45</label>
 										<button label="Edit" />
 									</row>
 									<row>
-										<label>2</label>
-										<label>Andrei</label>
-										<label>2011-02-11</label>
-										<button label="Edit" />
-									</row>
-									<row>
-										<label>3</label>
-										<label>Preeti</label>
-										<label>2011-06-27</label>
-										<button label="Edit" />
-									</row>
-									<row>
-										<label>4</label>
-										<label>Kanishka</label>
+										<label>Mrs. Speedysingh</label>
 										<label>2012-03-20</label>
+										<label>5</label>
 										<button label="Edit" />
 									</row>
 								</rows>
 							</grid>
-						</center>
-						<south size="200px">
-							Show visits for patient here
-						</south>
-					</borderlayout>
-				</tabpanel>
-				<tabpanel>
-					<grid height="245px" sizedByContent="true"
-						emptyMessage="No items match your search">
-						<columns>
-							<column label="ID" sort="auto" />
-							<column label="Name" sort="auto" />
-							<column label="" />
-						</columns>
-						<rows>
-							<row forEach="${unassignedPatients}" value="${each}">
-								<label value="${each.getUserId()}" />
-								<label value="${each.getFirstName()} ${each.getLastName()}" />
-								<button class="assignUnassignedPatientBtn" forward="onClick=onAssignUnassignedPatient" label="Assign (TODO)">
-								</button>
-							</row>
-						</rows>
-					</grid>
-				</tabpanel>
-				<tabpanel>
-					<hlayout id="ctlhlayout">
-						<button id="newAppointmentBtn" width="160px"
-							label="New Appointment" />
-					</hlayout>
-					<separator />
-					<grid sizedByContent="true"
-						emptyMessage="No items match your search">
-						<columns>
-							<column label="Patient" sort="auto" />
-							<column label="Date" sort="auto" />
-							<column label="Length" sort="auto" />
-							<column label="" />
-						</columns>
-						<rows>
-							<row>
-								<label>Mr. Sicksingh</label>
-								<label>2012-01-27</label>
-								<label>45</label>
-								<button label="Edit" />
-							</row>
-							<row>
-								<label>Mrs. Speedysingh</label>
-								<label>2012-03-20</label>
-								<label>5</label>
-								<button label="Edit" />
-							</row>
-						</rows>
-					</grid>
-				</tabpanel>
-			</tabpanels>
-		</tabbox>
-	</center>
-	</borderlayout>
+						</tabpanel>
+					</tabpanels>
+				</tabbox>
+			</center>
+		</borderlayout>
+		</window>
 </zk>
