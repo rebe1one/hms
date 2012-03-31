@@ -27,7 +27,6 @@ public class DoctorViewController extends GenericForwardComposer<Borderlayout> {
     
     public void onClick$patientBox() {
     	int id = Integer.valueOf(((Listcell) patientBox.getSelectedItem().getFirstChild()).getLabel());
-    	System.out.println(id);
     	AppointmentVisitViewDAO dao = new AppointmentVisitViewDAO();
     	List<AppointmentVisitView> visits = dao.findByPatientId(id);
     	patientVisitsGrid.setModel(new ListModelList<AppointmentVisitView>(visits));
