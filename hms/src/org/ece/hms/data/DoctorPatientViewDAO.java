@@ -9,7 +9,7 @@ import java.util.List;
 import org.ece.hms.model.DoctorPatientView;
 
 public class DoctorPatientViewDAO extends DAO {
-	private String sql = "SELECT relationships.from_id as doctor_id, patient_user.id as patient_id, patient_user.first_name, patient_user.last_name, latest_appointment_visits.timestamp FROM relationships, patient_user, latest_appointment_visits WHERE relationships.to_id = patient_user.id AND latest_appointment_visits.patient_id = patient_user.id";
+	private String sql = "SELECT relationships.from_id as doctor_id, patient_user.id as patient_id, patient_user.first_name, patient_user.last_name, latest_appointment_visits.timestamp FROM relationships JOIN patient_user ON (relationships.to_id = patient_user.id) LEFT JOIN latest_appointment_visits ON (latest_appointment_visits.patient_id = patient_user.id)";
 	
 	public List<DoctorPatientView> findByDoctorId(int id) {
 		List<DoctorPatientView> allViews = new ArrayList<DoctorPatientView>();

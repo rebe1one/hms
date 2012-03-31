@@ -84,6 +84,13 @@ public class UserDAO extends DAO implements iDAO<User> {
                 "','" + entity.getPassword() + "','" + entity.getRole() + "','" + entity.getFirstName() + 
                 "','" + entity.getLastName() + "','" + entity.getActive() + "')");
 	}
+	
+	public int insertAndReturn(User entity) {
+		return executeReturn("INSERT INTO users(username,password,role,first_name,last_name,active) " +
+                "VALUES ('" + entity.getUsername() +
+                "','" + entity.getPassword() + "','" + entity.getRole() + "','" + entity.getFirstName() + 
+                "','" + entity.getLastName() + "','" + entity.getActive() + "')");
+	}
 
 	@Override
 	public boolean update(User entity) {
