@@ -56,7 +56,7 @@ public class PatientUserViewDAO extends DAO {
 			// get connection
 			Statement stmt = ds.getStatement();
 			ResultSet rs = stmt
-					.executeQuery("SELECT * FROM patients, users, latest_appt_visit_short WHERE patients.user_id = users.id AND users.id = latest_appt_visit_short.patient_id AND user_id NOT IN (SELECT to_id FROM `relationships` WHERE `rel_type` = 'DEFAULT_DOCTOR')");
+					.executeQuery("SELECT * FROM patients, users WHERE patients.user_id = users.id AND user_id NOT IN (SELECT to_id FROM `relationships` WHERE `rel_type` = 'DEFAULT_DOCTOR')");
 			// fetch all events from database
 			PatientUserView view;
 

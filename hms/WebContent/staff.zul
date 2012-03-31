@@ -107,6 +107,9 @@
 
 						</tabpanel>
 						<tabpanel>
+							<toolbar width="794px">
+								<toolbarbutton id="newPatientBtn" label="New Patient" />
+							</toolbar>
 							<grid height="245px" sizedByContent="true"
 								emptyMessage="No items match your search">
 								<columns>

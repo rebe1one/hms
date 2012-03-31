@@ -6,9 +6,11 @@ import java.util.List;
 import org.ece.hms.data.AppointmentVisitViewDAO;
 import org.ece.hms.model.AppointmentVisitView;
 import org.ece.hms.model.PatientUserView;
+import org.zkoss.zhtml.Button;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.ForwardEvent;
+import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Center;
 import org.zkoss.zul.Grid;
@@ -19,9 +21,9 @@ import org.zkoss.zul.Row;
 import org.zkoss.zul.Window;
 
 public class StaffController extends GenericForwardComposer<Window> {
-
 	private Listbox patientBox;
 	private Grid patientVisitsGrid;
+	private Button newPatientBtn;
 	
     public void onClick$patientBox() {
     	int id = Integer.valueOf(((Listcell) patientBox.getSelectedItem().getFirstChild()).getLabel());
@@ -31,14 +33,17 @@ public class StaffController extends GenericForwardComposer<Window> {
     	patientVisitsGrid.setModel(new ListModelList<AppointmentVisitView>(visits));
     	((Center)patientVisitsGrid.getParent()).setTitle("Past visits for " + ((Listcell) patientBox.getSelectedItem().getChildren().get(1)).getLabel());
     }
+    
+    public void onClick$newPatientBtn() {
+    	Executions.createComponents("new_patient.zul", null, null);
+    }
 
 	public void onAssignUnassignedPatient(Event event) {
 		PatientUserView patient = getSelectedPatient(event);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("patient", patient);
 		map.put("type", "DOCTOR");
-		//map.put("textbox", doctorId);
-		Executions.createComponents("modal_assign_doctor.zul", null, map);
+		Executions.createComponents("modal_lookup.zul", null, map);
 	}
 
 	private PatientUserView getSelectedPatient(Event event) {
