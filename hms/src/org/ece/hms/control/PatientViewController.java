@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -52,7 +53,11 @@ public class PatientViewController extends SelectorComposer<Window> {
     		mesgLbl.setValue("Success");
     		resetValues();
     		return true;
-    	} 
+    	}
+    	catch(WrongValueException e){
+    		mesgLbl.setValue("Please fix the errors listed above");
+    		return false;
+    	}
     	catch(Exception e){
     		mesgLbl.setValue(e.toString());
     		return false;
