@@ -72,10 +72,10 @@
 									</auxheader>
 								</auxhead>
 								<listhead>
-									<listheader label="ID" sort="auto" />
-									<listheader label="Name" sort="auto" />
+									<listheader label="ID" sort="auto(patientId)" />
+									<listheader label="Name" sort="auto(firstName,lastName)" />
 									<listheader label="Last Visit"
-										sort="auto" />
+										sort="auto(timestamp)" />
 								</listhead>
 								<template name="model">
 								<listitem>
@@ -89,10 +89,10 @@
 						<center border="none" title="Visits">
 							<grid style="margin: 5px" id="patientVisitsGrid" emptyMessage="No items match your search">
 								<columns>
-									<column label="Date" sort="auto" />
-									<column label="Diagnosis" sort="auto" />
-									<column label="Prescription" sort="auto" />
-									<column label="Comments" sort="auto" />
+									<column label="Date" sort="auto(timestamp)" />
+									<column label="Diagnosis" sort="auto(diagnosis)" />
+									<column label="Prescription" sort="auto(prescription)" />
+									<column label="Comments" sort="auto(comments)" />
 								</columns>
 								<template name="model">
 									<row>
@@ -137,11 +137,11 @@
 							</auxheader>
 						</auxhead>
 						<columns>
-							<column label="Date" sort="auto" />
-							<column label="Patient Name" sort="auto" />
-							<column label="Diagnosis" sort="auto" />
-							<column label="Prescription" sort="auto" />
-							<column label="Comments" sort="auto" />
+							<column label="Date" sort="auto(timestamp)" />
+							<column label="Patient Name" sort="auto(patientId)" />
+							<column label="Diagnosis" sort="auto(diagnosis)" />
+							<column label="Prescription" sort="auto(prescription)" />
+							<column label="Comments" sort="auto(comments)" />
 						</columns>
 						<rows>
 							<row forEach="${visits}">
