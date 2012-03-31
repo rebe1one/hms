@@ -3,20 +3,28 @@ package org.ece.hms.control;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
+
 import org.ece.hms.data.PatientDAO;
+import org.ece.hms.data.PatientUserViewDAO;
 import org.ece.hms.data.UserDAO;
 import org.ece.hms.model.Patient;
+import org.ece.hms.model.PatientUserView;
 import org.ece.hms.model.RoleType;
 import org.ece.hms.model.User;
 import org.ece.hms.util.Util;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Label;
-import org.zkoss.zul.Listbox;
+import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 public class CreatePatientViewController extends GenericForwardComposer<Window> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Textbox firstNameTxb, lastNameTxb, usernameTxb, passwordTxb;
 	private Textbox addressTxb, provinceTxb, sinTxb, healthCardNumberTxb,
 			phoneNumberTxb;
@@ -24,8 +32,6 @@ public class CreatePatientViewController extends GenericForwardComposer<Window> 
 
 	private Label mesgLbl;
 	
-	private Grid unassignedPatientsGrid;
-
 	public void onClick$confirmBtn() {
 		doRegister();
 	}
@@ -83,6 +89,12 @@ public class CreatePatientViewController extends GenericForwardComposer<Window> 
 				mesgLbl.setValue("Error!");
 			} else {
 				patientDAO.commmitTransaction();
+				if (arg.containsKey("grid")) {
+					Grid unassignedPatientsGrid = (Grid)arg.get("grid");
+					PatientUserViewDAO patientUserViewDAO = new PatientUserViewDAO();
+			    	List<PatientUserView> unassignedPatients = patientUserViewDAO.findUnassigned();
+			    	unassignedPatientsGrid.setModel(new ListModelList<PatientUserView>(unassignedPatients));
+				}
 				createPatientWindow.onClose();
 			}
 		} catch (NoSuchAlgorithmException e) {

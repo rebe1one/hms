@@ -1,7 +1,7 @@
 <?page title="Collector - Login"?>
 <?init class="org.ece.hms.control.CheckForLogin" arg0="/staff.zul"?>
 <zk>
-	<window id="createPatientWindow" border="normal" width="500px"
+	<window id="createPatientWindow" border="normal" width="500px" closable="true"
 		title="Create a new patient"
 		apply="org.ece.hms.control.CreatePatientViewController" mode="overlapped"
 		position="center,center">

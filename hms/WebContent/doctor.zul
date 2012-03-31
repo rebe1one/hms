@@ -137,11 +137,11 @@
 							</auxheader>
 						</auxhead>
 						<columns>
-							<column label="Date" sort="auto" />
-							<column label="Patient Name" sort="auto" />
-							<column label="Diagnosis" sort="auto" />
-							<column label="Prescription" sort="auto" />
-							<column label="Comments" sort="auto" />
+							<column label="Date" sort="auto(timestamp)" />
+							<column label="Patient Name" sort="auto(patientId)" />
+							<column label="Diagnosis" sort="auto(diagnosis)" />
+							<column label="Prescription" sort="auto(prescription)" />
+							<column label="Comments" sort="auto(comments)" />
 						</columns>
 						<rows>
 							<row forEach="${visits}">
