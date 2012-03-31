@@ -2,13 +2,9 @@
 <?init class="org.ece.hms.control.CheckForLogin" arg0="/patient.zul"?>
 <zk>
 	<style>
-    .z-borderlayout { 
-        background: #FFFFFF 
-    } 
-    img.complex-layout-header-img {
-        padding: 0 10px; 
-    }
-    </style>
+		.z-borderlayout { background: #FFFFFF }
+		img.complex-layout-header-img { padding: 0 10px; }
+	</style>
 	<zscript>
 	<![CDATA[
 	import org.ece.hms.model.AppointmentVisitView;
@@ -18,104 +14,110 @@
 	import org.ece.hms.data.PatientDAO;
 	import org.ece.hms.control.UserCredentialManager;
 	import java.util.List;
-	User user = UserCredentialManager.getInstance().getUser();
+	User currentUser = UserCredentialManager.getInstance().getUser();
 	AppointmentVisitViewDAO avv = new AppointmentVisitViewDAO();
-	List appointments = avv.findByPatientId(user.getId());
+	List appointments = avv.findByPatientId(currentUser.getId());
 	PatientDAO patientDAO = new PatientDAO();
-	Patient patient = patientDAO.findById(user.getId());
-	]]>
+	Patient patient = patientDAO.findById(currentUser.getId());
+]]>
 	</zscript>
-	<borderlayout sclass="complex-layout" height="810px" apply="org.ece.hms.control.PatientViewController">
-        <north size="100px" border="0">
-            <div>
-                <div style="float:right">
-                	<label value="Welcome ${user.getName()}!"/>
-                    <button label="Logout">
-                        <attribute name="onClick"><![CDATA[
-							UserCredentialManager.getInstance().logout();
-                        ]]></attribute>
-                    </button>
-                </div>
-                <image sclass="complex-layout-header-img" src="/images/logo.png" />
-            </div>
-        </north>
-        <center border="none">
-		<tabbox>
-			<tabs>
-				<tab label="View Records" />
-				<tab label="Change Information" />
-			</tabs>
-			<tabpanels>
-				<tabpanel>
-					<grid sizedByContent="true"
-						emptyMessage="No items match your search">
-						<columns>
-							<column label="Date" sort="auto" />
-							<column label="Length" sort="auto" />
-							<column label="Diagnosis" sort="auto" />
-							<column label="Prescription" sort="auto" />
-							<column label="Scheduling" sort="auto" />
-						</columns>
-						<rows>
-							<row forEach="${appointments}">
-								<label value="${each.getDate()}" />
-								<label value="${each.getVisitLength()}" />
-								<label value="${each.getDiagnosis()}" />
-								<label
-									value="${each.getPrescription()}" />
-								<label value="${each.getScheduling()}" />
-							</row>
-						</rows>
-					</grid>
-				</tabpanel>
-				<tabpanel>
-					<grid sizedByContent="true"
-						emptyMessage="No items match your search">
-						<rows>
-							<row>
-								First Name:
-								<textbox id="firstNameTxb"
-									value="${user.getFirstName()}" />
-							</row>
-							<row>
-								Last Name:
-								<textbox id="lastNameTxb"
-									value="${user.getLastName()}" />
-							</row>
-							<row>
-								Address:
-								<textbox id="addressTxb"
-									value="${patient.getAddress()}" />
-							</row>
-							<row>
-								Province:
-								<textbox id="provinceTxb"
-									value="${patient.getProvince()}" />
-							</row>
-							<row>
-								SIN:
-								<textbox id="sinTxb"
-									value="${patient.getSIN()}" />
-							</row>
-							<row>
-								Health Card #:
-								<textbox id="healthCardNumberTxb"
-									value="${patient.getHealthCardNumber()}" />
-							</row>
-							<row>
-								Phone #:
-								<textbox id="phoneNumberTxb"
-									value="${patient.getPhoneNumber()}" />
-							</row>
-						</rows>
-					</grid>
-					<button id="submitBtn" label="Submit" />
-					<label id="mesgLbl" />
+	<borderlayout sclass="complex-layout" height="810px"
+		apply="org.ece.hms.control.PatientViewController">
+		<north size="100px" border="0">
+			<div>
+				<div style="float:right">
+					<label value="Welcome ${currentUser.getFirstName()}!" />
+					<button label="Logout">
+						<attribute name="onClick"><![CDATA[
+	UserCredentialManager.getInstance().logout();
+]]></attribute>
+					</button>
+				</div>
+				<image sclass="complex-layout-header-img"
+					src="/images/logo.png" />
+			</div>
+		</north>
+		<center border="none">
+			<tabbox>
+				<tabs>
+					<tab label="View Records" />
+					<tab label="Change Information" />
+				</tabs>
+				<tabpanels>
+					<tabpanel>
+						<grid sizedByContent="true"
+							emptyMessage="No items match your search">
+							<columns>
+								<column label="Date" sort="auto" />
+								<column label="Length" sort="auto" />
+								<column label="Diagnosis" sort="auto" />
+								<column label="Prescription"
+									sort="auto" />
+								<column label="Scheduling" sort="auto" />
+							</columns>
+							<rows>
+								<row forEach="${appointments}">
+									<label value="${each.getDate()}" />
+									<label
+										value="${each.getVisitLength()}" />
+									<label
+										value="${each.getDiagnosis()}" />
+									<label
+										value="${each.getPrescription()}" />
+									<label
+										value="${each.getScheduling()}" />
+								</row>
+							</rows>
+						</grid>
+					</tabpanel>
+					<tabpanel>
+						<grid sizedByContent="true"
+							emptyMessage="No items match your search">
+							<rows>
+								<row>
+									First Name:
+									<textbox id="firstNameTxb"
+										value="${user.getFirstName()}" />
+								</row>
+								<row>
+									Last Name:
+									<textbox id="lastNameTxb"
+										value="${user.getLastName()}" />
+								</row>
+								<row>
+									Address:
+									<textbox id="addressTxb"
+										value="${patient.getAddress()}" />
+								</row>
+								<row>
+									Province:
+									<textbox id="provinceTxb"
+										value="${patient.getProvince()}" />
+								</row>
+								<row>
+									SIN:
+									<textbox id="sinTxb"
+										value="${patient.getSIN()}" />
+								</row>
+								<row>
+									Health Card #:
+									<textbox id="healthCardNumberTxb"
+										value="${patient.getHealthCardNumber()}" />
+								</row>
+								<row>
+									Phone #:
+									<textbox id="phoneNumberTxb"
+										value="${patient.getPhoneNumber()}" />
+								</row>
+							</rows>
+						</grid>
+						<button id="submitBtn" label="Submit" />
+						<label id="mesgLbl" />
 
-				</tabpanel>
-			</tabpanels>
-		</tabbox>
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
 		</center>
-		</borderlayout>
+	</borderlayout>
 </zk>
 
