@@ -26,7 +26,7 @@
 		<north size="100px" border="0">
 			<div>
 				<div style="float:right">
-					<label value="Welcome ${currentUser.getFirstName()}!" />
+					<label id="welcomeLbl" value="Welcome ${currentUser.getFirstName()}!" />
 					<button label="Logout">
 						<attribute name="onClick"><![CDATA[
 	UserCredentialManager.getInstance().logout();
@@ -40,10 +40,50 @@
 		<center border="none">
 			<tabbox>
 				<tabs>
+					<tab label="Patient Information" />
 					<tab label="View Records" />
 					<tab label="Change Information" />
 				</tabs>
 				<tabpanels>
+					<tabpanel>
+						<grid sizedByContent="true"
+							emptyMessage="No items match your search">
+							<rows>
+								<row>
+									First Name:
+									<label id="firstNameLbl" value="${currentUser.getFirstName()}" />
+								</row>
+								<row>
+									Last Name:
+									<label id="lastNameLbl" value="${currentUser.getLastName()}" />
+								</row>
+								<row>
+									Address:
+									<label id="addressLbl" value="${patient.getAddress()}" />
+								</row>
+								<row>
+									Province:
+									<label id="provinceLbl" value="${patient.getProvince()}" />
+								</row>
+								<row>
+									SIN:
+									<label id="sinLbl" value="${patient.getSIN()}" />
+								</row>
+								<row>
+									Health Card #:
+									<label id="healthCardNumberLbl" value="${patient.getHealthCardNumber()}" />
+								</row>
+								<row>
+									Phone #:
+									<label id="phoneNumberLbl" value="${patient.getPhoneNumber()}" />
+								</row>
+								<row>
+									Current Health:
+									<label id="currentHealthLbl" value="${patient.getCurrentHealth()}" />
+								</row>
+							</rows>
+						</grid>
+					</tabpanel>
 					<tabpanel>
 						<grid sizedByContent="true"
 							emptyMessage="No items match your search">
@@ -77,12 +117,12 @@
 								<row>
 									First Name:
 									<textbox id="firstNameTxb"
-										value="${user.getFirstName()}" />
+										value="${currentUser.getFirstName()}" />
 								</row>
 								<row>
 									Last Name:
 									<textbox id="lastNameTxb"
-										value="${user.getLastName()}" />
+										value="${currentUser.getLastName()}" />
 								</row>
 								<row>
 									Address:
@@ -113,7 +153,6 @@
 						</grid>
 						<button id="submitBtn" label="Submit" />
 						<label id="mesgLbl" />
-
 					</tabpanel>
 				</tabpanels>
 			</tabbox>
