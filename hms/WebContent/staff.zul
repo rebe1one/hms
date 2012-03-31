@@ -1,4 +1,5 @@
 <?page title="Staff" contentType="text/html;charset=UTF-8"?>
+<?init class="org.ece.hms.control.CheckForLogin" arg0="/staff.zul"?>
 <zk>
 	<style>
 		.z-borderlayout { background: #FFFFFF }
@@ -7,9 +8,16 @@
 	<zscript>
 	<![CDATA[
 	import java.util.List;
+	import org.ece.hms.control.UserCredentialManager;
 	import org.ece.hms.model.Patient;
+	import org.ece.hms.model.User;
 	import org.ece.hms.data.PatientUserViewDAO;
+	// DAO
 	PatientUserViewDAO patientUserViewDAO = new PatientUserViewDAO();
+	// Patients
+	User currentUser = UserCredentialManager.getInstance().getUser();
+	List patients = patientUserViewDAO.findByStaffMember(currentUser.getId());
+	// Unassigned Patients
 	List unassignedPatients = patientUserViewDAO.findUnassigned();
 ]]>
 	</zscript>
@@ -19,7 +27,7 @@
 			<north size="100px" border="0">
 				<div>
 					<div style="float:right">
-						<label value="Welcome ${user.getName()}!" />
+						<label value="Welcome ${currentUser.getFirstName()}!" />
 						<button label="Logout">
 							<attribute name="onClick"><![CDATA[
 	org.ece.hms.control.UserCredentialManager.getInstance().logout();
@@ -47,53 +55,22 @@
 									</hlayout>
 								</north>
 								<center>
-									<grid height="245px"
-										sizedByContent="true"
-										emptyMessage="No items match your search">
-										<columns>
-											<column label="ID"
+									<listbox>
+										<listhead>
+											<listheader label="ID"
 												sort="auto" />
-											<column label="Name"
+											<listheader label="Name"
 												sort="auto" />
-											<column label="Last Visit"
-												sort="auto" />
-											<column label="" />
-										</columns>
-										<rows>
-											<row>
-												<label>1</label>
-												<label>Craig</label>
-												<label>
-													2012-03-12
-												</label>
-												<button label="Edit" />
-											</row>
-											<row>
-												<label>2</label>
-												<label>Andrei</label>
-												<label>
-													2011-02-11
-												</label>
-												<button label="Edit" />
-											</row>
-											<row>
-												<label>3</label>
-												<label>Preeti</label>
-												<label>
-													2011-06-27
-												</label>
-												<button label="Edit" />
-											</row>
-											<row>
-												<label>4</label>
-												<label>Kanishka</label>
-												<label>
-													2012-03-20
-												</label>
-												<button label="Edit" />
-											</row>
-										</rows>
-									</grid>
+											<listheader
+												label="Last Visit" sort="auto" />
+										</listhead>
+										<listitem forEach="${patients}"
+											value="${each}">
+											<listcell label="${each.getUserId()}" />
+											<listcell label="${each.getFirstName()} ${each.getLastName()}" />
+											<listcell label="TODO" />
+										</listitem>
+									</listbox>
 								</center>
 								<south size="200px">
 									Show visits for patient here
@@ -158,5 +135,5 @@
 				</tabbox>
 			</center>
 		</borderlayout>
-		</window>
+	</window>
 </zk>
