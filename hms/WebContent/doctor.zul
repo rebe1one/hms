@@ -67,7 +67,7 @@
 									</auxheader>
 									<auxheader>
 										<image src="images/funnel.png" />
-										<textbox id="patientDateFilter"
+										<datebox format="yyyy-MM-dd" id="patientDateFilter"
 											width="100px" />
 									</auxheader>
 								</auxhead>
@@ -77,11 +77,13 @@
 									<listheader label="Last Visit"
 										sort="auto" />
 								</listhead>
-								<listitem forEach="${patients}">
+								<template name="model">
+								<listitem>
 									<listcell label="${each.getPatientId()}" />
 									<listcell label="${each.getFirstName()} ${each.getLastName()}" />
 									<listcell label="${each.getTimestamp()}" />
 								</listitem>
+								</template>
 							</listbox>
 						</west>
 						<center border="none" title="Visits">

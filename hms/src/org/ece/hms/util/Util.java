@@ -1,5 +1,9 @@
 package org.ece.hms.util;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 public class Util {
 	public static boolean isEmpty(String s) {
 		if (s == null || s.length() == 0) {
@@ -15,5 +19,26 @@ public class Util {
 	}
 	public static boolean isNotEmpty(Object o) {
 		return !isEmpty(o);
+	}
+	
+	public static String filterToSQL(List<Filter> filter) {
+		StringBuilder b = new StringBuilder();
+		for (Filter entry : filter) {
+			if (entry.equals(Filter.AND)) {
+				b.append(" AND ");
+				continue;
+			} else if (entry.equals(Filter.OR)) {
+				b.append(" OR ");
+				continue;
+			} else if (entry.equals(Filter.LB)) {
+				b.append(" (");
+				continue;
+			} else if (entry.equals(Filter.RB)) {
+				b.append(") ");
+				continue;
+			}
+			b.append(entry.toString());
+		}
+		return b.toString();
 	}
 }
