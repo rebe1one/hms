@@ -1,8 +1,8 @@
 <?page title="Appointment"?>
 <?init class="org.ece.hms.control.CheckForLogin" arg0="/appointment.zul"?>
 <zk>
-	<window id="appointmentWin" border="normal" width="450px" closable="true"
-		title="Schedule an Appointment"
+	<window id="appointmentWin" border="normal" width="450px"
+		closable="true" title="Schedule an Appointment"
 		apply="org.ece.hms.control.AppointmentViewController"
 		mode="overlapped" position="center,center">
 		<grid>
@@ -26,6 +26,10 @@
 					Time:
 					<timebox id="time" cols="12" format="short"
 						mold="rounded" />
+				</row>
+				<row>
+					Length: 
+					<textbox id="length" cols="2" maxlength="2" />
 				</row>
 			</rows>
 		</grid>

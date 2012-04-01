@@ -28,6 +28,7 @@ public class AppointmentDAO extends DAO implements iDAO<Appointment> {
 				appointment.setDoctorId(rs.getInt(2));
 				appointment.setPatientId(rs.getInt(3));
 				appointment.setDate(rs.getTimestamp(4));
+				appointment.setLength(rs.getInt(5));
 				allAppointments.add(appointment);
 			}
 		} catch (SQLException e) {
@@ -46,9 +47,9 @@ public class AppointmentDAO extends DAO implements iDAO<Appointment> {
 
 	@Override
 	public Boolean insert(Appointment entity) {
-		return execute("INSERT INTO appointments(id,doctor_id,patient_id,date) " +
-                "VALUES (" + entity.getId() + ",'" + entity.getDoctorId() +
-                "','" + entity.getPatientId() + "','" + new java.sql.Date(entity.getDate().getTime()) + "')");
+		return execute("INSERT INTO appointments(doctor_id, patient_id, date, length) " +
+                "VALUES ('" + entity.getDoctorId() +
+                "','" + entity.getPatientId() + "','" + new java.sql.Date(entity.getDate().getTime()) + "', '" + entity.getLength() + "')");
 	}
 
 	@Override
