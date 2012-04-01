@@ -12,6 +12,7 @@
 	import org.ece.hms.model.User;
 	import org.ece.hms.data.AppointmentVisitViewDAO;
 	import org.ece.hms.data.PatientDAO;
+	import org.ece.hms.data.DoctorPatientViewDAO;
 	import org.ece.hms.control.UserCredentialManager;
 	import java.util.List;
 	User currentUser = UserCredentialManager.getInstance().getUser();
@@ -19,6 +20,8 @@
 	List appointments = avv.findByPatientId(currentUser.getId());
 	PatientDAO patientDAO = new PatientDAO();
 	Patient patient = patientDAO.findById(currentUser.getId());
+	DoctorPatientViewDAO dpv = new DoctorPatientViewDAO();
+	String doctorName = dpv.findDefaultDoctorByPatientId(currentUser.getId());
 ]]>
 	</zscript>
 	<borderlayout sclass="complex-layout" height="810px"
@@ -80,6 +83,10 @@
 								<row>
 									Current Health:
 									<label id="currentHealthLbl" value="${patient.getCurrentHealth()}" />
+								</row>
+								<row>
+									Assigned Doctor:
+									<label id="assignedDoctorLbl" value="${doctorName}" />
 								</row>
 							</rows>
 						</grid>
