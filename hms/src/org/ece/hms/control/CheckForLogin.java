@@ -15,7 +15,7 @@ public class CheckForLogin implements Initiator {
 					+ args.get("arg0"));
 		} else {
 			User user = UserCredentialManager.getInstance().getUser();
-			System.out.println(args.get("arg0"));
+
 			if (args.get("arg0").equals("/doctor.zul")
 					&& !user.getRole().equals("DOCTOR")) {
 				UserCredentialManager.getInstance().logout();
