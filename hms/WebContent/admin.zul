@@ -43,7 +43,7 @@
 			<tabpanels>
 				<tabpanel>
 					<toolbar width="100%" height="22px">
-						<toolbarbutton id="newPatient" label="New Patient" image="/images/icons/icon_user.gif"/>
+						<toolbarbutton id="newPatient" label="New Patient" disabled="true" image="/images/icons/icon_user.gif"/>
 						<toolbarbutton id="newDoctor" label="New Doctor" image="/images/icons/user.png"/>
 						<toolbarbutton id="newStaff" label="New Staff" image="/images/icons/user_orange.png"/>
 						<toolbarbutton id="newFinance" label="New Finance" image="/images/icons/user_suit.png"/>

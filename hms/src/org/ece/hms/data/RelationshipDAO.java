@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ece.hms.model.Relationship;
+import org.ece.hms.util.Filter;
+import org.ece.hms.util.Util;
 
 public class RelationshipDAO extends DAO implements iDAO<Relationship> {
 	protected final DataSource ds = DataSource.INSTANCE;
@@ -18,6 +20,32 @@ public class RelationshipDAO extends DAO implements iDAO<Relationship> {
 			// get connection
 		    Statement stmt = ds.getStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM relationships");
+
+			// fetch all events from database
+			Relationship relationship;
+			
+			while (rs.next()) {
+				relationship = new Relationship();
+				relationship.setFromId(rs.getInt(1));
+				relationship.setToId(rs.getInt(2));
+				relationship.setRelationshipType(rs.getString(3));
+				allRelationships.add(relationship);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+		    ds.close();
+		}
+		
+		return allRelationships;
+	}
+	
+	public List<Relationship> find(List<Filter> filters) {
+		List<Relationship> allRelationships = new ArrayList<Relationship>();
+		try {
+			// get connection
+		    Statement stmt = ds.getStatement();
+			ResultSet rs = stmt.executeQuery(Util.buildSQLString("SELECT * FROM relationships", filters));
 
 			// fetch all events from database
 			Relationship relationship;

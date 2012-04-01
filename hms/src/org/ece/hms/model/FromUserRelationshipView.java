@@ -1,7 +1,9 @@
 package org.ece.hms.model;
 
-public class User {
-	private int id;
+public class FromUserRelationshipView {
+	private int fromId;
+	private int toId;
+	private String relationshipType;
 	private String username;
 	private String password;
 	private String role;
@@ -13,11 +15,11 @@ public class User {
 	public static int ACTIVE = 1;
 	public static int INACTIVE = 2;
 	
-	public User() {
+	public FromUserRelationshipView() {
 		// empty constructor
 	}
 	
-	public User(String username, String password, String role, String firstName, String lastName, int active) {
+	public FromUserRelationshipView(String username, String password, String role, String firstName, String lastName, int active) {
 		this.username = username;
 		this.password = password;
 		this.role = role;
@@ -26,14 +28,32 @@ public class User {
 		this.active = active;
 	}
 	
+	public int getFromId() {
+		return fromId;
+	}
+
+	public void setFromId(int fromId) {
+		this.fromId = fromId;
+	}
+
+	public int getToId() {
+		return toId;
+	}
+
+	public void setToId(int toId) {
+		this.toId = toId;
+	}
+
+	public String getRelationshipType() {
+		return relationshipType;
+	}
+
+	public void setRelationshipType(String relationshipType) {
+		this.relationshipType = relationshipType;
+	}
+
 	public String getName() {
 		return firstName + " " + lastName;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
 	}
 	public String getUsername() {
 		return username;

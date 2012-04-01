@@ -1,36 +1,38 @@
 package org.ece.hms.control;
 
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.ece.hms.data.AppointmentVisitUsersViewDAO;
 import org.ece.hms.data.AppointmentVisitViewDAO;
 import org.ece.hms.data.DoctorPatientViewDAO;
+import org.ece.hms.data.FromUserRelationshipViewDAO;
+import org.ece.hms.data.RelationshipDAO;
 import org.ece.hms.model.AppointmentVisitUsersView;
 import org.ece.hms.model.AppointmentVisitView;
 import org.ece.hms.model.DoctorPatientView;
+import org.ece.hms.model.FromUserRelationshipView;
+import org.ece.hms.model.Relationship;
+import org.ece.hms.model.RelationshipType;
 import org.ece.hms.util.DateFilter;
 import org.ece.hms.util.Filter;
 import org.ece.hms.util.Util;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.InputEvent;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Borderlayout;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Datebox;
 import org.zkoss.zul.Grid;
-import org.zkoss.zul.ListModel;
-import org.zkoss.zul.ListModelExt;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Center;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
-import org.zkoss.zul.event.ListDataListener;
 
 public class DoctorViewController extends GenericForwardComposer<Borderlayout> {
     /**
@@ -40,8 +42,47 @@ public class DoctorViewController extends GenericForwardComposer<Borderlayout> {
 	private Textbox patientIdFilter;
 	private Textbox patientNameFilter;
 	private Datebox patientDateFilter;
-	private Listbox patientBox;
+	private Listbox patientBox, assistingDoctorsGrid;
 	private Grid patientVisitsGrid, appointmentGrid;
+	private Button assistingDoctorButton;
+	
+	public void onClick$assistingDoctorButton() {
+		if (Util.isNotEmpty(patientBox.getSelectedItem())) {
+	    	int id = Integer.valueOf(((Listcell) patientBox.getSelectedItem().getFirstChild()).getLabel());
+			Map<String, Object> map = new HashMap<String, Object>();
+	    	map.put("userId", id);
+	    	map.put("grid", assistingDoctorsGrid);
+	    	Executions.createComponents("/assisting_doctor.zul", null, map);
+		}
+	}
+	
+	public void onClick$assistingDoctorsGrid() {
+		if (Util.isNotEmpty(assistingDoctorsGrid.getSelectedItem())) {
+			Messagebox.show("Are you sure to unassign this doctor?", "Confirm Dialog", Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION, new org.zkoss.zk.ui.event.EventListener<Event>() {
+				@Override
+				public void onEvent(Event evt) throws Exception {
+					if (evt.getName().equals("onOK")) {
+						int to_id = Integer.valueOf(((Listcell) patientBox.getSelectedItem().getFirstChild()).getLabel());
+						int from_id = Integer.valueOf(((Listcell) assistingDoctorsGrid.getSelectedItem().getFirstChild()).getLabel());
+						RelationshipDAO relationshipDAO = new RelationshipDAO();
+						Relationship relationship = new Relationship();
+						relationship.setFromId(from_id);
+						relationship.setToId(to_id);
+						relationship.setRelationshipType(RelationshipType.ASSISTING_DOCTOR);
+						relationshipDAO.delete(relationship);
+						
+						FromUserRelationshipViewDAO fromUserRelationshipViewDAO = new FromUserRelationshipViewDAO();
+				    	List<Filter> filters = new ArrayList<Filter>();
+				    	filters.add(new Filter("rel_type", RelationshipType.ASSISTING_DOCTOR));
+				    	filters.add(Filter.AND);
+				    	filters.add(new Filter("to_id", to_id));
+				    	List<FromUserRelationshipView> assistingDoctors = fromUserRelationshipViewDAO.find(filters);
+				    	assistingDoctorsGrid.setModel(new ListModelList<FromUserRelationshipView>(assistingDoctors));
+			        }
+				}
+			});
+		}
+	}
     
     public void onClick$patientBox() {
     	if (Util.isNotEmpty(patientBox.getSelectedItem())) {
@@ -49,7 +90,19 @@ public class DoctorViewController extends GenericForwardComposer<Borderlayout> {
 	    	AppointmentVisitViewDAO dao = new AppointmentVisitViewDAO();
 	    	List<AppointmentVisitView> visits = dao.findByPatientId(id);
 	    	patientVisitsGrid.setModel(new ListModelList<AppointmentVisitView>(visits));
-	    	((Center)patientVisitsGrid.getParent()).setTitle("Past visits for " + ((Listcell) patientBox.getSelectedItem().getChildren().get(1)).getLabel());
+	    	((Center)patientVisitsGrid.getParent().getParent()).setTitle("Past visits for " + ((Listcell) patientBox.getSelectedItem().getChildren().get(1)).getLabel());
+	    	
+	    	FromUserRelationshipViewDAO fromUserRelationshipViewDAO = new FromUserRelationshipViewDAO();
+	    	List<Filter> filters = new ArrayList<Filter>();
+	    	filters.add(new Filter("rel_type", RelationshipType.ASSISTING_DOCTOR));
+	    	filters.add(Filter.AND);
+	    	filters.add(new Filter("to_id", id));
+	    	List<FromUserRelationshipView> assistingDoctors = fromUserRelationshipViewDAO.find(filters);
+	    	assistingDoctorsGrid.setModel(new ListModelList<FromUserRelationshipView>(assistingDoctors));
+	    	
+	    	assistingDoctorButton.setVisible(true);
+    	} else {
+    		assistingDoctorButton.setVisible(false);
     	}
     }
     
