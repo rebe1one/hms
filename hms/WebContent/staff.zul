@@ -57,12 +57,9 @@
 									</listhead>
 									<template name="model">
 										<listitem>
-											<listcell
-												label="${each.getPatientId()}" />
-											<listcell
-												label="${each.getFirstName()} ${each.getLastName()}" />
-											<listcell
-												label="${each.getTimestamp()}" />
+											<listcell label="${each.getPatientId()}" />
+											<listcell label="${each.getFirstName()} ${each.getLastName()}" />
+											<listcell label="${each.getTimestamp()}" />
 										</listitem>
 									</template>
 								</listbox>

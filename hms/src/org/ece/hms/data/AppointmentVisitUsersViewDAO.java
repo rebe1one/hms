@@ -39,4 +39,33 @@ public class AppointmentVisitUsersViewDAO extends DAO {
 		}
 		return allAppts;
 	}
+	
+	public List<AppointmentVisitUsersView> findByDoctorId(int id) {
+		List<AppointmentVisitUsersView> allAppts = new ArrayList<AppointmentVisitUsersView>();
+		try {
+			// get connection
+		    Statement stmt = ds.getStatement();
+			ResultSet rs = stmt.executeQuery(sql + " AND doctor_id = " + id);
+
+			// fetch all events from database
+			AppointmentVisitUsersView view;
+			
+			while (rs.next()) {
+				view = new AppointmentVisitUsersView();
+				view.setDoctorId(rs.getInt(1));
+				view.setPatientId(rs.getInt(2));
+				view.setDate(rs.getTimestamp(3));
+				view.setAppointmentLength(rs.getInt(4));
+				view.setVisitId(rs.getInt(5));
+				view.setPatientName(rs.getString(6));
+				view.setDoctorName(rs.getString(7));
+				allAppts.add(view);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+		    ds.close();
+		}
+		return allAppts;
+	}
 }

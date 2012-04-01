@@ -1,6 +1,150 @@
-<?page title="Administrator" contentType="text/html;charset=UTF-8"?>
+<?page title="Preetz Health - Administration" contentType="text/html;charset=UTF-8"?>
+<?init class="org.ece.hms.control.CheckForLogin" arg0="/admin.zul"?>
 <zk>
-<window title="Administrator" border="normal">
-New Content Here!
-</window>
+	<style>
+    .z-borderlayout { 
+        background: #FFFFFF 
+    } 
+    img.complex-layout-header-img {
+        padding: 0 10px; 
+    }
+	.z-tabpanel
+	{
+	padding:0px
+	}
+    </style>
+    <zscript>
+	<![CDATA[
+	import org.ece.hms.model.User;
+	import org.ece.hms.control.UserCredentialManager;
+	User user = UserCredentialManager.getInstance().getUser();
+	]]>
+	</zscript>
+	<borderlayout sclass="complex-layout" height="810px" apply="org.ece.hms.control.AdminViewController">
+        <north size="100px" border="0">
+            <div>
+                <div style="float:right">
+                	<label value="Welcome ${user.getName()}!"/>
+                    <button label="Logout">
+                        <attribute name="onClick"><![CDATA[
+							UserCredentialManager.getInstance().logout();
+                        ]]></attribute>
+                    </button>
+                </div>
+                <image sclass="complex-layout-header-img" src="/images/logo.png" />
+            </div>
+        </north>
+        <center border="none">
+		<tabbox>
+			<tabs>
+				<tab label="User Management" />
+				<tab label="Visits" />
+			</tabs>
+			<tabpanels>
+				<tabpanel>
+					<toolbar width="100%" height="19px">
+						<toolbarbutton id="newUser" label="New User" />
+					</toolbar>
+					<borderlayout height="500px">
+						<west size="50%" border="none" title="My Patients">
+							<listbox id="userBox" height="245px" style="margin: 5px;"
+								emptyMessage="No items match your search">
+								<listhead>
+									<listheader label="User ID" sort="auto(id)" />
+									<listheader label="Name" sort="auto(firstName,lastName)" />
+									<listheader label="Username" sort="auto(username)" />
+									<listheader label="Role" sort="auto(role)" />
+									<listheader label="Active" sort="auto(Active)" />
+								</listhead>
+								<template name="model">
+								<listitem>
+									<listcell label="${each.getId()}" />
+									<listcell label="${each.getFirstName()} ${each.getLastName()}" />
+									<listcell label="${each.getUsername()}" />
+									<listcell label="${each.getRole()}" />
+									<listcell label="${each.getActive()}" />
+								</listitem>
+								</template>
+							</listbox>
+						</west>
+						<center border="none" title="Patients">
+							<listbox id="patientBox" height="245px" style="margin: 5px;"
+								emptyMessage="No items match your search">
+								<listhead>
+									<listheader label="User ID" sort="auto(id)" />
+									<listheader label="Name" sort="auto(firstName,lastName)" />
+									<listheader label="Address" sort="auto(address)" />
+									<listheader label="Province" sort="auto(province)" />
+									<listheader label="SIN" sort="auto(SIN)" />
+									<listheader label="Health Card Number" sort="auto(healthCardNumber)" />
+									<listheader label="Phone Number" sort="auto(phoneNumber)" />
+									<listheader label="Current Health" sort="auto(currentHealth)" />
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell label="${each.getUserId()}" />
+										<listcell label="${each.getFirstName()} ${each.getLastName()}" />
+										<listcell label="${each.getAddress()}" />
+										<listcell label="${each.getProvince()}" />
+										<listcell label="${each.getSIN()}" />
+										<listcell label="${each.getHealthCardNumber()}" />
+										<listcell label="${each.getPhoneNumber()}" />
+										<listcell label="${each.getCurrentHealth()}" />
+									</listitem>
+								</template>
+							</listbox>
+						</center>
+					</borderlayout>
+				</tabpanel>
+				<tabpanel>
+					<grid id="visitsGrid" emptyMessage="No items match your search">
+						<auxhead>
+							<auxheader>
+								<image src="images/funnel.png" />
+								<textbox id="filterVisitsDate"
+									width="100px" />
+							</auxheader>
+							<auxheader>
+								<image src="images/funnel.png" />
+								<textbox id="filterVisitsPatientName"
+									width="100px" />
+							</auxheader>
+							<auxheader>
+								<image src="images/funnel.png" />
+								<textbox id="filterVisitsDiagnosis"
+									width="100px" />
+							</auxheader>
+							<auxheader>
+								<image src="images/funnel.png" />
+								<textbox id="filterVisitsPrescription"
+									width="100px" />
+							</auxheader>
+							<auxheader>
+								<image src="images/funnel.png" />
+								<textbox id="filterVisitsComments"
+									width="100px" />
+							</auxheader>
+						</auxhead>
+						<columns>
+							<column label="Date" sort="auto(timestamp)" />
+							<column label="Patient Name" sort="auto(patientId)" />
+							<column label="Diagnosis" sort="auto(diagnosis)" />
+							<column label="Prescription" sort="auto(prescription)" />
+							<column label="Comments" sort="auto(comments)" />
+						</columns>
+						<rows>
+							<row forEach="${visits}">
+								<label value="${each.getTimestamp()}"/>
+								<label value="${each.getPatientId()}"/>
+								<label value="${each.getDiagnosis()}"/>
+								<label value="${each.getPrescription()}"/>
+								<label value="${each.getComments()}"/>
+							</row>
+						</rows>
+					</grid>
+				</tabpanel>
+				</tabpanels>
+			</tabbox>
+		</center>
+	</borderlayout>
 </zk>

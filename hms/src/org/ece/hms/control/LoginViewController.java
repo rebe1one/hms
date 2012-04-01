@@ -59,6 +59,8 @@ public class LoginViewController extends GenericForwardComposer<Window> {
 						Executions.sendRedirect("/patient.zul");
 					} else if (user.getRole().equals(RoleType.STAFF)) {
 						Executions.sendRedirect("/staff.zul");
+					} else if (user.getRole().equals(RoleType.ADMIN)) {
+						Executions.sendRedirect("/admin.zul");
 					}
 
 				}
