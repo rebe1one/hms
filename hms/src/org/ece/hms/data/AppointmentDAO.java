@@ -3,6 +3,7 @@ package org.ece.hms.data;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,9 +48,10 @@ public class AppointmentDAO extends DAO implements iDAO<Appointment> {
 
 	@Override
 	public Boolean insert(Appointment entity) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return execute("INSERT INTO appointments(doctor_id, patient_id, date, length) " +
                 "VALUES ('" + entity.getDoctorId() +
-                "','" + entity.getPatientId() + "','" + new java.sql.Date(entity.getDate().getTime()) + "', '" + entity.getLength() + "')");
+                "','" + entity.getPatientId() + "','" + sdf.format(entity.getDate()) + "', '" + entity.getLength() + "')");
 	}
 
 	@Override
