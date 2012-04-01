@@ -27,7 +27,7 @@
 	List visits = avvdao.findByDoctorId(user.getId());
 	]]>
 	</zscript>
-	<borderlayout sclass="complex-layout" height="400px" apply="org.ece.hms.control.DoctorViewController">
+	<borderlayout sclass="complex-layout" height="550px" apply="org.ece.hms.control.DoctorViewController">
         <north size="100px" border="0">
             <div>
                 <div style="float:right">
@@ -50,7 +50,7 @@
 			</tabs>
 			<tabpanels>
 				<tabpanel>
-					<borderlayout height="500px">
+					<borderlayout height="550px">
 						<west size="50%" border="none" title="My Patients">
 							<listbox id="patientBox" height="245px" style="margin: 5px;"
 								emptyMessage="No items match your search">
@@ -87,22 +87,37 @@
 							</listbox>
 						</west>
 						<center border="none" title="Visits">
-							<grid style="margin: 5px" id="patientVisitsGrid" emptyMessage="No items match your search">
-								<columns>
-									<column label="Date" sort="auto(timestamp)" />
-									<column label="Diagnosis" sort="auto(diagnosis)" />
-									<column label="Prescription" sort="auto(prescription)" />
-									<column label="Comments" sort="auto(comments)" />
-								</columns>
-								<template name="model">
-									<row>
-										<label value="${each.getTimestamp()}" />
-										<label value="${each.getDiagnosis()}" />
-										<label value="${each.getPrescription()}" />
-										<label value="${each.getComments()}" />
-									</row>
-								</template>
-							</grid>
+							<vlayout>
+								<grid style="margin: 5px" id="patientVisitsGrid" emptyMessage="No items match your search">
+									<columns>
+										<column label="Date" sort="auto(timestamp)" />
+										<column label="Diagnosis" sort="auto(diagnosis)" />
+										<column label="Prescription" sort="auto(prescription)" />
+										<column label="Comments" sort="auto(comments)" />
+									</columns>
+									<template name="model">
+										<row>
+											<label value="${each.getTimestamp()}" />
+											<label value="${each.getDiagnosis()}" />
+											<label value="${each.getPrescription()}" />
+											<label value="${each.getComments()}" />
+										</row>
+									</template>
+								</grid>
+								<listbox style="margin: 5px" id="assistingDoctorsGrid" emptyMessage="No items match your search">
+									<listhead>
+										<listheader label="Doctor ID" sort="auto(from_id)" />
+										<listheader label="Assisting Doctor" sort="auto(firstName,lastName)" />
+									</listhead>
+									<template name="model">
+										<listitem>
+											<listcell label="${each.getFromId()}" />
+											<listcell label="${each.getFirstName()} ${each.getLastName()}" />
+										</listitem>
+									</template>
+								</listbox>
+								<button mold="os" style="margin: 5px" id="assistingDoctorButton" label="Add an Assisting Doctor" visible="false"/>
+							</vlayout>
 						</center>
 					</borderlayout>
 

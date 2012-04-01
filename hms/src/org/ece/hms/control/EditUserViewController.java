@@ -82,9 +82,6 @@ public class EditUserViewController extends GenericForwardComposer<Window> {
 			} else {
 				user.setId(userDAO.insertAndReturn(user));
 			}
-			// create new user, previous role is null, no delete, yes insert
-			// edit old user, previous role is valid, different, yes delete, yes insert
-			// edit old user, previous role is valid, same, no delete, no insert
 			if (Util.isNotEmpty(previousRole) && !user.getRole().equals(previousRole)) {
 				if (previousRole.equals(RoleType.DOCTOR)) {
 					DoctorDAO doctorDAO = new DoctorDAO();

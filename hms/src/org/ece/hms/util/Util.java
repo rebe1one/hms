@@ -45,6 +45,14 @@ public class Util {
 		return b.toString();
 	}
 	
+	public static String buildSQLString(String query, List<Filter> filters) {
+		String sqlFilters = Util.filterToSQL(filters);
+		if (isNotEmpty(sqlFilters)) {
+			return new StringBuilder(query).append(sqlFilters).toString();
+		}
+		return query;
+	}
+	
 	public static String getPasswordHash(String password) throws NoSuchAlgorithmException {
 		MessageDigest md = MessageDigest.getInstance("SHA1");
 		String passwordString = new String(password);

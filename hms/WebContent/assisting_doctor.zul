@@ -1,0 +1,20 @@
+<?page title="Preetz Health - Assisting Doctor"?>
+<?init class="org.ece.hms.control.CheckForLogin" arg0="/doctor.zul"?>
+<zk>
+	<window id="assistingDoctorWindow" border="normal" width="500px" closable="true" title="Assign Doctor" 
+			apply="org.ece.hms.control.AssistingDoctorViewController" mode="overlapped" position="center,center">
+		<grid id="userForm">
+			<rows>
+				<row id="doctorRow">
+					Assisting Doctor:
+					<textbox id="doctorId" />
+					<button id="lookupDoctorButton" label="Lookup" />
+				</row>
+			</rows>
+		</grid>
+		<div style="float: right;">
+			<label id="mesgLbl" />
+			<button id="confirmBtn" label="Assign" />
+		</div>
+	</window>
+</zk>
