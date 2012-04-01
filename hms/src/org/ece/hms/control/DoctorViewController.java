@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.ece.hms.data.AppointmentVisitUsersViewDAO;
 import org.ece.hms.data.AppointmentVisitViewDAO;
 import org.ece.hms.data.DoctorPatientViewDAO;
+import org.ece.hms.model.AppointmentVisitUsersView;
 import org.ece.hms.model.AppointmentVisitView;
 import org.ece.hms.model.DoctorPatientView;
 import org.ece.hms.util.DateFilter;
@@ -39,7 +41,7 @@ public class DoctorViewController extends GenericForwardComposer<Borderlayout> {
 	private Textbox patientNameFilter;
 	private Datebox patientDateFilter;
 	private Listbox patientBox;
-	private Grid patientVisitsGrid;
+	private Grid patientVisitsGrid, appointmentGrid;
     
     public void onClick$patientBox() {
     	if (Util.isNotEmpty(patientBox.getSelectedItem())) {
@@ -156,5 +158,9 @@ public class DoctorViewController extends GenericForwardComposer<Borderlayout> {
     	DoctorPatientViewDAO dao = new DoctorPatientViewDAO();
     	List<DoctorPatientView> patients = dao.findByDoctorId(UserCredentialManager.getInstance().getUser().getId());
     	patientBox.setModel(new ListModelList<DoctorPatientView>(patients));
+    	
+    	AppointmentVisitUsersViewDAO appointmentVisitUsersViewDAO = new AppointmentVisitUsersViewDAO();
+    	List<AppointmentVisitUsersView> appointments = appointmentVisitUsersViewDAO.findByDoctorId(UserCredentialManager.getInstance().getUser().getId());
+    	appointmentGrid.setModel(new ListModelList<AppointmentVisitUsersView>(appointments));
     }
 }
