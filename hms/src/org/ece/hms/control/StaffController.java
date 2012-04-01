@@ -11,7 +11,6 @@ import org.ece.hms.model.AppointmentVisitUsersView;
 import org.ece.hms.model.AppointmentVisitView;
 import org.ece.hms.model.DoctorPatientView;
 import org.ece.hms.model.PatientUserView;
-import org.zkoss.zhtml.Button;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.ForwardEvent;
@@ -89,6 +88,14 @@ public class StaffController extends GenericForwardComposer<Borderlayout> {
 		Executions.createComponents("modal_lookup.zul", null, map);
 	}
 
+	public void onEditAppointment(Event event) {
+		AppointmentVisitUsersView appointment = getSelectedAppointment(event);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("appointment", appointment);
+		map.put("grid", appointmentGrid);
+		Executions.createComponents("appointment.zul", null, map);
+	}
+
 	private PatientUserView getSelectedPatient(Event event) {
 
 		if (event instanceof ForwardEvent) {
@@ -98,6 +105,21 @@ public class StaffController extends GenericForwardComposer<Borderlayout> {
 
 			PatientUserView selectedPatient = (PatientUserView) row.getValue();
 			return selectedPatient;
+		}
+
+		return null;
+	}
+
+	private AppointmentVisitUsersView getSelectedAppointment(Event event) {
+
+		if (event instanceof ForwardEvent) {
+			ForwardEvent fwevent = (ForwardEvent) event;
+			Event eventOrigin = fwevent.getOrigin();
+			Row row = (Row) eventOrigin.getTarget().getParent();
+
+			AppointmentVisitUsersView selectedAppointment = (AppointmentVisitUsersView) row
+					.getValue();
+			return selectedAppointment;
 		}
 
 		return null;

@@ -28,7 +28,7 @@
 						mold="rounded" />
 				</row>
 				<row>
-					Length: 
+					Length:
 					<textbox id="length" cols="2" maxlength="2" />
 				</row>
 			</rows>

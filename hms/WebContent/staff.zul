@@ -57,9 +57,12 @@
 									</listhead>
 									<template name="model">
 										<listitem>
-											<listcell label="${each.getPatientId()}" />
-											<listcell label="${each.getFirstName()} ${each.getLastName()}" />
-											<listcell label="${each.getTimestamp()}" />
+											<listcell
+												label="${each.getPatientId()}" />
+											<listcell
+												label="${each.getFirstName()} ${each.getLastName()}" />
+											<listcell
+												label="${each.getTimestamp()}" />
 										</listitem>
 									</template>
 								</listbox>
@@ -113,7 +116,6 @@
 									<label
 										value="${each.getFirstName()} ${each.getLastName()}" />
 									<button
-										class="assignUnassignedPatientBtn"
 										forward="onClick=onAssignUnassignedPatient" label="Assign">
 									</button>
 								</row>
@@ -146,7 +148,9 @@
 									<label value="${each.getDate()}" />
 									<label
 										value="${each.getAppointmentLength()}" />
-									<button label="Edit" />
+									<button
+										forward="onClick=onEditAppointment" label="Edit">
+									</button>
 								</row>
 							</template>
 						</grid>
