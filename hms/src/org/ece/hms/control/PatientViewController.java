@@ -35,13 +35,14 @@ public class PatientViewController extends SelectorComposer<Window> {
     private boolean doSubmit() {
     	try {   		   		
     		Patient patient = new Patient();
+    		PatientDAO patientDAO = new PatientDAO();
+    		patient = patientDAO.findById(UserCredentialManager.getInstance().getUser().getId());
     		patient.setAddress(addressTxb.getValue());
     		patient.setProvince(provinceTxb.getValue());
     		patient.setSIN(Integer.valueOf(sinTxb.getValue()));
     		patient.setHealthCardNumber(healthCardNumberTxb.getValue());
     		patient.setPhoneNumber(phoneNumberTxb.getValue());
     		patient.setUserId(UserCredentialManager.getInstance().getUser().getId());
-    		PatientDAO patientDAO = new PatientDAO();
     		patientDAO.update(patient);
     		
     		User user = new User();
