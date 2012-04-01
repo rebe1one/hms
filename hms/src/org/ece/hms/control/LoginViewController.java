@@ -49,20 +49,23 @@ public class LoginViewController extends GenericForwardComposer<Window> {
 			user = userDAO.findByLogin(user);
 
 			if (Util.isNotEmpty(user) && user.getPassword().equals(hashStr)) {
-				UserCredentialManager.getInstance().authenticate(user);
-				if (UserCredentialManager.getInstance().isAuthenticated()) {
-					if (!Util.isEmpty(redirectUrl)) {
-						Executions.sendRedirect(redirectUrl);
-					} else if (user.getRole().equals(RoleType.DOCTOR)) {
-						Executions.sendRedirect("/doctor.zul");
-					} else if (user.getRole().equals(RoleType.PATIENT)) {
-						Executions.sendRedirect("/patient.zul");
-					} else if (user.getRole().equals(RoleType.STAFF)) {
-						Executions.sendRedirect("/staff.zul");
-					} else if (user.getRole().equals(RoleType.ADMIN)) {
-						Executions.sendRedirect("/admin.zul");
+				if (user.isActive()) {
+					UserCredentialManager.getInstance().authenticate(user);
+					if (UserCredentialManager.getInstance().isAuthenticated()) {
+						if (!Util.isEmpty(redirectUrl)) {
+							Executions.sendRedirect(redirectUrl);
+						} else if (user.getRole().equals(RoleType.DOCTOR)) {
+							Executions.sendRedirect("/doctor.zul");
+						} else if (user.getRole().equals(RoleType.PATIENT)) {
+							Executions.sendRedirect("/patient.zul");
+						} else if (user.getRole().equals(RoleType.STAFF)) {
+							Executions.sendRedirect("/staff.zul");
+						} else if (user.getRole().equals(RoleType.ADMIN)) {
+							Executions.sendRedirect("/admin.zul");
+						}
 					}
-
+				} else {
+					mesgLbl.setValue("This account has been disabled.");
 				}
 			} else {
 				mesgLbl.setValue("Login Failed!");

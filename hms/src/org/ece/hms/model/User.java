@@ -71,4 +71,7 @@ public class User {
 	public void setActive(int active) {
 		this.active = active;
 	}
+	public boolean isActive() {
+		return active == 1;
+	}
 }

@@ -18,6 +18,10 @@
 					<textbox id="usernameTxb" maxlength="255" constraint="no empty" />
 				</row>
 				<row>
+					New Password:
+					<textbox id="passwordTxb" type="password" />
+				</row>
+				<row>
 					Role:
 					<listbox id="roleLbx" rows="1" mold="select">
                         <listitem label="Administrator" value="ADMIN" />
@@ -31,7 +35,7 @@
 					Status:
 					<listbox id="activeLbx" rows="1" mold="select">
                         <listitem label="Disabled" value="0" />
-                        <listitem label="Active" value="1" />
+                        <listitem label="Active" value="1" selected="true"/>
                     </listbox>
 				</row>
 				<row id="doctorRow">

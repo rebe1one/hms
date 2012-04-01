@@ -15,14 +15,14 @@ import org.ece.hms.model.User;
 import org.ece.hms.data.UserDAO;;
 
 public class DoctorPatientViewDAO extends DAO {
-	private String sql = "SELECT relationships.from_id as doctor_id, patient_user.id as patient_id, patient_user.first_name, patient_user.last_name, latest_appointment_visits.timestamp FROM relationships JOIN patient_user ON (relationships.to_id = patient_user.id) LEFT JOIN latest_appointment_visits ON (latest_appointment_visits.patient_id = patient_user.id)";
+	private String sql = "SELECT * FROM (SELECT relationships.from_id as doctor_id, patient_user.id as patient_id, patient_user.first_name, patient_user.last_name, latest_appointment_visits.timestamp FROM relationships JOIN patient_user ON (relationships.to_id = patient_user.id) LEFT JOIN latest_appointment_visits ON (latest_appointment_visits.patient_id = patient_user.id)) AS dpv ";
 	
 	public List<DoctorPatientView> findByDoctorId(int id) {
 		List<DoctorPatientView> allViews = new ArrayList<DoctorPatientView>();
 		try {
 			// get connection
 		    Statement stmt = ds.getStatement();
-			ResultSet rs = stmt.executeQuery(sql + " AND doctor_id = " + id );
+			ResultSet rs = stmt.executeQuery(sql + " WHERE doctor_id = " + id );
 			// fetch all events from database
 			
 			while (rs.next()) {

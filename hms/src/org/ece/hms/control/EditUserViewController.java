@@ -1,5 +1,6 @@
 package org.ece.hms.control;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class EditUserViewController extends GenericForwardComposer<Window> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Textbox firstNameTxb, lastNameTxb, usernameTxb, doctorId;
+	private Textbox firstNameTxb, lastNameTxb, usernameTxb, doctorId, passwordTxb;
 	private Listbox roleLbx, activeLbx;
 	private Window editUserWindow;
 	private Label mesgLbl;
@@ -59,7 +60,7 @@ public class EditUserViewController extends GenericForwardComposer<Window> {
 			return;
 		}
 		try {
-			String previousRole = null;
+			String previousRole = "";
 			UserDAO userDAO = new UserDAO();
 			User user = new User();
 			if (arg.containsKey("id")) {
@@ -70,6 +71,9 @@ public class EditUserViewController extends GenericForwardComposer<Window> {
 			user.setFirstName(firstNameTxb.getValue());
 			user.setLastName(lastNameTxb.getValue());
 			user.setUsername(usernameTxb.getValue());
+			if (!arg.containsKey("id") || Util.isNotEmpty(passwordTxb.getValue())) {
+				user.setPassword(Util.getPasswordHash(passwordTxb.getValue()));
+			}
 			user.setRole(role);
 			user.setActive(Integer.valueOf(activeLbx.getSelectedItem().getValue().toString()));
 			userDAO.startTransaction();
@@ -78,7 +82,10 @@ public class EditUserViewController extends GenericForwardComposer<Window> {
 			} else {
 				user.setId(userDAO.insertAndReturn(user));
 			}
-			if (!user.getRole().equals(previousRole)) {
+			// create new user, previous role is null, no delete, yes insert
+			// edit old user, previous role is valid, different, yes delete, yes insert
+			// edit old user, previous role is valid, same, no delete, no insert
+			if (Util.isNotEmpty(previousRole) && !user.getRole().equals(previousRole)) {
 				if (previousRole.equals(RoleType.DOCTOR)) {
 					DoctorDAO doctorDAO = new DoctorDAO();
 					Doctor doctor = doctorDAO.findByUserId(user.getId());
@@ -93,15 +100,17 @@ public class EditUserViewController extends GenericForwardComposer<Window> {
 					if (Util.isNotEmpty(staff.getUserId())) staffDAO.delete(staff);
 				}
 			}
-			if (role.equals(RoleType.DOCTOR)) {
-				DoctorDAO doctorDAO = new DoctorDAO();
-				doctorDAO.insert(new Doctor(user.getId()));
-			} else if (role.equals(RoleType.FINANCE)) {
-				FinanceDAO financeDAO = new FinanceDAO();
-				financeDAO.insert(new Finance(user.getId()));
-			} else if (role.equals(RoleType.STAFF)) {
-				StaffDAO staffDAO = new StaffDAO();
-				staffDAO.insert(new Staff(user.getId(), Integer.valueOf(doctorId.getValue())));
+			if (Util.isEmpty(previousRole) || !user.getRole().equals(previousRole)) {
+				if (role.equals(RoleType.DOCTOR)) {
+					DoctorDAO doctorDAO = new DoctorDAO();
+					doctorDAO.insert(new Doctor(user.getId()));
+				} else if (role.equals(RoleType.FINANCE)) {
+					FinanceDAO financeDAO = new FinanceDAO();
+					financeDAO.insert(new Finance(user.getId()));
+				} else if (role.equals(RoleType.STAFF)) {
+					StaffDAO staffDAO = new StaffDAO();
+					staffDAO.insert(new Staff(user.getId(), Integer.valueOf(doctorId.getValue())));
+				}
 			}
 			if (arg.containsKey("grid")) {
 				Listbox usersGrid = (Listbox)arg.get("grid");
@@ -113,6 +122,8 @@ public class EditUserViewController extends GenericForwardComposer<Window> {
 		} catch (WrongValueException e) {
 			mesgLbl.setValue("Please fix the errors listed above");
 			return;
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -129,6 +140,7 @@ public class EditUserViewController extends GenericForwardComposer<Window> {
 		if (arg.containsKey("id")) {
 			UserDAO userDAO = new UserDAO();
 			User user = userDAO.findById(Integer.valueOf(arg.get("id").toString()));
+			role = user.getRole();
 			firstNameTxb.setValue(user.getFirstName());
 			lastNameTxb.setValue(user.getLastName());
 			usernameTxb.setValue(user.getUsername());
@@ -147,12 +159,12 @@ public class EditUserViewController extends GenericForwardComposer<Window> {
 				}
 			}
 			roleLbx.setDisabled(true);
-			if (!role.equals(RoleType.STAFF)) {
-				doctorRow.detach();
-			}
 			if (arg.containsKey("title")) {
 				editUserWindow.setTitle(arg.get("title").toString());
 			}
+		}
+		if (!role.equals(RoleType.STAFF)) {
+			doctorRow.setVisible(false);
 		}
 	}
 }
