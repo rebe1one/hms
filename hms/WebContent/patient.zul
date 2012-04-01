@@ -97,6 +97,10 @@
 									Assigned Doctor:
 									<label id="assignedDoctorLbl" value="${doctorName}" />
 								</row>
+								<row>
+									Number of Visits:
+									<label id="numberOfVisitsLbl" value="${appointments.size()}" />
+								</row>
 							</rows>
 						</grid>
 					</tabpanel>
