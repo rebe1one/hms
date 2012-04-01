@@ -1,7 +1,7 @@
 <?page title="Appointment"?>
 <?init class="org.ece.hms.control.CheckForLogin" arg0="/appointment.zul"?>
 <zk>
-	<window id="appointmentWin" border="normal" width="500px"
+	<window id="appointmentWin" border="normal" width="450px" closable="true"
 		title="Schedule an Appointment"
 		apply="org.ece.hms.control.AppointmentViewController"
 		mode="overlapped" position="center,center">
@@ -29,7 +29,9 @@
 				</row>
 			</rows>
 		</grid>
-		<button id="confirmBtn" label="confirm" />
+		<div style="float: right;">
+			<button id="confirmBtn" label="Schedule" />
+		</div>
 		<label id="mesgLbl" />
 	</window>
 </zk>

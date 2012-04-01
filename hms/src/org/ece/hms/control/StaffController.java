@@ -3,9 +3,11 @@ package org.ece.hms.control;
 import java.util.HashMap;
 import java.util.List;
 
+import org.ece.hms.data.AppointmentVisitUsersViewDAO;
 import org.ece.hms.data.AppointmentVisitViewDAO;
 import org.ece.hms.data.PatientUserViewDAO;
 import org.ece.hms.data.StaffPatientViewDAO;
+import org.ece.hms.model.AppointmentVisitUsersView;
 import org.ece.hms.model.AppointmentVisitView;
 import org.ece.hms.model.DoctorPatientView;
 import org.ece.hms.model.PatientUserView;
@@ -28,8 +30,7 @@ public class StaffController extends GenericForwardComposer<Borderlayout> {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Listbox patientBox;
-	private Grid patientVisitsGrid, unassignedPatientsGrid;
-	private Button newPatientBtn;
+	private Grid patientVisitsGrid, unassignedPatientsGrid, appointmentGrid;
 	
     public void onClick$patientBox() {
     	int id = Integer.valueOf(((Listcell) patientBox.getSelectedItem().getFirstChild()).getLabel());
@@ -46,16 +47,26 @@ public class StaffController extends GenericForwardComposer<Borderlayout> {
     	PatientUserViewDAO patientUserViewDAO = new PatientUserViewDAO();
     	List<PatientUserView> unassignedPatients = patientUserViewDAO.findUnassigned();
     	unassignedPatientsGrid.setModel(new ListModelList<PatientUserView>(unassignedPatients));
+    	
     	StaffPatientViewDAO staffPatientViewDAO = new StaffPatientViewDAO();
-    	// Patients
     	List<DoctorPatientView> patients = staffPatientViewDAO.findByStaffId(UserCredentialManager.getInstance().getUser().getId());
     	patientBox.setModel(new ListModelList<DoctorPatientView>(patients));
+    	
+    	AppointmentVisitUsersViewDAO appointmentVisitUsersViewDAO = new AppointmentVisitUsersViewDAO();
+    	List<AppointmentVisitUsersView> appointments = appointmentVisitUsersViewDAO.findAll();
+    	appointmentGrid.setModel(new ListModelList<AppointmentVisitUsersView>(appointments));
     }
     
     public void onClick$newPatientBtn() {
     	HashMap<String, Object> map = new HashMap<String, Object>();
     	map.put("grid", unassignedPatientsGrid);
     	Executions.createComponents("new_patient.zul", null, map);
+    }
+    
+    public void onClick$newAppointmentBtn() {
+    	HashMap<String, Object> map = new HashMap<String, Object>();
+    	map.put("grid", appointmentGrid);
+    	Executions.createComponents("appointment.zul", null, map);
     }
 
 	public void onAssignUnassignedPatient(Event event) {

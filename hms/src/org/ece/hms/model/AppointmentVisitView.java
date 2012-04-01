@@ -1,7 +1,6 @@
 package org.ece.hms.model;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class AppointmentVisitView {
 	private int doctorId;
@@ -89,4 +88,5 @@ public class AppointmentVisitView {
 	public void setCreatedBy(int createdBy) {
 		this.createdBy = createdBy;
 	}
+
 }

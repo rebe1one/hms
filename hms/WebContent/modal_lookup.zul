@@ -7,20 +7,19 @@
 		Name:
 		<textbox id="nameTxb" />
 		<button id="confirmBtn" label="Search" />
-		<grid id="results" sizedByContent="true"
-			emptyMessage="No items match your search">
-			<columns>
-				<column label="Id" sort="auto" />
-				<column label="Name" sort="auto" />
-				<column label="Role" sort="auto" />
-			</columns>
+		<listbox id="results" emptyMessage="No items match your search">
+			<listhead>
+				<listheader label="Id" sort="auto(id)" />
+				<listheader label="Name" sort="auto(firstName,lastName)" />
+				<listheader label="Role" sort="auto(role)" />
+			</listhead>
 			<template name="model">
-				<row>
-					<label value="${each.getId()}" />
-					<label value="${each.getName()}" />
-					<label value="${each.getRole()}" />
-				</row>
+				<listitem>
+					<listcell label="${each.getId()}" />
+					<listcell label="${each.getName()}" />
+					<listcell label="${each.getRole()}" />
+				</listitem>
 			</template>
-		</grid>
+		</listbox>
 	</window>
 </zk>

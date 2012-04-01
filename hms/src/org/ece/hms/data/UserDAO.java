@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.ece.hms.model.Patient;
 import org.ece.hms.model.User;
+import org.ece.hms.util.Filter;
+import org.ece.hms.util.Util;
 
 public class UserDAO extends DAO implements iDAO<User> {
 	protected final DataSource ds = DataSource.INSTANCE;
@@ -47,6 +49,41 @@ public class UserDAO extends DAO implements iDAO<User> {
 			// get connection
 		    Statement stmt = ds.getStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM users");
+
+			// fetch all events from database
+			User user;
+			
+			while (rs.next()) {
+				user = new User();
+				user.setId(rs.getInt(1));
+				user.setUsername(rs.getString(2));
+				user.setPassword(rs.getString(3));
+				user.setRole(rs.getString(4));
+				user.setFirstName(rs.getString(5));
+				user.setLastName(rs.getString(6));
+				user.setActive(rs.getInt(7));
+				allUserLogins.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+		    ds.close();
+		}
+		
+		return allUserLogins;
+	}
+	
+	public List<User> find(List<Filter> filters) {
+		List<User> allUserLogins = new ArrayList<User>();
+		try {
+			// get connection
+		    Statement stmt = ds.getStatement();
+		    String query = "SELECT * FROM users";
+		    String filter = Util.filterToSQL(filters);
+		    if (Util.isNotEmpty(filter)) {
+		    	query += " WHERE " + filter;
+		    }
+			ResultSet rs = stmt.executeQuery(query);
 
 			// fetch all events from database
 			User user;

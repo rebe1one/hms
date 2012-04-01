@@ -3,58 +3,59 @@ package org.ece.hms.control;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import org.ece.hms.data.AppointmentDAO;
+import org.ece.hms.data.AppointmentVisitUsersViewDAO;
+import org.ece.hms.data.PatientUserViewDAO;
 import org.ece.hms.model.Appointment;
+import org.ece.hms.model.AppointmentVisitUsersView;
+import org.ece.hms.model.PatientUserView;
 import org.ece.hms.util.Util;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.util.GenericForwardComposer;
+import org.zkoss.zul.Borderlayout;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Grid;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Timebox;
 import org.zkoss.zul.Window;
 
 
-public class AppointmentViewController extends SelectorComposer<Window> {
-	@Wire
+public class AppointmentViewController extends GenericForwardComposer<Window> {
     private Textbox doctorId, patientId;
-	
-	@Wire
 	private Datebox date;
-	
-	@Wire
 	private Timebox time;
-	
-    @Wire
     private Label mesgLbl;
+    private Window appointmentWin;
     
     @Override
 	public void doAfterCompose(Window window) throws Exception {
 		super.doAfterCompose(window);
     }
     
-    @Listen("onClick=#lookupPatientButton")
-    public void modalPatientLookup() {
+    public void onClick$lookupPatientButton() {
     	HashMap<String, Object> map = new HashMap<String, Object>();
-    	map.put("type", "PATIENT");
+    	map.put("role", "PATIENT");
     	map.put("textbox", patientId);
     	Executions.createComponents("modal_lookup.zul", null, map);
     }
     
-    @Listen("onClick=#lookupDoctorButton")
-    public void modalDoctorLookup() {
+    public void onClick$lookupDoctorButton() {
     	HashMap<String, Object> map = new HashMap<String, Object>();
-    	map.put("type", "DOCTOR");
+    	map.put("role", "DOCTOR");
     	map.put("textbox", doctorId);
     	Executions.createComponents("modal_lookup.zul", null, map);
     }
     
     @Listen("onClick=#confirmBtn")
-    public void createAppointment() {
+    public void onClick$confirmBtn() {
     	boolean valid = true;
         if (Util.isEmpty(patientId.getValue())) {
         	patientId.setErrorMessage("Required Field.");
@@ -82,6 +83,13 @@ public class AppointmentViewController extends SelectorComposer<Window> {
         	appt.setDate(new Timestamp(date.getTime()));
         	AppointmentDAO apptDAO = new AppointmentDAO();
         	apptDAO.insert(appt);
+        	if (arg.containsKey("grid")) {
+				Grid appointmentGrid = (Grid)arg.get("grid");
+				AppointmentVisitUsersViewDAO appointmentVisitUsersViewDAO = new AppointmentVisitUsersViewDAO();
+		    	List<AppointmentVisitUsersView> appointments = appointmentVisitUsersViewDAO.findAll();
+		    	appointmentGrid.setModel(new ListModelList<AppointmentVisitUsersView>(appointments));
+			}
+        	appointmentWin.onClose();
         }
     }
     
