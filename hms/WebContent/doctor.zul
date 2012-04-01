@@ -27,7 +27,7 @@
 	List visits = avvdao.findByDoctorId(user.getId());
 	]]>
 	</zscript>
-	<borderlayout sclass="complex-layout" height="810px" apply="org.ece.hms.control.DoctorViewController">
+	<borderlayout sclass="complex-layout" height="400px" apply="org.ece.hms.control.DoctorViewController">
         <north size="100px" border="0">
             <div>
                 <div style="float:right">

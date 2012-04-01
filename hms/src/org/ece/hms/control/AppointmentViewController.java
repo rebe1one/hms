@@ -29,7 +29,7 @@ import org.zkoss.zul.Window;
 
 
 public class AppointmentViewController extends GenericForwardComposer<Window> {
-    private Textbox doctorId, patientId;
+    private Textbox doctorId, patientId, length;
 	private Datebox date;
 	private Timebox time;
     private Label mesgLbl;
@@ -81,6 +81,7 @@ public class AppointmentViewController extends GenericForwardComposer<Window> {
         	date.setHours(time.getValue().getHours());
         	date.setMinutes(time.getValue().getMinutes());
         	appt.setDate(new Timestamp(date.getTime()));
+        	appt.setLength(Integer.valueOf(length.getValue()));
         	AppointmentDAO apptDAO = new AppointmentDAO();
         	apptDAO.insert(appt);
         	if (arg.containsKey("grid")) {

@@ -4,7 +4,6 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-
 import org.ece.hms.data.PatientDAO;
 import org.ece.hms.data.PatientUserViewDAO;
 import org.ece.hms.data.UserDAO;
@@ -70,6 +69,12 @@ public class CreatePatientViewController extends GenericForwardComposer<Window> 
 					RoleType.PATIENT, firstNameTxb.getValue(),
 					lastNameTxb.getValue(), User.ACTIVE);
 			UserDAO userDAO = new UserDAO();
+			
+			if (userDAO.findByLogin(user) != null) {
+				mesgLbl.setValue("Error: Username already exists");
+				return;
+			}
+			
 			userDAO.startTransaction();
 			int userId = userDAO.insertAndReturn(user);
 			if (userId < 1) {
