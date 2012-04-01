@@ -11,14 +11,17 @@ import java.util.Set;
 import org.ece.hms.data.AppointmentVisitUsersViewDAO;
 import org.ece.hms.data.AppointmentVisitViewDAO;
 import org.ece.hms.data.DoctorPatientViewDAO;
+import org.ece.hms.data.PatientUserViewDAO;
 import org.ece.hms.data.UserDAO;
 import org.ece.hms.model.AppointmentVisitUsersView;
 import org.ece.hms.model.AppointmentVisitView;
 import org.ece.hms.model.DoctorPatientView;
+import org.ece.hms.model.PatientUserView;
 import org.ece.hms.model.User;
 import org.ece.hms.util.DateFilter;
 import org.ece.hms.util.Filter;
 import org.ece.hms.util.Util;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.InputEvent;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
@@ -42,13 +45,22 @@ public class AdminViewController extends GenericForwardComposer<Borderlayout> {
 	private Textbox patientIdFilter;
 	private Textbox patientNameFilter;
 	private Datebox patientDateFilter;
-	private Listbox userBox;
+	private Listbox userBox, patientBox;
     
     public void onClick$userBox() {
     	if (Util.isNotEmpty(userBox.getSelectedItem())) {
 	    	int id = Integer.valueOf(((Listcell) userBox.getSelectedItem().getFirstChild()).getLabel());
-	    	
+	    	Map<String, Object> map = new HashMap<String, Object>();
+	    	map.put("id", id);
+	    	map.put("grid", userBox);
+	    	Executions.createComponents("/edit_user.zul", null, map);
     	}
+    }
+    
+    public void onClick$newUser() {
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	map.put("grid", userBox);
+    	Executions.createComponents("/edit_user.zul", null, map);
     }
     
     public void onChanging$userIdFilter(InputEvent event) {
@@ -92,5 +104,9 @@ public class AdminViewController extends GenericForwardComposer<Borderlayout> {
     	UserDAO dao = new UserDAO();
     	List<User> users = dao.findAll();
     	userBox.setModel(new ListModelList<User>(users));
+    	
+    	PatientUserViewDAO puvDAO = new PatientUserViewDAO();
+    	List<PatientUserView> puvList = puvDAO.findAll();
+    	patientBox.setModel(new ListModelList<PatientUserView>(puvList));
     }
 }

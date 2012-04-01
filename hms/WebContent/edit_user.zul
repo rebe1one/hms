@@ -1,0 +1,44 @@
+<?page title="Collector - Login"?>
+<?init class="org.ece.hms.control.CheckForLogin" arg0="/staff.zul"?>
+<zk>
+	<window id="editUserWindow" border="normal" width="500px" closable="true" title="Edit user" 
+			apply="org.ece.hms.control.EditUserViewController" mode="overlapped" position="center,center">
+		<grid>
+			<rows>
+				<row>
+					First Name:
+					<textbox id="firstNameTxb" maxlength="255" constraint="no empty" />
+				</row>
+				<row>
+					Last Name:
+					<textbox id="lastNameTxb" maxlength="255" constraint="no empty" />
+				</row>
+				<row>
+					Username:
+					<textbox id="usernameTxb" maxlength="255" constraint="no empty" />
+				</row>
+				<row>
+					Role:
+					<listbox id="roleLbx" rows="1" mold="select">
+                        <listitem label="Administrator" value="ADMIN" />
+                        <listitem label="Patient" value="PATIENT" />
+                        <listitem label="Staff" value="STAFF" />
+                        <listitem label="Doctor" value="DOCTOR" />
+                        <listitem label="Finance" value="FINANCE" />
+                    </listbox>
+				</row>
+				<row>
+					Status:
+					<listbox id="activeLbx" rows="1" mold="select">
+                        <listitem label="Disabled" value="0" />
+                        <listitem label="Active" value="1" />
+                    </listbox>
+				</row>
+			</rows>
+		</grid>
+		<div style="float: right;">
+			<label id="mesgLbl" />
+			<button id="confirmBtn" label="Save" />
+		</div>
+	</window>
+</zk>
