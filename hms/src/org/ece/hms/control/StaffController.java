@@ -73,7 +73,7 @@ public class StaffController extends GenericForwardComposer<Borderlayout> {
 		PatientUserView patient = getSelectedPatient(event);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("patient", patient);
-		map.put("type", "DOCTOR");
+		map.put("role", "DOCTOR");
 		Executions.createComponents("modal_lookup.zul", null, map);
 	}
 
