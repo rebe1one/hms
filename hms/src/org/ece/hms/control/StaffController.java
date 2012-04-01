@@ -31,49 +31,61 @@ public class StaffController extends GenericForwardComposer<Borderlayout> {
 	private static final long serialVersionUID = 1L;
 	private Listbox patientBox;
 	private Grid patientVisitsGrid, unassignedPatientsGrid, appointmentGrid;
-	
-    public void onClick$patientBox() {
-    	int id = Integer.valueOf(((Listcell) patientBox.getSelectedItem().getFirstChild()).getLabel());
-    	System.out.println(id);
-    	AppointmentVisitViewDAO dao = new AppointmentVisitViewDAO();
-    	List<AppointmentVisitView> visits = dao.findByPatientId(id);
-    	patientVisitsGrid.setModel(new ListModelList<AppointmentVisitView>(visits));
-    	((Center)patientVisitsGrid.getParent()).setTitle("Past visits for " + ((Listcell) patientBox.getSelectedItem().getChildren().get(1)).getLabel());
-    }
-    
-    @Override
-    public void doAfterCompose(Borderlayout comp) throws Exception {
-    	super.doAfterCompose(comp);
-    	PatientUserViewDAO patientUserViewDAO = new PatientUserViewDAO();
-    	List<PatientUserView> unassignedPatients = patientUserViewDAO.findUnassigned();
-    	unassignedPatientsGrid.setModel(new ListModelList<PatientUserView>(unassignedPatients));
-    	
-    	StaffPatientViewDAO staffPatientViewDAO = new StaffPatientViewDAO();
-    	List<DoctorPatientView> patients = staffPatientViewDAO.findByStaffId(UserCredentialManager.getInstance().getUser().getId());
-    	patientBox.setModel(new ListModelList<DoctorPatientView>(patients));
-    	
-    	AppointmentVisitUsersViewDAO appointmentVisitUsersViewDAO = new AppointmentVisitUsersViewDAO();
-    	List<AppointmentVisitUsersView> appointments = appointmentVisitUsersViewDAO.findAll();
-    	appointmentGrid.setModel(new ListModelList<AppointmentVisitUsersView>(appointments));
-    }
-    
-    public void onClick$newPatientBtn() {
-    	HashMap<String, Object> map = new HashMap<String, Object>();
-    	map.put("grid", unassignedPatientsGrid);
-    	Executions.createComponents("new_patient.zul", null, map);
-    }
-    
-    public void onClick$newAppointmentBtn() {
-    	HashMap<String, Object> map = new HashMap<String, Object>();
-    	map.put("grid", appointmentGrid);
-    	Executions.createComponents("appointment.zul", null, map);
-    }
+
+	public void onClick$patientBox() {
+		int id = Integer.valueOf(((Listcell) patientBox.getSelectedItem()
+				.getFirstChild()).getLabel());
+		AppointmentVisitViewDAO dao = new AppointmentVisitViewDAO();
+		List<AppointmentVisitView> visits = dao.findByPatientId(id);
+		patientVisitsGrid.setModel(new ListModelList<AppointmentVisitView>(
+				visits));
+		((Center) patientVisitsGrid.getParent())
+				.setTitle("Past visits for "
+						+ ((Listcell) patientBox.getSelectedItem()
+								.getChildren().get(1)).getLabel());
+	}
+
+	@Override
+	public void doAfterCompose(Borderlayout comp) throws Exception {
+		super.doAfterCompose(comp);
+		PatientUserViewDAO patientUserViewDAO = new PatientUserViewDAO();
+		List<PatientUserView> unassignedPatients = patientUserViewDAO
+				.findUnassigned();
+		unassignedPatientsGrid.setModel(new ListModelList<PatientUserView>(
+				unassignedPatients));
+
+		StaffPatientViewDAO staffPatientViewDAO = new StaffPatientViewDAO();
+		List<DoctorPatientView> patients = staffPatientViewDAO
+				.findByStaffId(UserCredentialManager.getInstance().getUser()
+						.getId());
+		patientBox.setModel(new ListModelList<DoctorPatientView>(patients));
+
+		AppointmentVisitUsersViewDAO appointmentVisitUsersViewDAO = new AppointmentVisitUsersViewDAO();
+		List<AppointmentVisitUsersView> appointments = appointmentVisitUsersViewDAO
+				.findAll();
+		appointmentGrid.setModel(new ListModelList<AppointmentVisitUsersView>(
+				appointments));
+	}
+
+	public void onClick$newPatientBtn() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("grid", unassignedPatientsGrid);
+		Executions.createComponents("new_patient.zul", null, map);
+	}
+
+	public void onClick$newAppointmentBtn() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("grid", appointmentGrid);
+		Executions.createComponents("appointment.zul", null, map);
+	}
 
 	public void onAssignUnassignedPatient(Event event) {
 		PatientUserView patient = getSelectedPatient(event);
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("patient", patient);
 		map.put("role", "DOCTOR");
+		map.put("unassignedPatientGrid", unassignedPatientsGrid);
+		map.put("patientBox", patientBox);
 		Executions.createComponents("modal_lookup.zul", null, map);
 	}
 

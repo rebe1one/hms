@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ece.hms.data.AppointmentVisitViewDAO;
+import org.ece.hms.data.PatientUserViewDAO;
 import org.ece.hms.data.RelationshipDAO;
+import org.ece.hms.data.StaffPatientViewDAO;
 import org.ece.hms.data.UserDAO;
 import org.ece.hms.model.AppointmentVisitView;
+import org.ece.hms.model.DoctorPatientView;
 import org.ece.hms.model.Patient;
 import org.ece.hms.model.PatientUserView;
 import org.ece.hms.model.Relationship;
@@ -77,6 +80,17 @@ public class ModalLookupController extends GenericForwardComposer<Window> {
 				relationship.setFromId(id);
 				relationship.setRelationshipType("DEFAULT_DOCTOR");
 				relationshipDAO.insert(relationship);
+				
+				Grid unassignedPatientsGrid = (Grid)arg.get("unassignedPatientGrid");
+		    	PatientUserViewDAO patientUserViewDAO = new PatientUserViewDAO();
+		    	List<PatientUserView> unassignedPatients = patientUserViewDAO.findUnassigned();
+		    	unassignedPatientsGrid.setModel(new ListModelList<PatientUserView>(unassignedPatients));
+		    	
+		    	Listbox patientBox = (Listbox)arg.get("patientBox");
+		    	StaffPatientViewDAO staffPatientViewDAO = new StaffPatientViewDAO();
+		    	List<DoctorPatientView> patients = staffPatientViewDAO.findByStaffId(UserCredentialManager.getInstance().getUser().getId());
+		    	patientBox.setModel(new ListModelList<DoctorPatientView>(patients));
+		    	
 				lookupWin.onClose();
 			}
 		}
