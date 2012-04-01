@@ -24,7 +24,7 @@
 	String doctorName = dpv.findDefaultDoctorByPatientId(currentUser.getId());
 ]]>
 	</zscript>
-	<borderlayout sclass="complex-layout" height="810px"
+	<borderlayout sclass="complex-layout" height="400px"
 		apply="org.ece.hms.control.PatientViewController">
 		<north size="100px" border="0">
 			<div>

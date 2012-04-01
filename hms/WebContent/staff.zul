@@ -16,7 +16,7 @@
 	User currentUser = UserCredentialManager.getInstance().getUser();
 ]]>
 	</zscript>
-		<borderlayout sclass="complex-layout" height="810px" apply="org.ece.hms.control.StaffController">
+		<borderlayout sclass="complex-layout" height="400px" apply="org.ece.hms.control.StaffController">
 			<north size="100px" border="0">
 				<div>
 					<div style="float:right">
