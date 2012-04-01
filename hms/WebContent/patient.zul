@@ -29,7 +29,8 @@
 		<north size="100px" border="0">
 			<div>
 				<div style="float:right">
-					<label id="welcomeLbl" value="Welcome ${currentUser.getFirstName()}!" />
+					<label id="welcomeLbl"
+						value="Welcome ${currentUser.getFirstName()}!" />
 					<button label="Logout">
 						<attribute name="onClick"><![CDATA[
 	UserCredentialManager.getInstance().logout();
@@ -54,35 +55,43 @@
 							<rows>
 								<row>
 									First Name:
-									<label id="firstNameLbl" value="${currentUser.getFirstName()}" />
+									<label id="firstNameLbl"
+										value="${currentUser.getFirstName()}" />
 								</row>
 								<row>
 									Last Name:
-									<label id="lastNameLbl" value="${currentUser.getLastName()}" />
+									<label id="lastNameLbl"
+										value="${currentUser.getLastName()}" />
 								</row>
 								<row>
 									Address:
-									<label id="addressLbl" value="${patient.getAddress()}" />
+									<label id="addressLbl"
+										value="${patient.getAddress()}" />
 								</row>
 								<row>
 									Province:
-									<label id="provinceLbl" value="${patient.getProvince()}" />
+									<label id="provinceLbl"
+										value="${patient.getProvince()}" />
 								</row>
 								<row>
 									SIN:
-									<label id="sinLbl" value="${patient.getSIN()}" />
+									<label id="sinLbl"
+										value="${patient.getSIN()}" />
 								</row>
 								<row>
 									Health Card #:
-									<label id="healthCardNumberLbl" value="${patient.getHealthCardNumber()}" />
+									<label id="healthCardNumberLbl"
+										value="${patient.getHealthCardNumber()}" />
 								</row>
 								<row>
 									Phone #:
-									<label id="phoneNumberLbl" value="${patient.getPhoneNumber()}" />
+									<label id="phoneNumberLbl"
+										value="${patient.getPhoneNumber()}" />
 								</row>
 								<row>
 									Current Health:
-									<label id="currentHealthLbl" value="${patient.getCurrentHealth()}" />
+									<label id="currentHealthLbl"
+										value="${patient.getCurrentHealth()}" />
 								</row>
 								<row>
 									Assigned Doctor:
@@ -124,40 +133,44 @@
 								<row>
 									First Name:
 									<textbox id="firstNameTxb"
-										value="${currentUser.getFirstName()}" constraint="no empty" />
+										value="${currentUser.getFirstName()}" maxlength="255"
+										constraint="no empty" />
 								</row>
 								<row>
 									Last Name:
 									<textbox id="lastNameTxb"
-										value="${currentUser.getLastName()}" constraint="no empty" />
+										value="${currentUser.getLastName()}" maxlength="255"
+										constraint="no empty" />
 								</row>
 								<row>
 									Address:
 									<textbox id="addressTxb"
-										value="${patient.getAddress()}" constraint="no empty" />
+										value="${patient.getAddress()}" maxlength="255"
+										constraint="no empty" />
 								</row>
 								<row>
 									Province:
 									<textbox id="provinceTxb"
-										value="${patient.getProvince()}" constraint="no empty" />
+										value="${patient.getProvince()}" maxlength="2"
+										constraint="no empty, /[A-Z]{2}/: Province must be in the format ON, AB, etc" />
 								</row>
 								<row>
 									SIN:
 									<textbox id="sinTxb"
 										value="${patient.getSIN()}" maxlength="9"
-										constraint="no empty, /[0-9]{9}/: SIN must be 9 digits"/>
+										constraint="no empty, /[0-9]{9}/: SIN must be 9 digits" />
 								</row>
 								<row>
 									Health Card #:
 									<textbox id="healthCardNumberTxb"
-										value="${patient.getHealthCardNumber()}" maxlength="12" 
+										value="${patient.getHealthCardNumber()}" maxlength="12"
 										constraint="no empty, /[0-9]{10}[A-Z]{2}/: The health card number must be in the format 0123456789AB" />
 								</row>
 								<row>
 									Phone #:
 									<textbox id="phoneNumberTxb"
-										value="${patient.getPhoneNumber()}" maxlength="10" 
-										constraint="no empty, /[0-9]{10}/: The phone number must be 10 digits"/>
+										value="${patient.getPhoneNumber()}" maxlength="10"
+										constraint="no empty, /[0-9]{10}/: The phone number must be 10 digits" />
 								</row>
 							</rows>
 						</grid>

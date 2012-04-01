@@ -1,47 +1,56 @@
 <?page title="Collector - Login"?>
 <?init class="org.ece.hms.control.CheckForLogin" arg0="/staff.zul"?>
 <zk>
-	<window id="createPatientWindow" border="normal" width="500px"
+	<window id="createPatientWindow" border="normal" width="500px" closable="true"
 		title="Create a new patient"
-		apply="org.ece.hms.control.CreatePatientViewController" mode="overlapped"
-		position="center,center">
+		apply="org.ece.hms.control.CreatePatientViewController"
+		mode="overlapped" position="center,center">
 		<grid>
 			<rows>
 				<row>
 					First Name:
-					<textbox id="firstNameTxb" />
+					<textbox id="firstNameTxb" maxlength="255"
+						constraint="no empty" />
 				</row>
 				<row>
 					Last Name:
-					<textbox id="lastNameTxb" />
+					<textbox id="lastNameTxb" maxlength="255"
+						constraint="no empty" />
 				</row>
 				<row>
 					Username:
-					<textbox id="usernameTxb" />
+					<textbox id="usernameTxb" maxlength="255"
+						constraint="no empty" />
 				</row>
 				<row>
 					Password:
-					<textbox id="passwordTxb" type="password" />
+					<textbox id="passwordTxb" type="password"
+						constraint="no empty" />
 				</row>
 				<row>
 					Address:
-					<textbox id="addressTxb"/>
+					<textbox id="addressTxb" maxlength="255"
+						constraint="no empty" />
 				</row>
 				<row>
 					Province:
-					<textbox id="provinceTxb"/>
+					<textbox id="provinceTxb" maxlength="2"
+						constraint="no empty, /[A-Z]{2}/: Province must be in the format ON, AB, etc" />
 				</row>
 				<row>
 					SIN:
-					<textbox id="sinTxb"/>
+					<textbox id="sinTxb" maxlength="9"
+						constraint="no empty, /[0-9]{9}/: SIN must be 9 digits" />
 				</row>
 				<row>
 					Health Card #:
-					<textbox id="healthCardNumberTxb"/>
+					<textbox id="healthCardNumberTxb" maxlength="12"
+						constraint="no empty, /[0-9]{10}[A-Z]{2}/: The health card number must be in the format 0123456789AB" />
 				</row>
 				<row>
 					Phone #:
-					<textbox id="phoneNumberTxb"/>
+					<textbox id="phoneNumberTxb" maxlength="10"
+						constraint="no empty, /[0-9]{10}/: The phone number must be 10 digits" />
 				</row>
 			</rows>
 		</grid>

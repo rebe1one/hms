@@ -89,5 +89,4 @@ public class AppointmentVisitView {
 	public void setCreatedBy(int createdBy) {
 		this.createdBy = createdBy;
 	}
-
 }

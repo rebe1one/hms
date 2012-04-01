@@ -4,28 +4,19 @@
 	<style>
 		.z-borderlayout { background: #FFFFFF }
 		img.complex-layout-header-img { padding: 0 10px; }
+		.z-tabpanel
+		{
+		padding:0px
+		}
 	</style>
 	<zscript>
 	<![CDATA[
-	import java.util.List;
 	import org.ece.hms.control.UserCredentialManager;
-	import org.ece.hms.model.Patient;
 	import org.ece.hms.model.User;
-	import org.ece.hms.data.PatientUserViewDAO;
-	import org.ece.hms.data.StaffPatientViewDAO;
-	// DAO
-	PatientUserViewDAO patientUserViewDAO = new PatientUserViewDAO();
-	StaffPatientViewDAO staffPatientViewDAO = new StaffPatientViewDAO();
-	// Patients
 	User currentUser = UserCredentialManager.getInstance().getUser();
-	List patients = staffPatientViewDAO.findByStaffId(currentUser.getId());
-	// Unassigned Patients
-	List unassignedPatients = patientUserViewDAO.findUnassigned();
 ]]>
 	</zscript>
-	<window title="Staff" border="normal"
-		apply="org.ece.hms.control.StaffController">
-		<borderlayout sclass="complex-layout" height="810px">
+		<borderlayout sclass="complex-layout" height="810px" apply="org.ece.hms.control.StaffController">
 			<north size="100px" border="0">
 				<div>
 					<div style="float:right">
@@ -64,8 +55,8 @@
 											<listheader
 												label="Last Visit" sort="auto" />
 										</listhead>
-										<listitem
-											forEach="${patients}">
+										<template name="model">
+										<listitem>
 											<listcell
 												label="${each.getPatientId()}" />
 											<listcell
@@ -73,6 +64,7 @@
 											<listcell
 												label="${each.getTimestamp()}" />
 										</listitem>
+										</template>
 									</listbox>
 								</west>
 								<center border="none" title="Visits">
@@ -107,30 +99,27 @@
 
 						</tabpanel>
 						<tabpanel>
-							<toolbar width="794px">
+							<toolbar width="100%" height="19px">
 								<toolbarbutton id="newPatientBtn" label="New Patient" />
 							</toolbar>
-							<grid height="245px" sizedByContent="true"
+							<grid id="unassignedPatientsGrid" height="245px" sizedByContent="false" style="margin: 5px;"
 								emptyMessage="No items match your search">
 								<columns>
 									<column label="ID" sort="auto" />
 									<column label="Name" sort="auto" />
-									<column label="" />
+									<column label="Assign" />
 								</columns>
-								<rows>
-									<row forEach="${unassignedPatients}"
-										value="${each}">
-										<label
-											value="${each.getUserId()}" />
-										<label
-											value="${each.getFirstName()} ${each.getLastName()}" />
+								<template name="model">
+									<row>
+										<label value="${each.getUserId()}" />
+										<label value="${each.getFirstName()} ${each.getLastName()}" />
 										<button
 											class="assignUnassignedPatientBtn"
 											forward="onClick=onAssignUnassignedPatient"
 											label="Assign (TODO)">
 										</button>
 									</row>
-								</rows>
+								</template>
 							</grid>
 						</tabpanel>
 						<tabpanel>
@@ -167,5 +156,4 @@
 				</tabbox>
 			</center>
 		</borderlayout>
-	</window>
 </zk>
