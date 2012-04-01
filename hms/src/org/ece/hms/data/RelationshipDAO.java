@@ -17,7 +17,7 @@ public class RelationshipDAO extends DAO implements iDAO<Relationship> {
 		try {
 			// get connection
 		    Statement stmt = ds.getStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Relationship");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM relationships");
 
 			// fetch all events from database
 			Relationship relationship;
@@ -40,19 +40,19 @@ public class RelationshipDAO extends DAO implements iDAO<Relationship> {
 
 	@Override
 	public boolean delete(Relationship entity) {
-		return execute("DELETE FROM Relationship WHERE from_id = '" + entity.getFromId() + "'");
+		return execute("DELETE FROM relationships WHERE from_id = '" + entity.getFromId() + "'");
 	}
 
 	@Override
 	public Boolean insert(Relationship entity) {
-		return execute("INSERT INTO Relationship(from_id,to_id,relationship_type) " +
+		return execute("INSERT INTO relationships (from_id, to_id, rel_type) " +
                 "VALUES ('" + entity.getFromId() + "','" + entity.getToId() + "','" +
 				entity.getRelationshipType() + "')");
 	}
 
 	@Override
 	public boolean update(Relationship entity) {
-		return execute("UPDATE Relationship SET relationship_type = '" + entity.getRelationshipType() + 
+		return execute("UPDATE relationships SET rel_type = '" + entity.getRelationshipType() + 
 				"', to_id = '" + entity.getToId() + "' where from_id = " + entity.getFromId());
 	}
 

@@ -3,11 +3,8 @@
 <zk>
 	<style>
 		.z-borderlayout { background: #FFFFFF }
-		img.complex-layout-header-img { padding: 0 10px; }
-		.z-tabpanel
-		{
-		padding:0px
-		}
+		img.complex-layout-header-img { padding: 0 10px; } .z-tabpanel {
+		padding:0px }
 	</style>
 	<zscript>
 	<![CDATA[
@@ -16,133 +13,146 @@
 	User currentUser = UserCredentialManager.getInstance().getUser();
 ]]>
 	</zscript>
-		<borderlayout sclass="complex-layout" height="400px" apply="org.ece.hms.control.StaffController">
-			<north size="100px" border="0">
-				<div>
-					<div style="float:right">
-						<label value="Welcome ${currentUser.getFirstName()}!" />
-						<button label="Logout">
-							<attribute name="onClick">
-								<![CDATA[ org.ece.hms.control.UserCredentialManager.getInstance().logout(); ]]>
+	<borderlayout sclass="complex-layout" height="400px"
+		apply="org.ece.hms.control.StaffController">
+		<north size="100px" border="0">
+			<div>
+				<div style="float:right">
+					<label
+						value="Welcome ${currentUser.getFirstName()}!" />
+					<button label="Logout">
+						<attribute name="onClick">
+								<![CDATA[
+	org.ece.hms.control.UserCredentialManager.getInstance().logout();
+]]>
 							</attribute>
-						</button>
-					</div>
-					<image sclass="complex-layout-header-img"
-						src="/images/logo.png" />
+					</button>
 				</div>
-			</north>
-			<center border="none">
-				<tabbox>
-					<tabs>
-						<tab label="Patients" />
-						<tab label="Unassigned Patients" />
-						<tab label="Appointments" />
-					</tabs>
-					<tabpanels>
-						<tabpanel>
-							<borderlayout height="400px">
-								<west size="50%" border="none"
-									title="My Patients">
-									<listbox id="patientBox"
-										height="245px" style="margin: 5px;"
-										emptyMessage="No items match your search">
-										<listhead>
-											<listheader label="ID"
-												sort="auto" />
-											<listheader label="Name"
-												sort="auto" />
-											<listheader
-												label="Last Visit" sort="auto" />
-										</listhead>
-										<template name="model">
+				<image sclass="complex-layout-header-img"
+					src="/images/logo.png" />
+			</div>
+		</north>
+		<center border="none">
+			<tabbox>
+				<tabs>
+					<tab label="Patients" />
+					<tab label="Unassigned Patients" />
+					<tab label="Appointments" />
+				</tabs>
+				<tabpanels>
+					<tabpanel>
+						<borderlayout height="400px">
+							<west size="50%" border="none"
+								title="My Patients">
+								<listbox id="patientBox" height="245px"
+									style="margin: 5px;"
+									emptyMessage="No items match your search">
+									<listhead>
+										<listheader label="ID"
+											sort="auto" />
+										<listheader label="Name"
+											sort="auto" />
+										<listheader label="Last Visit"
+											sort="auto" />
+									</listhead>
+									<template name="model">
 										<listitem>
 											<listcell label="${each.getPatientId()}" />
 											<listcell label="${each.getFirstName()} ${each.getLastName()}" />
 											<listcell label="${each.getTimestamp()}" />
 										</listitem>
-										</template>
-									</listbox>
-								</west>
-								<center border="none" title="Visits">
-									<grid style="margin: 5px"
-										id="patientVisitsGrid"
-										emptyMessage="No items match your search">
-										<columns>
-											<column label="Date"
-												sort="auto" />
-											<column label="Diagnosis"
-												sort="auto" />
-											<column label="Prescription"
-												sort="auto" />
-											<column label="Comments"
-												sort="auto" />
-										</columns>
-										<template name="model">
-											<row>
-												<label
-													value="${each.getTimestamp()}" />
-												<label
-													value="${each.getDiagnosis()}" />
-												<label
-													value="${each.getPrescription()}" />
-												<label
-													value="${each.getComments()}" />
-											</row>
-										</template>
-									</grid>
-								</center>
-							</borderlayout>
-						</tabpanel>
-						<tabpanel>
-							<toolbar width="100%" height="19px">
-								<toolbarbutton id="newPatientBtn" label="New Patient" />
-							</toolbar>
-							<grid id="unassignedPatientsGrid" height="245px" sizedByContent="false" style="margin: 5px;"
-								emptyMessage="No items match your search">
-								<columns>
-									<column label="ID" sort="auto" />
-									<column label="Name" sort="auto" />
-									<column label="Assign" />
-								</columns>
-								<template name="model">
-									<row>
-										<label value="${each.getUserId()}" />
-										<label value="${each.getFirstName()} ${each.getLastName()}" />
-										<button
-											class="assignUnassignedPatientBtn"
-											forward="onClick=onAssignUnassignedPatient"
-											label="Assign (TODO)">
-										</button>
-									</row>
-								</template>
-							</grid>
-						</tabpanel>
-						<tabpanel>
-							<toolbar width="100%" height="19px">
-								<toolbarbutton id="newAppointmentBtn" label="New Appointment" />
-							</toolbar>
-							<grid id="appointmentGrid" style="margin: 5px;"
-								emptyMessage="No items match your search">
-								<columns>
-									<column label="Patient" sort="auto(patientName)" />
-									<column label="Doctor" sort="auto(doctorName)" />
-									<column label="Date" sort="auto(date)" />
-									<column label="Length" sort="auto(appointmentLength)" />
-									<column label="" />
-								</columns>
-								<template name="model">
-									<row>
-										<label value="${each.getPatientName()}"/>
-										<label value="${each.getDoctorName()}"/>
-										<label value="${each.getDate()}"/>
-										<label value="${each.getAppointmentLength()}"/>
-										<button label="Edit" />
-									</row>
-								</template>
-							</grid>
-						</tabpanel>
-					</tabpanels>
-				</tabbox>
-			</center>
-		</borderlayout>
+									</template>
+								</listbox>
+							</west>
+							<center border="none" title="Visits">
+								<grid style="margin: 5px"
+									id="patientVisitsGrid"
+									emptyMessage="No items match your search">
+									<columns>
+										<column label="Date"
+											sort="auto" />
+										<column label="Diagnosis"
+											sort="auto" />
+										<column label="Prescription"
+											sort="auto" />
+										<column label="Comments"
+											sort="auto" />
+									</columns>
+									<template name="model">
+										<row>
+											<label
+												value="${each.getTimestamp()}" />
+											<label
+												value="${each.getDiagnosis()}" />
+											<label
+												value="${each.getPrescription()}" />
+											<label
+												value="${each.getComments()}" />
+										</row>
+									</template>
+								</grid>
+							</center>
+						</borderlayout>
+					</tabpanel>
+					<tabpanel>
+						<toolbar width="100%" height="19px">
+							<toolbarbutton id="newPatientBtn"
+								label="New Patient" />
+						</toolbar>
+						<grid id="unassignedPatientsGrid" height="245px"
+							sizedByContent="false" style="margin: 5px;"
+							emptyMessage="No items match your search">
+							<columns>
+								<column label="ID" sort="auto" />
+								<column label="Name" sort="auto" />
+								<column label="Assign" />
+							</columns>
+							<template name="model">
+								<row>
+									<label value="${each.getUserId()}" />
+									<label
+										value="${each.getFirstName()} ${each.getLastName()}" />
+									<button
+										class="assignUnassignedPatientBtn"
+										forward="onClick=onAssignUnassignedPatient" label="Assign">
+									</button>
+								</row>
+							</template>
+						</grid>
+					</tabpanel>
+					<tabpanel>
+						<toolbar width="100%" height="19px">
+							<toolbarbutton id="newAppointmentBtn"
+								label="New Appointment" />
+						</toolbar>
+						<grid id="appointmentGrid" style="margin: 5px;"
+							emptyMessage="No items match your search">
+							<columns>
+								<column label="Patient"
+									sort="auto(patientName)" />
+								<column label="Doctor"
+									sort="auto(doctorName)" />
+								<column label="Date" sort="auto(date)" />
+								<column label="Length"
+									sort="auto(appointmentLength)" />
+								<column label="" />
+							</columns>
+							<template name="model">
+								<row>
+									<label
+										value="${each.getPatientName()}" />
+									<label
+										value="${each.getDoctorName()}" />
+									<label value="${each.getDate()}" />
+									<label
+										value="${each.getAppointmentLength()}" />
+									<button label="Edit" />
+								</row>
+							</template>
+						</grid>
+					</tabpanel>
+				</tabpanels>
+			</tabbox>
+		</center>
+	</borderlayout>
 </zk>
