@@ -17,7 +17,7 @@ public class FinanceDAO extends DAO implements iDAO<Finance> {
 		try {
 			// get connection
 		    Statement stmt = ds.getStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Finance");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM finance");
 
 			// fetch all events from database
 			Finance finance;
@@ -35,15 +35,34 @@ public class FinanceDAO extends DAO implements iDAO<Finance> {
 		
 		return allFinances;
 	}
+	
+	public Finance findByUserId(int userId) {
+		Finance finance = new Finance();
+		try {
+			// get connection
+		    Statement stmt = ds.getStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM finance WHERE user_id = " + userId);
+
+			if (rs.next()) {
+				finance.setUserId(rs.getInt(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+		    ds.close();
+		}
+		
+		return finance;
+	}
 
 	@Override
 	public boolean delete(Finance entity) {
-		return execute("DELETE FROM Finance WHERE user_id = '" + entity.getUserId() + "'");
+		return execute("DELETE FROM finance WHERE user_id = '" + entity.getUserId() + "'");
 	}
 
 	@Override
 	public Boolean insert(Finance entity) {
-		return execute("INSERT INTO Finance(user_id) " + "VALUES ('" + entity.getUserId() + "')");
+		return execute("INSERT INTO finance(user_id) " + "VALUES ('" + entity.getUserId() + "')");
 	}
 	
 	@Override

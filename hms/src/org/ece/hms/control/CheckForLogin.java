@@ -2,6 +2,7 @@ package org.ece.hms.control;
 
 import java.util.Map;
 
+import org.ece.hms.model.RoleType;
 import org.ece.hms.model.User;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Page;
@@ -17,16 +18,19 @@ public class CheckForLogin implements Initiator {
 			User user = UserCredentialManager.getInstance().getUser();
 			System.out.println(args.get("arg0"));
 			if (args.get("arg0").equals("/doctor.zul")
-					&& !user.getRole().equals("DOCTOR")) {
+					&& !user.getRole().equals(RoleType.DOCTOR)) {
 				UserCredentialManager.getInstance().logout();
 			} else if (args.get("arg0").equals("/patient.zul")
-					&& !user.getRole().equals("PATIENT")) {
+					&& !user.getRole().equals(RoleType.PATIENT)) {
 				UserCredentialManager.getInstance().logout();
 			} else if (args.get("arg0").equals("/staff.zul")
-					&& !user.getRole().equals("STAFF")) {
+					&& !user.getRole().equals(RoleType.STAFF)) {
 				UserCredentialManager.getInstance().logout();
 			} else if (args.get("arg0").equals("/finance.zul")
-					&& !user.getRole().equals("FINANCE")) {
+					&& !user.getRole().equals(RoleType.FINANCE)) {
+				UserCredentialManager.getInstance().logout();
+			} else if (args.get("arg0").equals("/admin.zul")
+					&& !user.getRole().equals(RoleType.ADMIN)) {
 				UserCredentialManager.getInstance().logout();
 			}
 		}

@@ -1,9 +1,9 @@
 <?page title="Collector - Login"?>
-<?init class="org.ece.hms.control.CheckForLogin" arg0="/staff.zul"?>
+<?init class="org.ece.hms.control.CheckForLogin" arg0="/admin.zul"?>
 <zk>
 	<window id="editUserWindow" border="normal" width="500px" closable="true" title="Edit user" 
 			apply="org.ece.hms.control.EditUserViewController" mode="overlapped" position="center,center">
-		<grid>
+		<grid id="userForm">
 			<rows>
 				<row>
 					First Name:
@@ -33,6 +33,11 @@
                         <listitem label="Disabled" value="0" />
                         <listitem label="Active" value="1" />
                     </listbox>
+				</row>
+				<row id="doctorRow">
+					Assigned to:
+					<textbox id="doctorId" />
+					<button id="lookupDoctorButton" label="Lookup" />
 				</row>
 			</rows>
 		</grid>

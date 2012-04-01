@@ -17,7 +17,7 @@ public class StaffDAO extends DAO implements iDAO<Staff> {
 		try {
 			// get connection
 		    Statement stmt = ds.getStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Staff");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM staff");
 
 			// fetch all events from database
 			Staff staff;
@@ -36,21 +36,41 @@ public class StaffDAO extends DAO implements iDAO<Staff> {
 		
 		return allStaffs;
 	}
+	
+	public Staff findByUserId(int userId) {
+		Staff staff = new Staff();
+		try {
+			// get connection
+		    Statement stmt = ds.getStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM staff WHERE user_id = " + userId);
+
+			if (rs.next()) {
+				staff.setUserId(rs.getInt(1));
+				staff.setDoctorId(rs.getInt(2));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+		    ds.close();
+		}
+		
+		return staff;
+	}
 
 	@Override
 	public boolean delete(Staff entity) {
-		return execute("DELETE FROM Staff WHERE user_id = '" + entity.getUserId() + "'");
+		return execute("DELETE FROM staff WHERE user_id = '" + entity.getUserId() + "'");
 	}
 
 	@Override
 	public Boolean insert(Staff entity) {
-		return execute("INSERT INTO Staff(user_id,doctor_id) " +
+		return execute("INSERT INTO staff(user_id,doctor_id) " +
                 "VALUES (" + entity.getUserId() + ",'" + entity.getDoctorId() + "')");
 	}
 
 	@Override
 	public boolean update(Staff entity) {
-		return execute("UPDATE Staff SET doctor_id = '" + entity.getDoctorId() + 
+		return execute("UPDATE staff SET doctor_id = '" + entity.getDoctorId() + 
                 "' where user_id = " + entity.getUserId());
 	}
 

@@ -17,7 +17,7 @@ public class DoctorDAO extends DAO implements iDAO<Doctor> {
 		try {
 			// get connection
 		    Statement stmt = ds.getStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Doctor");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM doctors");
 
 			// fetch all events from database
 			Doctor doctor;
@@ -35,15 +35,36 @@ public class DoctorDAO extends DAO implements iDAO<Doctor> {
 		
 		return allDoctors;
 	}
+	
+	public Doctor findByUserId(int userId) {
+		Doctor doctor = new Doctor();
+		try {
+			// get connection
+		    Statement stmt = ds.getStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM doctors WHERE user_id = " + userId);
+
+			// fetch all events from database
+			
+			if (rs.next()) {
+				doctor.setUserId(rs.getInt(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+		    ds.close();
+		}
+		
+		return doctor;
+	}
 
 	@Override
 	public boolean delete(Doctor entity) {
-		return execute("DELETE FROM Doctor WHERE user_id = '" + entity.getUserId() + "'");
+		return execute("DELETE FROM doctors WHERE user_id = '" + entity.getUserId() + "'");
 	}
 
 	@Override
 	public Boolean insert(Doctor entity) {
-		return execute("INSERT INTO Doctor(user_id) " + "VALUES ('" + entity.getUserId() + "')");
+		return execute("INSERT INTO doctors(user_id) " + "VALUES ('" + entity.getUserId() + "')");
 	}
 	
 	@Override

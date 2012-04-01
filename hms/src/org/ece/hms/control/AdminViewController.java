@@ -17,6 +17,7 @@ import org.ece.hms.model.AppointmentVisitUsersView;
 import org.ece.hms.model.AppointmentVisitView;
 import org.ece.hms.model.DoctorPatientView;
 import org.ece.hms.model.PatientUserView;
+import org.ece.hms.model.RoleType;
 import org.ece.hms.model.User;
 import org.ece.hms.util.DateFilter;
 import org.ece.hms.util.Filter;
@@ -57,8 +58,34 @@ public class AdminViewController extends GenericForwardComposer<Borderlayout> {
     	}
     }
     
-    public void onClick$newUser() {
+    public void onClick$newAdmin() {
     	Map<String, Object> map = new HashMap<String, Object>();
+    	map.put("role", RoleType.ADMIN);
+    	map.put("title", "New Admin");
+    	map.put("grid", userBox);
+    	Executions.createComponents("/edit_user.zul", null, map);
+    }
+    
+    public void onClick$newStaff() {
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	map.put("role", RoleType.STAFF);
+    	map.put("title", "New Staff");
+    	map.put("grid", userBox);
+    	Executions.createComponents("/edit_user.zul", null, map);
+    }
+    
+    public void onClick$newFinance() {
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	map.put("role", RoleType.FINANCE);
+    	map.put("title", "New Finance");
+    	map.put("grid", userBox);
+    	Executions.createComponents("/edit_user.zul", null, map);
+    }
+    
+    public void onClick$newDoctor() {
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	map.put("role", RoleType.DOCTOR);
+    	map.put("title", "New Doctor");
     	map.put("grid", userBox);
     	Executions.createComponents("/edit_user.zul", null, map);
     }
