@@ -32,6 +32,7 @@ import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Center;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Tabpanel;
 import org.zkoss.zul.Textbox;
 
 public class DoctorViewController extends GenericForwardComposer<Borderlayout> {
@@ -42,9 +43,34 @@ public class DoctorViewController extends GenericForwardComposer<Borderlayout> {
 	private Textbox patientIdFilter;
 	private Textbox patientNameFilter;
 	private Datebox patientDateFilter;
-	private Listbox patientBox, assistingDoctorsGrid;
-	private Grid patientVisitsGrid, appointmentGrid;
+	private Listbox patientBox, assistingDoctorsGrid, visitsGrid, appointmentGrid;
+	private Grid patientVisitsGrid;
 	private Button assistingDoctorButton;
+	private Tabpanel visitPanel;
+	
+	public void onClick$visitsGrid() {
+		if (Util.isNotEmpty(visitsGrid.getSelectedItem())) {
+	    	int id = Integer.valueOf(((Listcell) visitsGrid.getSelectedItem().getFirstChild()).getLabel());
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("visitId", id);
+	    	map.put("grid", appointmentGrid);
+	    	map.put("tab", visitPanel);
+	    	map.put("tabGrid", visitsGrid);
+	    	Executions.createComponents("/visit.zul", null, map);
+		}
+	}
+	
+	public void onClick$appointmentGrid() {
+		if (Util.isNotEmpty(appointmentGrid.getSelectedItem())) {
+	    	int id = Integer.valueOf(((Listcell) appointmentGrid.getSelectedItem().getFirstChild()).getLabel());
+			Map<String, Object> map = new HashMap<String, Object>();
+	    	map.put("appointmentId", id);
+	    	map.put("grid", appointmentGrid);
+	    	map.put("tab", visitPanel);
+	    	map.put("tabGrid", visitsGrid);
+	    	Executions.createComponents("/visit.zul", null, map);
+		}
+	}
 	
 	public void onClick$assistingDoctorButton() {
 		if (Util.isNotEmpty(patientBox.getSelectedItem())) {
@@ -215,5 +241,9 @@ public class DoctorViewController extends GenericForwardComposer<Borderlayout> {
     	AppointmentVisitUsersViewDAO appointmentVisitUsersViewDAO = new AppointmentVisitUsersViewDAO();
     	List<AppointmentVisitUsersView> appointments = appointmentVisitUsersViewDAO.findByDoctorId(UserCredentialManager.getInstance().getUser().getId());
     	appointmentGrid.setModel(new ListModelList<AppointmentVisitUsersView>(appointments));
+    	
+    	AppointmentVisitViewDAO avvdao = new AppointmentVisitViewDAO();
+    	List<AppointmentVisitView> visits = avvdao.findByDoctorId(UserCredentialManager.getInstance().getUser().getId());
+    	visitsGrid.setModel(new ListModelList<AppointmentVisitView>(visits));
     }
 }

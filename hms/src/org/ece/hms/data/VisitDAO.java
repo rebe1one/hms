@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ece.hms.model.Visit;
+import org.ece.hms.util.Filter;
+import org.ece.hms.util.Util;
 
 public class VisitDAO extends DAO implements iDAO<Visit> {
 	protected final DataSource ds = DataSource.INSTANCE;
@@ -18,6 +20,38 @@ public class VisitDAO extends DAO implements iDAO<Visit> {
 			// get connection
 		    Statement stmt = ds.getStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM visits");
+
+			// fetch all events from database
+			Visit visit;
+			
+			while (rs.next()) {
+				visit = new Visit();
+				visit.setId(rs.getInt(1));
+				visit.setAppointmentId(rs.getInt(2));
+				visit.setLength(rs.getInt(3));
+				visit.setDiagnosis(rs.getString(4));
+				visit.setPrescription(rs.getString(5));
+				visit.setScheduling(rs.getString(6));
+				visit.setComments(rs.getString(7));
+				visit.setTimestamp(rs.getTimestamp(8));
+				visit.setCreatedBy(rs.getInt(9));
+				allVisits.add(visit);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+		    ds.close();
+		}
+		
+		return allVisits;
+	}
+	
+	public List<Visit> find(List<Filter> filters) {
+		List<Visit> allVisits = new ArrayList<Visit>();
+		try {
+			// get connection
+		    Statement stmt = ds.getStatement();
+			ResultSet rs = stmt.executeQuery(Util.buildSQLString("SELECT * FROM visits WHERE ", filters));
 
 			// fetch all events from database
 			Visit visit;

@@ -15,6 +15,7 @@ public class AppointmentVisitView {
 	private String comments;
 	private Timestamp timestamp;
 	private int createdBy;
+	private int visitId;
 	
 	public int getDoctorId() {
 		return doctorId;
@@ -87,6 +88,12 @@ public class AppointmentVisitView {
 	}
 	public void setCreatedBy(int createdBy) {
 		this.createdBy = createdBy;
+	}
+	public int getVisitId() {
+		return visitId;
+	}
+	public void setVisitId(int visitId) {
+		this.visitId = visitId;
 	}
 
 }

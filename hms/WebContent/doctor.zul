@@ -23,8 +23,6 @@
 	User user = UserCredentialManager.getInstance().getUser();
 	DoctorPatientViewDAO dao = new DoctorPatientViewDAO();
 	List patients = dao.findByDoctorId(user.getId());
-	AppointmentVisitViewDAO avvdao = new AppointmentVisitViewDAO();
-	List visits = avvdao.findByDoctorId(user.getId());
 	]]>
 	</zscript>
 	<borderlayout sclass="complex-layout" height="550px" apply="org.ece.hms.control.DoctorViewController">
@@ -120,10 +118,9 @@
 							</vlayout>
 						</center>
 					</borderlayout>
-
 				</tabpanel>
-				<tabpanel>
-					<grid id="visitsGrid" emptyMessage="No items match your search">
+				<tabpanel id="visitPanel">
+					<listbox id="visitsGrid" emptyMessage="No items match your search">
 						<auxhead>
 							<auxheader>
 								<image src="images/funnel.png" />
@@ -151,42 +148,44 @@
 									width="100px" />
 							</auxheader>
 						</auxhead>
-						<columns>
-							<column label="Date" sort="auto(timestamp)" />
-							<column label="Patient Name" sort="auto(patientId)" />
-							<column label="Diagnosis" sort="auto(diagnosis)" />
-							<column label="Prescription" sort="auto(prescription)" />
-							<column label="Comments" sort="auto(comments)" />
-						</columns>
-						<rows>
-							<row forEach="${visits}">
-								<label value="${each.getTimestamp()}"/>
-								<label value="${each.getPatientId()}"/>
-								<label value="${each.getDiagnosis()}"/>
-								<label value="${each.getPrescription()}"/>
-								<label value="${each.getComments()}"/>
-							</row>
-						</rows>
-					</grid>
+						<listhead>
+							<listheader label="Visit ID" sort="auto(visitId)" />
+							<listheader label="Date" sort="auto(timestamp)" />
+							<listheader label="Patient Name" sort="auto(patientId)" />
+							<listheader label="Diagnosis" sort="auto(diagnosis)" />
+							<listheader label="Prescription" sort="auto(prescription)" />
+							<listheader label="Comments" sort="auto(comments)" />
+						</listhead>
+						<template name="model">
+							<listitem>
+								<listcell label="${each.getVisitId()}"/>
+								<listcell label="${each.getTimestamp()}"/>
+								<listcell label="${each.getPatientId()}"/>
+								<listcell label="${each.getDiagnosis()}"/>
+								<listcell label="${each.getPrescription()}"/>
+								<listcell label="${each.getComments()}"/>
+							</listitem>
+						</template>
+					</listbox>
 				</tabpanel>
 				<tabpanel>
-					<grid id="appointmentGrid" style="margin: 5px;"
+					<listbox id="appointmentGrid" style="margin: 5px;"
 							emptyMessage="No items match your search">
-							<columns>
-								<column label="Patient" sort="auto(patientName)" />
-								<column label="Date" sort="auto(date)" />
-								<column label="Length" sort="auto(appointmentLength)" />
-								<column label="" />
-							</columns>
+							<listhead>
+								<listheader label="Appointment ID" sort="auto(appointmentId)" />
+								<listheader label="Patient" sort="auto(patientName)" />
+								<listheader label="Date" sort="auto(date)" />
+								<listheader label="Length" sort="auto(appointmentLength)" />
+							</listhead>
 							<template name="model">
-								<row>
-									<label value="${each.getPatientName()}"/>
-									<label value="${each.getDate()}"/>
-									<label value="${each.getAppointmentLength()}"/>
-									<button label="Create Visitation Record" />
-								</row>
+								<listitem>
+									<listcell label="${each.getAppointmentId() }"/>
+									<listcell label="${each.getPatientName()}"/>
+									<listcell label="${each.getDate()}"/>
+									<listcell label="${each.getAppointmentLength()}"/>
+								</listitem>
 							</template>
-						</grid>
+						</listbox>
 					</tabpanel>
 				</tabpanels>
 			</tabbox>

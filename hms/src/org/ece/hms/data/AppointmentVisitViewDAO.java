@@ -12,7 +12,7 @@ public class AppointmentVisitViewDAO extends DAO {
 	private String sql = "SELECT appointments.doctor_id, appointments.patient_id, appointments.date, "
 			+ "appointments.length AS appointment_length, visits.appointment_id, visits.length AS visit_length, "
 			+ "visits.diagnosis, visits.prescription, visits.scheduling, visits.comments, visits.timestamp, "
-			+ "visits.created_by FROM appointments, visits WHERE appointments.id = visits.appointment_id";
+			+ "visits.created_by, visits.id AS visit_id FROM appointments, visits WHERE appointments.id = visits.appointment_id";
 	
 	public List<AppointmentVisitView> findByPatientId(int patientId) {
 		List<AppointmentVisitView> allVisits = new ArrayList<AppointmentVisitView>();
@@ -38,6 +38,7 @@ public class AppointmentVisitViewDAO extends DAO {
 				view.setComments(rs.getString(10));
 				view.setTimestamp(rs.getTimestamp(11));
 				view.setCreatedBy(rs.getInt(12));
+				view.setVisitId(rs.getInt(13));
 				allVisits.add(view);
 			}
 		} catch (SQLException e) {
@@ -72,6 +73,7 @@ public class AppointmentVisitViewDAO extends DAO {
 				view.setComments(rs.getString(10));
 				view.setTimestamp(rs.getTimestamp(11));
 				view.setCreatedBy(rs.getInt(12));
+				view.setVisitId(rs.getInt(13));
 				allVisits.add(view);
 			}
 		} catch (SQLException e) {

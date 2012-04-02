@@ -1,16 +1,10 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <?init class="org.ece.hms.control.CheckForLogin" arg0="/visit.zul"?>
 <zk>
-	<window id="visitWin" border="normal" width="500px"
-		title="Schedule an Visit"
-		apply="org.ece.hms.control.VisitViewController" mode="overlapped"
-		position="center,center">
+	<window id="visitWin" border="normal" width="500px" title="Create a Visitation Record" closable="true"
+		apply="org.ece.hms.control.VisitViewController" mode="overlapped" position="center,center">
 		<grid>
 			<rows>
-				<row>
-					Appointment:
-					<textbox id="appointmentId" />
-				</row>
 				<row>
 					Length:
 					<textbox id="length" />
@@ -33,7 +27,7 @@
 				</row>
 			</rows>
 		</grid>
-		<button id="confirmBtn" label="confirm" />
+		<button id="confirmBtn" label="Create" />
 		<label id="mesgLbl" />
 	</window>
 </zk>
