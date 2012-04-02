@@ -22,7 +22,7 @@ public class StaffPatientViewDAO extends DAO {
 			if (rs.first()) {
 				doctorId = rs.getInt(1);
 			} else {
-				return null;
+				return allViews;
 			}
 
 		} catch (SQLException e) {

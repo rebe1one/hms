@@ -48,22 +48,16 @@ public class StaffController extends GenericForwardComposer<Borderlayout> {
 	public void doAfterCompose(Borderlayout comp) throws Exception {
 		super.doAfterCompose(comp);
 		PatientUserViewDAO patientUserViewDAO = new PatientUserViewDAO();
-		List<PatientUserView> unassignedPatients = patientUserViewDAO
-				.findUnassigned();
-		unassignedPatientsGrid.setModel(new ListModelList<PatientUserView>(
-				unassignedPatients));
+		List<PatientUserView> unassignedPatients = patientUserViewDAO.findUnassigned();
+		unassignedPatientsGrid.setModel(new ListModelList<PatientUserView>(unassignedPatients));
 
 		StaffPatientViewDAO staffPatientViewDAO = new StaffPatientViewDAO();
-		List<DoctorPatientView> patients = staffPatientViewDAO
-				.findByStaffId(UserCredentialManager.getInstance().getUser()
-						.getId());
+		List<DoctorPatientView> patients = staffPatientViewDAO.findByStaffId(UserCredentialManager.getInstance().getUser().getId());
 		patientBox.setModel(new ListModelList<DoctorPatientView>(patients));
 
 		AppointmentVisitUsersViewDAO appointmentVisitUsersViewDAO = new AppointmentVisitUsersViewDAO();
-		List<AppointmentVisitUsersView> appointments = appointmentVisitUsersViewDAO
-				.findAll();
-		appointmentGrid.setModel(new ListModelList<AppointmentVisitUsersView>(
-				appointments));
+		List<AppointmentVisitUsersView> appointments = appointmentVisitUsersViewDAO.findAll();
+		appointmentGrid.setModel(new ListModelList<AppointmentVisitUsersView>(appointments));
 	}
 
 	public void onClick$newPatientBtn() {

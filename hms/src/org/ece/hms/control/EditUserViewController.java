@@ -1,18 +1,23 @@
 package org.ece.hms.control;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.ece.hms.data.DoctorDAO;
 import org.ece.hms.data.FinanceDAO;
+import org.ece.hms.data.RelationshipDAO;
 import org.ece.hms.data.StaffDAO;
 import org.ece.hms.data.UserDAO;
 import org.ece.hms.model.Doctor;
 import org.ece.hms.model.Finance;
+import org.ece.hms.model.Relationship;
+import org.ece.hms.model.RelationshipType;
 import org.ece.hms.model.RoleType;
 import org.ece.hms.model.Staff;
 import org.ece.hms.model.User;
+import org.ece.hms.util.Filter;
 import org.ece.hms.util.Util;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.WrongValueException;
@@ -66,8 +71,9 @@ public class EditUserViewController extends GenericForwardComposer<Window> {
 			if (arg.containsKey("id")) {
 				user = userDAO.findById(Integer.valueOf(arg.get("id").toString()));
 				previousRole = user.getRole();
+				role = roleLbx.getSelectedItem().getValue().toString();
 			}
-			if (Util.isEmpty(role)) role = roleLbx.getSelectedItem().getValue().toString();
+			//if (Util.isEmpty(role)) role = roleLbx.getSelectedItem().getValue().toString();
 			user.setFirstName(firstNameTxb.getValue());
 			user.setLastName(lastNameTxb.getValue());
 			user.setUsername(usernameTxb.getValue());
@@ -95,6 +101,15 @@ public class EditUserViewController extends GenericForwardComposer<Window> {
 					StaffDAO staffDAO = new StaffDAO();
 					Staff staff = staffDAO.findByUserId(user.getId());
 					if (Util.isNotEmpty(staff.getUserId())) staffDAO.delete(staff);
+					RelationshipDAO relationshipDAO = new RelationshipDAO();
+					List<Filter> filters = new ArrayList<Filter>();
+					filters.add(new Filter("from_id", staff.getDoctorId()));
+					filters.add(Filter.AND);
+					filters.add(new Filter("to_id", staff.getUserId()));
+					filters.add(Filter.AND);
+					filters.add(new Filter("rel_type", RelationshipType.DOCTOR_TO_STAFF));
+					Relationship relationship = relationshipDAO.find(filters).get(0);
+					relationshipDAO.delete(relationship);
 				}
 			}
 			if (Util.isEmpty(previousRole) || !user.getRole().equals(previousRole)) {
@@ -107,6 +122,12 @@ public class EditUserViewController extends GenericForwardComposer<Window> {
 				} else if (role.equals(RoleType.STAFF)) {
 					StaffDAO staffDAO = new StaffDAO();
 					staffDAO.insert(new Staff(user.getId(), Integer.valueOf(doctorId.getValue())));
+					RelationshipDAO relationshipDAO = new RelationshipDAO();
+					Relationship relationship = new Relationship();
+					relationship.setFromId(Integer.valueOf(doctorId.getValue()));
+					relationship.setToId(user.getId());
+					relationship.setRelationshipType(RelationshipType.DOCTOR_TO_STAFF);
+					relationshipDAO.insert(relationship);
 				}
 			}
 			if (arg.containsKey("grid")) {
