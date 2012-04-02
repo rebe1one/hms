@@ -138,6 +138,7 @@
 								<column label="Length"
 									sort="auto(appointmentLength)" />
 								<column label="" />
+								<column label="" />
 							</columns>
 							<template name="model">
 								<row>
@@ -150,6 +151,9 @@
 										value="${each.getAppointmentLength()}" />
 									<button
 										forward="onClick=onEditAppointment" label="Edit">
+									</button>
+									<button
+										forward="onClick=onDeleteAppointment" label="Delete">
 									</button>
 								</row>
 							</template>

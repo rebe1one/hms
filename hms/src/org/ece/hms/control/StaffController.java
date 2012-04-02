@@ -96,6 +96,17 @@ public class StaffController extends GenericForwardComposer<Borderlayout> {
 		Executions.createComponents("appointment.zul", null, map);
 	}
 
+	public void onDeleteAppointment(Event event) {
+		AppointmentVisitUsersView appointment = getSelectedAppointment(event);
+		AppointmentVisitUsersViewDAO appointmentVisitUsersViewDAO = new AppointmentVisitUsersViewDAO();
+		appointmentVisitUsersViewDAO.delete(appointment);
+
+		List<AppointmentVisitUsersView> appointments = appointmentVisitUsersViewDAO
+				.findAll();
+		appointmentGrid.setModel(new ListModelList<AppointmentVisitUsersView>(
+				appointments));
+	}
+
 	private PatientUserView getSelectedPatient(Event event) {
 
 		if (event instanceof ForwardEvent) {

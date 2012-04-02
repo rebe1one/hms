@@ -88,7 +88,16 @@ public class AppointmentViewController extends GenericForwardComposer<Window> {
 			appt.setDate(new Timestamp(date.getTime()));
 			appt.setLength(Integer.valueOf(length.getValue()));
 			AppointmentDAO apptDAO = new AppointmentDAO();
-			apptDAO.insert(appt);
+
+			if (arg.containsKey("appointment")) {
+				AppointmentVisitUsersView appointment = (AppointmentVisitUsersView) arg
+						.get("appointment");
+				appt.setId(appointment.getAppointmentId());
+				apptDAO.update(appt);
+			} else {
+				apptDAO.insert(appt);
+			}
+
 			if (arg.containsKey("grid")) {
 				Grid appointmentGrid = (Grid) arg.get("grid");
 				AppointmentVisitUsersViewDAO appointmentVisitUsersViewDAO = new AppointmentVisitUsersViewDAO();
