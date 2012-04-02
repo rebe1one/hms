@@ -11,17 +11,17 @@ import org.ece.hms.util.Filter;
 import org.ece.hms.util.Util;
 
 public class AppointmentVisitViewDAO extends DAO {
-	private String sql = "SELECT appointments.doctor_id, appointments.patient_id, appointments.date, "
+	private String sql = "SELECT * FROM (SELECT appointments.doctor_id, appointments.patient_id, appointments.date, "
 			+ "appointments.length AS appointment_length, visits.appointment_id, visits.length AS visit_length, "
 			+ "visits.diagnosis, visits.prescription, visits.scheduling, visits.comments, visits.timestamp, "
-			+ "visits.created_by, visits.id AS visit_id FROM appointments, visits WHERE appointments.id = visits.appointment_id";
+			+ "visits.created_by, visits.id AS visit_id FROM appointments JOIN visits ON appointments.id = visits.appointment_id) AS avv ";
 	
 	public List<AppointmentVisitView> find(List<Filter> filters) {
 		List<AppointmentVisitView> allVisits = new ArrayList<AppointmentVisitView>();
 		try {
 			// get connection
 		    Statement stmt = ds.getStatement();
-			ResultSet rs = stmt.executeQuery(Util.buildSQLString(sql + " AND ", filters));
+			ResultSet rs = stmt.executeQuery(Util.buildSQLString(sql + " WHERE ", filters));
 
 			// fetch all events from database
 			AppointmentVisitView view;
@@ -56,7 +56,7 @@ public class AppointmentVisitViewDAO extends DAO {
 		try {
 			// get connection
 		    Statement stmt = ds.getStatement();
-			ResultSet rs = stmt.executeQuery(sql + " AND appointments.patient_id = " + patientId + " ORDER BY visits.timestamp DESC");
+			ResultSet rs = stmt.executeQuery(sql + " WHERE patient_id = " + patientId + " ORDER BY timestamp DESC");
 
 			// fetch all events from database
 			AppointmentVisitView view;
@@ -91,7 +91,7 @@ public class AppointmentVisitViewDAO extends DAO {
 		try {
 			// get connection
 		    Statement stmt = ds.getStatement();
-			ResultSet rs = stmt.executeQuery(sql + " AND appointments.doctor_id = " + doctorId + " ORDER BY visits.timestamp DESC");
+			ResultSet rs = stmt.executeQuery(sql + " WHERE doctor_id = " + doctorId + " ORDER BY timestamp DESC");
 
 			// fetch all events from database
 			AppointmentVisitView view;

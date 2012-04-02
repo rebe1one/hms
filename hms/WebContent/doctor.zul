@@ -124,12 +124,18 @@
 						<auxhead>
 							<auxheader>
 								<image src="images/funnel.png" />
-								<textbox id="filterVisitsDate"
+								<textbox id="filterVisitsId"
 									width="100px" />
 							</auxheader>
 							<auxheader>
 								<image src="images/funnel.png" />
-								<textbox id="filterVisitsPatientName"
+								<datebox id="filterFromDate" width="100px" format="yyyy-MM-dd" />
+								<label value="to" />
+								<datebox id="filterToDate" width="100px" format="yyyy-MM-dd" />
+							</auxheader>
+							<auxheader>
+								<image src="images/funnel.png" />
+								<textbox id="filterVisitsPatientId"
 									width="100px" />
 							</auxheader>
 							<auxheader>
@@ -151,7 +157,7 @@
 						<listhead>
 							<listheader label="Visit ID" sort="auto(visitId)" />
 							<listheader label="Date" sort="auto(timestamp)" />
-							<listheader label="Patient Name" sort="auto(patientId)" />
+							<listheader label="Patient ID" sort="auto(patientId)" />
 							<listheader label="Diagnosis" sort="auto(diagnosis)" />
 							<listheader label="Prescription" sort="auto(prescription)" />
 							<listheader label="Comments" sort="auto(comments)" />

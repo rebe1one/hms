@@ -91,6 +91,10 @@ public class VisitViewController extends GenericForwardComposer<Window> {
         	List<AppointmentVisitView> visits = avvdao.findByDoctorId(UserCredentialManager.getInstance().getUser().getId());
         	visitsGrid.setModel(new ListModelList<AppointmentVisitView>(visits));
         	
+        	if (arg.containsKey("controller")) {
+        		((DoctorViewController)arg.get("controller")).filterVisits();
+        	}
+        	
         	visitWin.onClose();
         	Tabbox tabbox = (Tabbox)tabPanel.getParent().getParent();
         	tabbox.setSelectedIndex(1);

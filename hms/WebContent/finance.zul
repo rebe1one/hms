@@ -73,8 +73,19 @@
 										<datebox id="filterToDate" width="100px" format="yyyy-MM-dd" />
 									</auxheader>
 									<auxheader>
+										<image src="images/funnel.png" />
+										<textbox id="filterVisitsDiagnosis"
+											width="100px" />
 									</auxheader>
 									<auxheader>
+										<image src="images/funnel.png" />
+										<textbox id="filterVisitsPrescription"
+											width="100px" />
+									</auxheader>
+									<auxheader>
+										<image src="images/funnel.png" />
+										<textbox id="filterVisitsComments"
+											width="100px" />
 									</auxheader>
 								</auxhead>
 									<columns>

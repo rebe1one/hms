@@ -31,7 +31,7 @@ public class FinanceViewController extends GenericForwardComposer<Borderlayout> 
 	private static final long serialVersionUID = 1L;
 	private Listbox doctorBox;
 	private Grid visitsGrid;
-	private Textbox filterUserId;
+	private Textbox filterUserId, filterVisitsDiagnosis, filterVisitsPrescription, filterVisitsComments;
 	private Datebox filterFromDate, filterToDate;
     
     public void onClick$doctorBox() {
@@ -40,23 +40,36 @@ public class FinanceViewController extends GenericForwardComposer<Borderlayout> 
 	    	AppointmentVisitViewDAO avvdao = new AppointmentVisitViewDAO();
 	    	List<AppointmentVisitView> visits = avvdao.findByDoctorId(id);
 	    	visitsGrid.setModel(new ListModelList<AppointmentVisitView>(visits));
+	    	filterVisits();
     	}
     }
     
     private void filterVisits() {
     	List<Filter> filter = new ArrayList<Filter>();
     	int id = Integer.valueOf(((Listcell) doctorBox.getSelectedItem().getFirstChild()).getLabel());
-    	filter.add(new Filter("appointments.doctor_id", id));
+    	filter.add(new Filter("doctor_id", id));
     	
     	if (Util.isNotEmpty(filterUserId.getValue())) {
     		filter.add(Filter.AND);
-    		filter.add(new Filter("appointments.patient_id", Integer.valueOf(filterUserId.getValue())));
+    		filter.add(new Filter("patient_id", Integer.valueOf(filterUserId.getValue())));
     	}
     	if (Util.isNotEmpty(filterFromDate.getValue()) && Util.isNotEmpty(filterToDate.getValue())) {
     		filter.add(Filter.AND);
     		filter.add(new DateFilter("timestamp", filterFromDate.getValue(), filterToDate.getValue()));
     	}
-    	filter.add(new OrderFilter("visits.timestamp", OrderFilter.DESC));
+    	if (Util.isNotEmpty(filterVisitsDiagnosis.getValue())) {
+    		filter.add(Filter.AND);
+    		filter.add(new Filter("diagnosis", filterVisitsDiagnosis.getValue()));
+    	}
+    	if (Util.isNotEmpty(filterVisitsPrescription.getValue())) {
+    		filter.add(Filter.AND);
+    		filter.add(new Filter("prescription", filterVisitsPrescription.getValue()));
+    	}
+    	if (Util.isNotEmpty(filterVisitsComments.getValue())) {
+    		filter.add(Filter.AND);
+    		filter.add(new Filter("comments", filterVisitsComments.getValue()));
+    	}
+    	filter.add(new OrderFilter("timestamp", OrderFilter.DESC));
     	if (Util.isNotEmpty(doctorBox.getSelectedItem())) {
 	    	AppointmentVisitViewDAO avvdao = new AppointmentVisitViewDAO();
 	    	List<AppointmentVisitView> visits = avvdao.find(filter);
@@ -66,6 +79,21 @@ public class FinanceViewController extends GenericForwardComposer<Borderlayout> 
     
     public void onChanging$filterUserId(InputEvent event) {
     	filterUserId.setValue(event.getValue());
+    	filterVisits();
+    }
+    
+    public void onChanging$filterVisitsDiagnosis(InputEvent event) {
+		filterVisitsDiagnosis.setValue(event.getValue());
+    	filterVisits();
+    }
+	
+	public void onChanging$filterVisitsPrescription(InputEvent event) {
+		filterVisitsPrescription.setValue(event.getValue());
+    	filterVisits();
+    }
+	
+	public void onChanging$filterVisitsComments(InputEvent event) {
+		filterVisitsComments.setValue(event.getValue());
     	filterVisits();
     }
     

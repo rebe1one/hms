@@ -18,6 +18,7 @@ import org.ece.hms.model.Relationship;
 import org.ece.hms.model.RelationshipType;
 import org.ece.hms.util.DateFilter;
 import org.ece.hms.util.Filter;
+import org.ece.hms.util.OrderFilter;
 import org.ece.hms.util.Util;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -40,13 +41,79 @@ public class DoctorViewController extends GenericForwardComposer<Borderlayout> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Textbox patientIdFilter;
-	private Textbox patientNameFilter;
-	private Datebox patientDateFilter;
+	private Textbox patientIdFilter, patientNameFilter, filterVisitsId, filterVisitsPatientId;
+	private Textbox filterVisitsDiagnosis, filterVisitsPrescription, filterVisitsComments;
+	private Datebox patientDateFilter, filterFromDate, filterToDate;
 	private Listbox patientBox, assistingDoctorsGrid, visitsGrid, appointmentGrid;
 	private Grid patientVisitsGrid;
 	private Button assistingDoctorButton;
 	private Tabpanel visitPanel;
+	
+	public void filterVisits() {
+    	List<Filter> filter = new ArrayList<Filter>();
+    	filter.add(new Filter("doctor_id", UserCredentialManager.getInstance().getUser().getId()));
+    	if (Util.isNotEmpty(filterVisitsId.getValue())) {
+    		filter.add(Filter.AND);
+    		filter.add(new Filter("visit_id", Integer.valueOf(filterVisitsId.getValue())));
+    	}
+    	if (Util.isNotEmpty(filterFromDate.getValue()) && Util.isNotEmpty(filterToDate.getValue())) {
+    		filter.add(Filter.AND);
+    		filter.add(new DateFilter("timestamp", filterFromDate.getValue(), filterToDate.getValue()));
+    	}
+    	if (Util.isNotEmpty(filterVisitsPatientId.getValue())) {
+    		filter.add(Filter.AND);
+    		filter.add(new Filter("patient_id", Integer.valueOf(filterVisitsPatientId.getValue())));
+    	}
+    	if (Util.isNotEmpty(filterVisitsDiagnosis.getValue())) {
+    		filter.add(Filter.AND);
+    		filter.add(new Filter("diagnosis", filterVisitsDiagnosis.getValue()));
+    	}
+    	if (Util.isNotEmpty(filterVisitsPrescription.getValue())) {
+    		filter.add(Filter.AND);
+    		filter.add(new Filter("prescription", filterVisitsPrescription.getValue()));
+    	}
+    	if (Util.isNotEmpty(filterVisitsComments.getValue())) {
+    		filter.add(Filter.AND);
+    		filter.add(new Filter("comments", filterVisitsComments.getValue()));
+    	}
+    	filter.add(new OrderFilter("timestamp", OrderFilter.DESC));
+    	AppointmentVisitViewDAO avvdao = new AppointmentVisitViewDAO();
+    	List<AppointmentVisitView> visits = avvdao.find(filter);
+    	visitsGrid.setModel(new ListModelList<AppointmentVisitView>(visits));
+    }
+	
+	public void onChanging$filterVisitsPatientId(InputEvent event) {
+		filterVisitsPatientId.setValue(event.getValue());
+    	filterVisits();
+    }
+	
+	public void onChanging$filterVisitsDiagnosis(InputEvent event) {
+		filterVisitsDiagnosis.setValue(event.getValue());
+    	filterVisits();
+    }
+	
+	public void onChanging$filterVisitsPrescription(InputEvent event) {
+		filterVisitsPrescription.setValue(event.getValue());
+    	filterVisits();
+    }
+	
+	public void onChanging$filterVisitsComments(InputEvent event) {
+		filterVisitsComments.setValue(event.getValue());
+    	filterVisits();
+    }
+	
+	public void onChanging$filterVisitsId(InputEvent event) {
+		filterVisitsId.setValue(event.getValue());
+    	filterVisits();
+    }
+    
+    public void onChange$filterFromDate() {
+    	filterVisits();
+    }
+    
+    public void onChange$filterToDate() {
+    	filterVisits();
+    }
 	
 	public void onClick$visitsGrid() {
 		if (Util.isNotEmpty(visitsGrid.getSelectedItem())) {
@@ -56,6 +123,7 @@ public class DoctorViewController extends GenericForwardComposer<Borderlayout> {
 	    	map.put("grid", appointmentGrid);
 	    	map.put("tab", visitPanel);
 	    	map.put("tabGrid", visitsGrid);
+	    	map.put("controller", this);
 	    	Executions.createComponents("/visit.zul", null, map);
 		}
 	}
@@ -68,6 +136,7 @@ public class DoctorViewController extends GenericForwardComposer<Borderlayout> {
 	    	map.put("grid", appointmentGrid);
 	    	map.put("tab", visitPanel);
 	    	map.put("tabGrid", visitsGrid);
+	    	map.put("controller", this);
 	    	Executions.createComponents("/visit.zul", null, map);
 		}
 	}
