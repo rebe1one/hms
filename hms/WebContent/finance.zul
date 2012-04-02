@@ -1,6 +1,105 @@
 <?page title="Finance" contentType="text/html;charset=UTF-8"?>
+<?init class="org.ece.hms.control.CheckForLogin" arg0="/finance.zul"?>
 <zk>
-<window title="Finance" border="normal">
-New Content Here!
-</window>
+	<style>
+    .z-borderlayout { 
+        background: #FFFFFF 
+    } 
+    img.complex-layout-header-img {
+        padding: 0 10px; 
+    }
+	.z-tabpanel
+	{
+		padding:0px
+	}
+    </style>
+    <zscript>
+	<![CDATA[
+	import org.ece.hms.model.User;
+	import org.ece.hms.control.UserCredentialManager;
+	User user = UserCredentialManager.getInstance().getUser();
+	]]>
+	</zscript>
+	<borderlayout sclass="complex-layout" height="550px" apply="org.ece.hms.control.FinanceViewController">
+        <north size="100px" border="0">
+            <div>
+                <div style="float:right">
+                	<label value="Welcome ${user.getName()}!"/>
+                    <button label="Logout">
+                        <attribute name="onClick"><![CDATA[
+							UserCredentialManager.getInstance().logout();
+                        ]]></attribute>
+                    </button>
+                </div>
+                <image sclass="complex-layout-header-img" src="/images/logo.png" />
+            </div>
+        </north>
+        <center border="none">
+		<tabbox>
+			<tabs>
+				<tab label="Visitation Records" />
+			</tabs>
+			<tabpanels>
+				<tabpanel>
+					<borderlayout height="550px">
+						<west size="250px" border="none" title="Doctors">
+							<listbox id="doctorBox" height="245px" style="margin: 5px;"
+								emptyMessage="No items match your search">
+								<listhead>
+									<listheader label="ID" sort="auto(id)" />
+									<listheader label="Name" sort="auto(firstName,lastName)" />
+								</listhead>
+								<template name="model">
+								<listitem>
+									<listcell label="${each.getId()}" />
+									<listcell label="${each.getFirstName()} ${each.getLastName()}" />
+								</listitem>
+								</template>
+							</listbox>
+						</west>
+						<center border="none" title="Visits">
+							<vlayout>
+								<grid style="margin: 5px" id="visitsGrid" emptyMessage="No items match your search">
+								<auxhead>
+									<auxheader>
+										<image src="images/funnel.png" />
+										<textbox id="filterUserId"
+											width="100px" />
+									</auxheader>
+									<auxheader>
+										<image src="images/funnel.png" />
+										<datebox id="filterFromDate" width="100px" format="yyyy-MM-dd" />
+										<label value="to" />
+										<datebox id="filterToDate" width="100px" format="yyyy-MM-dd" />
+									</auxheader>
+									<auxheader>
+									</auxheader>
+									<auxheader>
+									</auxheader>
+								</auxhead>
+									<columns>
+										<column label="Patient ID" sort="auto(patientId)" />
+										<column label="Date" sort="auto(timestamp)" />
+										<column label="Diagnosis" sort="auto(diagnosis)" />
+										<column label="Prescription" sort="auto(prescription)" />
+										<column label="Comments" sort="auto(comments)" />
+									</columns>
+									<template name="model">
+										<row>
+											<label value="${each.getPatientId()}" />
+											<label value="${each.getTimestamp()}" />
+											<label value="${each.getDiagnosis()}" />
+											<label value="${each.getPrescription()}" />
+											<label value="${each.getComments()}" />
+										</row>
+									</template>
+								</grid>
+							</vlayout>
+						</center>
+					</borderlayout>
+				</tabpanel>
+				</tabpanels>
+			</tabbox>
+		</center>
+	</borderlayout>
 </zk>
