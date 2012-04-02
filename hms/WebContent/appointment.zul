@@ -8,28 +8,31 @@
 		<grid>
 			<rows>
 				<row>
-					Patient Name:
-					<textbox id="patientId" />
+					Patient ID:
+					<textbox id="patientId" constraint="no empty"
+						disabled="true" />
 					<button id="lookupPatientButton" label="Lookup" />
 				</row>
 				<row>
-					Doctor Name:
-					<textbox id="doctorId" />
+					Doctor ID:
+					<textbox id="doctorId" constraint="no empty"
+						disabled="true" />
 					<button id="lookupDoctorButton" label="Lookup" />
 				</row>
 				<row>
 					Date:
 					<datebox id="date" cols="12" format="short "
-						mold="rounded" />
+						mold="rounded" constraint="no empty, no past" />
 				</row>
 				<row>
 					Time:
 					<timebox id="time" cols="12" format="short"
-						mold="rounded" />
+						mold="rounded" constraint="no empty" />
 				</row>
 				<row>
 					Length:
-					<textbox id="length" cols="2" maxlength="2" />
+					<intbox id="length" cols="2" maxlength="2"
+						constraint="no negative, no zero" />
 				</row>
 			</rows>
 		</grid>
